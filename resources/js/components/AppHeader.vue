@@ -103,8 +103,10 @@ const rightNavItems: NavItem[] = [
                                 >Navigation Menu</SheetTitle
                             >
                             <SheetHeader class="flex justify-start text-left">
-                                <AppLogoIcon
-                                    class="size-6 fill-current text-black dark:text-white"
+                                <img
+                                    src="/asset/logo.png"
+                                    alt="Logo Web Discovery"
+                                    class="h-8 w-auto object-contain"
                                 />
                             </SheetHeader>
                             <div

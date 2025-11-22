@@ -13,6 +13,8 @@ class ContactController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:20',
+            'project_type' => 'nullable|string|max:255',
             'message' => 'required|string|max:5000',
         ]);
 
@@ -21,8 +23,31 @@ class ContactController extends Controller
         }
 
         try {
+            $projectTypeLabels = [
+                'site-vitrine' => 'Site web vitrine',
+                'saas' => 'Application SaaS',
+                'ecommerce' => 'E-commerce',
+                'refonte' => 'Refonte de site',
+                'autre' => 'Autre',
+            ];
+
+            $projectType = $request->project_type 
+                ? ($projectTypeLabels[$request->project_type] ?? $request->project_type)
+                : 'Non spécifié';
+
+            $emailContent = "Nouveau message de contact - Web Discovery\n\n";
+            $emailContent .= "Nom: {$request->name}\n";
+            $emailContent .= "Email: {$request->email}\n";
+            
+            if ($request->phone) {
+                $emailContent .= "Téléphone: {$request->phone}\n";
+            }
+            
+            $emailContent .= "Type de projet: {$projectType}\n\n";
+            $emailContent .= "Message:\n{$request->message}";
+
             Mail::raw(
-                "Nom: {$request->name}\nEmail: {$request->email}\n\nMessage:\n{$request->message}",
+                $emailContent,
                 function ($message) use ($request) {
                     $message->to(config('mail.from.address'))
                         ->subject('Nouveau message de contact - Web Discovery')

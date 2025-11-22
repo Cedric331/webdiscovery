@@ -20,6 +20,8 @@ withDefaults(
 const form = useForm({
     name: '',
     email: '',
+    phone: '',
+    project_type: '',
     message: '',
 });
 
@@ -220,16 +222,94 @@ const structuredData = {
     sameAs: [],
 };
 
+// Structured Data LocalBusiness pour améliorer le SEO local
+const localBusinessData = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': typeof window !== 'undefined' ? window.location.origin : '',
+    name: 'Web Discovery',
+    description:
+        'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js.',
+    url: typeof window !== 'undefined' ? window.location.origin : '',
+    priceRange: 'À partir de 400€',
+    address: {
+        '@type': 'PostalAddress',
+        addressCountry: 'FR',
+        addressLocality: 'France',
+    },
+    geo: {
+        '@type': 'GeoCoordinates',
+        addressCountry: 'FR',
+    },
+    areaServed: {
+        '@type': 'Country',
+        name: 'France',
+    },
+    serviceArea: {
+        '@type': 'Country',
+        name: 'France',
+    },
+    hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Services Web Discovery',
+        itemListElement: [
+            {
+                '@type': 'Offer',
+                itemOffered: {
+                    '@type': 'Service',
+                    name: 'Création site web vitrine',
+                    description:
+                        'Création de site web vitrine professionnel avec design moderne, responsive et optimisé SEO',
+                    provider: {
+                        '@type': 'LocalBusiness',
+                        name: 'Web Discovery',
+                    },
+                },
+                price: '400',
+                priceCurrency: 'EUR',
+            },
+            {
+                '@type': 'Offer',
+                itemOffered: {
+                    '@type': 'Service',
+                    name: 'Application SaaS',
+                    description:
+                        'Développement d\'applications SaaS sur mesure avec Laravel et Vue.js',
+                    provider: {
+                        '@type': 'LocalBusiness',
+                        name: 'Web Discovery',
+                    },
+                },
+            },
+        ],
+    },
+};
+
 // Injection du structured data dans le head
 onMounted(() => {
+    // Injection du ProfessionalService
     const existingScript = document.querySelector(
-        'script[type="application/ld+json"]',
+        'script[type="application/ld+json"][data-type="professional-service"]',
     );
 
     if (!existingScript) {
         const script = document.createElement('script');
         script.setAttribute('type', 'application/ld+json');
+        script.setAttribute('data-type', 'professional-service');
         script.textContent = JSON.stringify(structuredData);
+        document.head.appendChild(script);
+    }
+
+    // Injection du LocalBusiness
+    const existingLocalBusiness = document.querySelector(
+        'script[type="application/ld+json"][data-type="local-business"]',
+    );
+
+    if (!existingLocalBusiness) {
+        const script = document.createElement('script');
+        script.setAttribute('type', 'application/ld+json');
+        script.setAttribute('data-type', 'local-business');
+        script.textContent = JSON.stringify(localBusinessData);
         document.head.appendChild(script);
     }
 });
@@ -335,6 +415,18 @@ onMounted(() => {
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="dns-prefetch" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+        <!-- Additional SEO meta tags -->
+        <meta name="theme-color" content="#3b82f6" />
+        <meta name="msapplication-TileColor" content="#3b82f6" />
+        <meta name="application-name" content="Web Discovery" />
+        
+        <!-- Language and region -->
+        <meta http-equiv="content-language" content="fr-FR" />
+        <meta name="geo.region" content="FR" />
+        
+        <!-- Verification tags (à remplir si vous avez Google Search Console, etc.) -->
+        <!-- <meta name="google-site-verification" content="..." /> -->
     </Head>
 
     <div
@@ -351,11 +443,11 @@ onMounted(() => {
                 class="container mx-auto flex items-center justify-between px-6 py-4"
             >
                 <Link href="/" class="group flex items-center gap-3">
-                    <div
-                        class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg shadow-blue-500/20 transition-all group-hover:shadow-blue-500/40"
-                    >
-                        <span class="text-xl font-bold text-white">W</span>
-                    </div>
+                    <img
+                        src="/asset/logo.png"
+                        alt="Logo Web Discovery"
+                        class="h-10 w-auto object-contain"
+                    />
                     <span class="text-xl font-bold">WEB DISCOVERY</span>
                 </Link>
 
@@ -363,45 +455,53 @@ onMounted(() => {
                 <div class="hidden items-center gap-6 md:flex">
                     <button
                         @click="scrollToSection('technologies')"
+                        type="button"
                         :class="[
                             'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                             activeSection === 'technologies'
                                 ? 'bg-blue-500/10 text-blue-400'
                                 : 'text-slate-300 hover:bg-slate-800 hover:text-white',
                         ]"
+                        aria-label="Aller à la section Technologies"
                     >
                         Technologies
                     </button>
                     <button
                         @click="scrollToSection('entreprise')"
+                        type="button"
                         :class="[
                             'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                             activeSection === 'entreprise'
                                 ? 'bg-blue-500/10 text-blue-400'
                                 : 'text-slate-300 hover:bg-slate-800 hover:text-white',
                         ]"
+                        aria-label="Aller à la section À propos"
                     >
                         À propos
                     </button>
                     <button
                         @click="scrollToSection('tarifs')"
+                        type="button"
                         :class="[
                             'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                             activeSection === 'tarifs'
                                 ? 'bg-blue-500/10 text-blue-400'
                                 : 'text-slate-300 hover:bg-slate-800 hover:text-white',
                         ]"
+                        aria-label="Aller à la section Tarifs"
                     >
                         Tarifs
                     </button>
                     <button
                         @click="scrollToSection('contact')"
+                        type="button"
                         :class="[
                             'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                             activeSection === 'contact'
                                 ? 'bg-blue-500/10 text-blue-400'
                                 : 'text-slate-300 hover:bg-slate-800 hover:text-white',
                         ]"
+                        aria-label="Aller à la section Contact"
                     >
                         Contact
                     </button>
@@ -471,12 +571,14 @@ onMounted(() => {
                             <a
                                 href="#contact"
                                 class="transform rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:scale-105 hover:from-blue-600 hover:to-blue-700 hover:shadow-blue-500/40"
+                                aria-label="Aller au formulaire de contact"
                             >
                                 Démarrer un projet
                             </a>
                             <a
                                 href="#tarifs"
                                 class="transform rounded-xl border border-slate-700 bg-slate-800 px-8 py-4 font-semibold text-white transition-all hover:scale-105 hover:border-blue-500/50 hover:bg-slate-700"
+                                aria-label="Voir les tarifs"
                             >
                                 Voir les tarifs
                             </a>
@@ -485,44 +587,16 @@ onMounted(() => {
 
                     <!-- Right: Visual -->
                     <div
-                        class="relative"
-                        aria-label="Logo Web Discovery - Cube 3D représentant l'exploration web"
+                        class="relative flex items-center justify-center"
+                        aria-label="Logo Web Discovery"
+                        role="img"
                     >
-                        <div
-                            class="relative mx-auto aspect-square w-full max-w-lg"
-                        >
-                            <!-- Cube 3D -->
-                            <div
-                                class="absolute inset-0 flex items-center justify-center"
-                            >
-                                <div
-                                    class="animate-float relative h-64 w-64 rotate-12 transform"
-                                    role="img"
-                                    aria-label="Logo Web Discovery"
-                                >
-                                    <div
-                                        class="absolute inset-0 skew-y-12 transform rounded-2xl border border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 shadow-2xl"
-                                    ></div>
-                                    <div
-                                        class="absolute inset-0 -skew-y-12 transform rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/20"
-                                    ></div>
-                                    <div
-                                        class="absolute inset-0 flex items-center justify-center"
-                                    >
-                                        <div
-                                            class="relative h-32 w-32 overflow-hidden rounded-xl border border-blue-500/30 bg-blue-500/10 backdrop-blur-sm"
-                                        >
-                                            <div
-                                                class="absolute top-4 left-4 h-16 w-3 animate-pulse rounded-full bg-gradient-to-b from-blue-400 to-blue-600 shadow-lg shadow-blue-400/50"
-                                            ></div>
-                                            <div
-                                                class="absolute top-8 right-6 h-8 w-12 rotate-45 transform animate-pulse rounded bg-blue-500/60 shadow-lg shadow-blue-500/50"
-                                                style="animation-delay: 0.5s"
-                                            ></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="relative mx-auto w-full max-w-lg">
+                            <img
+                                src="/asset/logo.png"
+                                alt="Logo Web Discovery"
+                                class="animate-float mx-auto h-auto w-full max-w-md object-contain"
+                            />
                         </div>
                     </div>
                 </div>
@@ -870,11 +944,16 @@ onMounted(() => {
                             >Nous</span
                         >
                     </h2>
+                    <p class="mx-auto max-w-2xl text-lg text-slate-400">
+                        Discutons de votre projet de <strong class="text-blue-400">création de site web vitrine</strong> ou d'application SaaS. 
+                        Remplissez le formulaire ci-dessous ou contactez-nous directement.
+                    </p>
                 </div>
 
                 <div
                     class="scroll-animate rounded-2xl border border-slate-700 bg-slate-800/50 p-8 md:p-12"
                 >
+
                     <form @submit.prevent="submit" class="space-y-6">
                         <transition
                             enter-active-class="transition ease-out duration-300"
@@ -949,6 +1028,54 @@ onMounted(() => {
 
                         <div>
                             <label
+                                for="phone"
+                                class="mb-2 block text-sm font-medium text-slate-300"
+                            >
+                                Téléphone
+                            </label>
+                            <input
+                                id="phone"
+                                v-model="form.phone"
+                                type="tel"
+                                class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-white placeholder-slate-500 transition-all focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                placeholder="06 12 34 56 78 (optionnel)"
+                            />
+                            <div
+                                v-if="form.errors.phone"
+                                class="mt-1 text-sm text-red-400"
+                            >
+                                {{ form.errors.phone }}
+                            </div>
+                        </div>
+
+                        <div>
+                            <label
+                                for="project_type"
+                                class="mb-2 block text-sm font-medium text-slate-300"
+                            >
+                                Type de projet
+                            </label>
+                            <select
+                                id="project_type"
+                                v-model="form.project_type"
+                                class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-white transition-all focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                            >
+                                <option value="">Sélectionnez un type de projet</option>
+                                <option value="site-vitrine">Site web vitrine</option>
+                                <option value="saas">Application SaaS</option>
+                                <option value="refonte">Refonte de site</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                            <div
+                                v-if="form.errors.project_type"
+                                class="mt-1 text-sm text-red-400"
+                            >
+                                {{ form.errors.project_type }}
+                            </div>
+                        </div>
+
+                        <div>
+                            <label
                                 for="message"
                                 class="mb-2 block text-sm font-medium text-slate-300"
                             >
@@ -1007,34 +1134,68 @@ onMounted(() => {
             role="contentinfo"
         >
             <div class="container mx-auto max-w-7xl">
-                <div
-                    class="mb-6 flex flex-col items-center justify-between gap-4 md:flex-row"
-                >
-                    <div class="flex items-center gap-3">
-                        <div
-                            class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-600"
-                        >
-                            <span class="font-bold text-white">W</span>
+                <div class="mb-8 grid gap-8 md:grid-cols-3">
+                    <!-- Informations entreprise -->
+                    <div>
+                        <div class="mb-4 flex items-center gap-3">
+                            <img
+                                src="/asset/logo.png"
+                                alt="Logo Web Discovery"
+                                class="h-10 w-auto object-contain"
+                            />
+                            <span class="text-lg font-bold">WEB DISCOVERY</span>
                         </div>
-                        <span class="text-lg font-bold">WEB DISCOVERY</span>
+                        <p class="mb-4 text-sm text-slate-400">
+                            Création de sites web vitrine et applications SaaS sur mesure
+                        </p>
                     </div>
-                    <div class="flex gap-6 text-sm text-slate-400">
-                        <Link
-                            href="/mentions-legales"
-                            class="transition-colors hover:text-blue-400"
-                            >Mentions légales</Link
-                        >
-                        <Link
-                            href="/politique-confidentialite"
-                            class="transition-colors hover:text-blue-400"
-                            >Politique de confidentialité</Link
-                        >
+
+                    <!-- Liens rapides -->
+                    <div>
+                        <h3 class="mb-4 text-sm font-semibold text-white">Liens rapides</h3>
+                        <ul class="space-y-2 text-sm text-slate-400">
+                            <li>
+                                <a href="#technologies" class="transition-colors hover:text-blue-400">Technologies</a>
+                            </li>
+                            <li>
+                                <a href="#entreprise" class="transition-colors hover:text-blue-400">À propos</a>
+                            </li>
+                            <li>
+                                <a href="#tarifs" class="transition-colors hover:text-blue-400">Tarifs</a>
+                            </li>
+                            <li>
+                                <a href="#contact" class="transition-colors hover:text-blue-400">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Légales -->
+                    <div>
+                        <h3 class="mb-4 text-sm font-semibold text-white">Informations légales</h3>
+                        <ul class="space-y-2 text-sm text-slate-400">
+                            <li>
+                                <Link
+                                    href="/mentions-legales"
+                                    class="transition-colors hover:text-blue-400"
+                                    >Mentions légales</Link
+                                >
+                            </li>
+                            <li>
+                                <Link
+                                    href="/politique-confidentialite"
+                                    class="transition-colors hover:text-blue-400"
+                                    >Politique de confidentialité</Link
+                                >
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <p class="text-center text-sm text-slate-500">
-                    © {{ new Date().getFullYear() }} Web Discovery. Tous droits
-                    réservés.
-                </p>
+                <div class="border-t border-slate-800 pt-6">
+                    <p class="text-center text-sm text-slate-500">
+                        © {{ new Date().getFullYear() }} Web Discovery. Tous droits
+                        réservés.
+                    </p>
+                </div>
             </div>
         </footer>
 
@@ -1050,12 +1211,13 @@ onMounted(() => {
             leave-from-class="opacity-100 transform scale-100 translate-y-0"
             leave-to-class="opacity-0 transform scale-90 translate-y-4"
         >
-            <button
-                v-if="showScrollTop"
-                @click="scrollToTop"
-                class="group fixed right-8 bottom-8 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 transition-all hover:scale-110 hover:shadow-blue-500/50"
-                aria-label="Remonter en haut de la page"
-            >
+                            <button
+                                v-if="showScrollTop"
+                                @click="scrollToTop"
+                                class="group fixed right-8 bottom-8 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 transition-all hover:scale-110 hover:shadow-blue-500/50"
+                                aria-label="Remonter en haut de la page"
+                                type="button"
+                            >
                 <svg
                     class="h-6 w-6 transform transition-transform group-hover:-translate-y-1"
                     fill="none"
