@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Articles\Tables;
 
+use App\Models\Article;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -17,7 +18,7 @@ class ArticlesTable
             ->columns([
                 SpatieMediaLibraryImageColumn::make('image')
                     ->label('Image')
-                    ->collection('image')
+                    ->collection(Article::MEDIA_IMAGE)
                     ->circular()
                     ->defaultImageUrl(url('/images/placeholder.png')),
                 TextColumn::make('title')

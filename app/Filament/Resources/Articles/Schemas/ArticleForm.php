@@ -8,6 +8,7 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use App\Models\Article;
 
 class ArticleForm
 {
@@ -61,7 +62,7 @@ class ArticleForm
                     ->schema([
                         SpatieMediaLibraryFileUpload::make('image')
                             ->label('Image de l\'article')
-                            ->collection('image')
+                            ->collection(Article::MEDIA_IMAGE)
                             ->image()
                             ->imageEditor()
                             ->imageEditorAspectRatios([

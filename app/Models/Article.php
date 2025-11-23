@@ -11,6 +11,9 @@ class Article extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
+    const MEDIA_IMAGE = 'image';
+    const MEDIA_DISK = 'public';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -35,14 +38,24 @@ class Article extends Model implements HasMedia
         ];
     }
 
+        /**
+     * Get the URL of the image of the exercise
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->getFirstMediaUrl(self::MEDIA_IMAGE);
+    }
+
+
     /**
      * Register media collections for the model.
      */
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('image')
+        $this->addMediaCollection(self::MEDIA_IMAGE)
             ->singleFile()
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
+            ->useDisk(self::MEDIA_DISK);
     }
 }
 
