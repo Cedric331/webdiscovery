@@ -13,13 +13,13 @@ Route::get('/', function () {
 })->name('home');
 
 // Blocage des routes login et register (GET et POST) a retirer plus tard pour laisser le fonctionnement normal de Fortify
-Route::match(['get', 'post'], '/login', function () {
-    return redirect('/');
-});
+// Route::match(['get', 'post'], '/login', function () {
+//     return redirect('/');
+// });
 
-Route::match(['get', 'post'], '/register', function () {
-    return redirect('/');
-});
+// Route::match(['get', 'post'], '/register', function () {
+//     return redirect('/');
+// });
 
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
