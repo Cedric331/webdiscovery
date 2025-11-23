@@ -41,8 +41,9 @@ const formatDate = (date: string | null) => {
 };
 
 const getImageUrl = (article: Article) => {
-    if (article.media && article.media.length > 0) {
-        return article.media[0].url;
+    // Utiliser l'accessor image_url du modèle Article
+    if (article.image_url) {
+        return article.image_url;
     }
     return '/images/placeholder.png';
 };

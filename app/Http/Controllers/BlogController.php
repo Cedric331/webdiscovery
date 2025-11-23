@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class BlogController extends Controller
@@ -17,23 +16,6 @@ class BlogController extends Controller
             ->with('media')
             ->orderBy('published_at', 'desc')
             ->paginate(6);
-
-        // Transformer les articles pour s'assurer que les URLs des médias sont absolues
-        $articles->getCollection()->transform(function ($article) {
-            if ($article->media) {
-                $article->media->transform(function ($media) {
-                    // Utiliser getUrl() qui génère le bon chemin relatif
-                    $url = $media->getUrl();
-                    // Convertir en URL absolue
-                    if (!str_starts_with($url, 'http')) {
-                        $url = url($url);
-                    }
-                    $media->url = $url;
-                    return $media;
-                });
-            }
-            return $article;
-        });
 
         return Inertia::render('Blog/Index', [
             'articles' => $articles,
@@ -50,20 +32,6 @@ class BlogController extends Controller
         }
 
         $article->load('media');
-
-        // S'assurer que les URLs des médias sont absolues
-        if ($article->media) {
-            $article->media->transform(function ($media) {
-                // Utiliser getUrl() qui génère le bon chemin relatif
-                $url = $media->getUrl();
-                // Convertir en URL absolue
-                if (!str_starts_with($url, 'http')) {
-                    $url = url($url);
-                }
-                $media->url = $url;
-                return $media;
-            });
-        }
 
         return Inertia::render('Blog/Show', [
             'article' => $article,

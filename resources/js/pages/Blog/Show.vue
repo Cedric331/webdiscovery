@@ -37,8 +37,9 @@ const formatDate = (date: string | null) => {
 };
 
 const getImageUrl = () => {
-    if (props.article.media && props.article.media.length > 0) {
-        return props.article.media[0].url;
+    // Utiliser l'accessor image_url du modèle Article
+    if (props.article.image_url) {
+        return props.article.image_url;
     }
     return '/images/placeholder.png';
 };
