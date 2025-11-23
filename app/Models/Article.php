@@ -38,16 +38,15 @@ class Article extends Model implements HasMedia
         ];
     }
 
+    protected $appends = ['image_url'];
+
+
     /**
      * Get the URL of the image of the article
      */
     public function getImageUrlAttribute(): ?string
     {
-        $url = $this->getFirstMediaUrl(self::MEDIA_IMAGE);
-        if ($url && !str_starts_with($url, 'http')) {
-            $url = url($url);
-        }
-        return $url;
+        return $this->getFirstMediaUrl(self::MEDIA_IMAGE);
     }
 
 
