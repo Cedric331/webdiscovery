@@ -30,6 +30,15 @@ Route::get('/politique-confidentialite', function () {
     return Inertia::render('PolitiqueConfidentialite');
 })->name('politique-confidentialite');
 
+Route::get('/test-mail', function () {
+    Mail::raw('Test Laravel + Outlook', function ($message) {
+        $message->to('limacedric@hotmail.fr')
+            ->subject('Test Laravel + Outlook');
+    });
+
+    return 'Mail envoyé (ou erreur dans les logs)';
+});
+
 // Sitemap XML
 Route::get('/sitemap.xml', function () {
     $baseUrl = config('app.url');
