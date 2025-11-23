@@ -12,13 +12,13 @@ Route::get('/', function () {
 })->name('home');
 
 // Blocage des routes login et register (GET et POST) a retirer plus tard pour laisser le fonctionnement normal de Fortify
-// Route::match(['get', 'post'], '/login', function () {
-//     return redirect('/');
-// })->name('login');
+Route::match(['get', 'post'], '/login', function () {
+    return redirect('/');
+})->name('login');
 
-// Route::match(['get', 'post'], '/register', function () {
-//     return redirect('/');
-// })->name('register');
+Route::match(['get', 'post'], '/register', function () {
+    return redirect('/');
+})->name('register');
 
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
@@ -29,15 +29,6 @@ Route::get('/mentions-legales', function () {
 Route::get('/politique-confidentialite', function () {
     return Inertia::render('PolitiqueConfidentialite');
 })->name('politique-confidentialite');
-
-Route::get('/test-mail', function () {
-    Mail::raw('Test Laravel + Outlook', function ($message) {
-        $message->to('limacedric@hotmail.fr')
-            ->subject('Test Laravel + Outlook');
-    });
-
-    return 'Mail envoyé (ou erreur dans les logs)';
-});
 
 // Sitemap XML
 Route::get('/sitemap.xml', function () {
