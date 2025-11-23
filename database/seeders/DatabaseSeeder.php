@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Article;
 use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Meeting;
@@ -136,6 +137,9 @@ class DatabaseSeeder extends Seeder
                 }
             });
 
+        // Créer des articles de blog
+        $this->call(ArticleSeeder::class);
+
         $this->command->info('✅ Seeders terminés avec succès !');
         $this->command->info('📊 Statistiques :');
         $this->command->info('   - Utilisateurs : '.User::count());
@@ -145,9 +149,10 @@ class DatabaseSeeder extends Seeder
         $this->command->info('   - Projets : '.Project::count());
         $this->command->info('   - Tâches : '.Task::count());
         $this->command->info('   - Réunions : '.Meeting::count());
+        $this->command->info('   - Articles : '.Article::count());
         $this->command->info('');
         $this->command->info('🔐 Connexion admin :');
-        $this->command->info('   Email: admin@example.com');
+        $this->command->info('   Email: test@test.fr');
         $this->command->info('   Password: password');
     }
 }

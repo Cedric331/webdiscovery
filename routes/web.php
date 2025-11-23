@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -14,11 +15,11 @@ Route::get('/', function () {
 // Blocage des routes login et register (GET et POST) a retirer plus tard pour laisser le fonctionnement normal de Fortify
 Route::match(['get', 'post'], '/login', function () {
     return redirect('/');
-})->name('login');
+});
 
 Route::match(['get', 'post'], '/register', function () {
     return redirect('/');
-})->name('register');
+});
 
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
@@ -29,6 +30,9 @@ Route::get('/mentions-legales', function () {
 Route::get('/politique-confidentialite', function () {
     return Inertia::render('PolitiqueConfidentialite');
 })->name('politique-confidentialite');
+
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // Sitemap XML
 Route::get('/sitemap.xml', function () {

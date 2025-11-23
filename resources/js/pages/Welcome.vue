@@ -318,11 +318,11 @@ onMounted(() => {
 <template>
     <Head>
         <title>
-            Création Site Web Vitrine | Développement Web & SaaS | Web Discovery
+            Création Site Web Vitrine | Développement Web & SaaS
         </title>
         <meta
             name="description"
-            content="Création de site web vitrine professionnel à partir de 400€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js. Design moderne, responsive et optimisé SEO."
+            content="Création de site web vitrine à partir de 400€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js."
         />
         <meta
             name="keywords"
@@ -505,6 +505,16 @@ onMounted(() => {
                     >
                         Contact
                     </button>
+                    <Link
+                        href="/blog"
+                        :class="[
+                            'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                            'text-slate-300 hover:bg-slate-800 hover:text-white',
+                        ]"
+                        aria-label="Voir le blog"
+                    >
+                        Blog
+                    </Link>
                 </div>
 
                 <!-- Navigation cachée mais présente dans le code -->
@@ -554,7 +564,7 @@ onMounted(() => {
                                     >Vitrine & SaaS</span
                                 >
                             </h1>
-                            <p class="text-xl leading-relaxed text-slate-400">
+                            <p class="text-xl leading-relaxed text-slate-400 mb-4">
                                 <strong class="text-white"
                                     >Création de site web vitrine</strong
                                 >
@@ -565,6 +575,9 @@ onMounted(() => {
                                 <strong class="text-blue-400">Vue.js</strong>.
                                 Design moderne, responsive et optimisé pour le
                                 référencement.
+                            </p>
+                            <p class="text-lg leading-relaxed text-slate-500">
+                                Que vous soyez une entreprise cherchant à établir votre présence en ligne, un entrepreneur lançant une nouvelle activité, ou une organisation nécessitant une solution logicielle personnalisée, Web Discovery vous accompagne dans la réalisation de vos projets web. Nous combinons expertise technique, créativité et attention aux détails pour créer des solutions qui répondent parfaitement à vos besoins et à ceux de vos utilisateurs.
                             </p>
                         </div>
                         <div class="flex flex-wrap gap-4">
@@ -619,12 +632,15 @@ onMounted(() => {
                             >Maîtrisées</span
                         >
                     </h2>
-                    <p class="mx-auto max-w-3xl text-xl text-slate-400">
+                    <p class="mx-auto max-w-3xl text-xl text-slate-400 mb-4">
                         Un stack technologique moderne et performant pour la
                         <strong class="text-blue-400"
                             >création de site web vitrine</strong
                         >
                         et le développement d'applications SaaS
+                    </p>
+                    <p class="mx-auto max-w-3xl text-base text-slate-500">
+                        Notre expertise couvre l'ensemble du cycle de développement web, de la conception initiale à la mise en production et au maintien de vos applications. Nous utilisons exclusivement des technologies open-source éprouvées, garantissant ainsi la pérennité, la sécurité et l'évolutivité de vos projets. Chaque technologie de notre stack a été soigneusement sélectionnée pour ses performances, sa communauté active et son écosystème riche en ressources.
                     </p>
                 </div>
 
@@ -748,12 +764,18 @@ onMounted(() => {
                         votre projet avec des technologies éprouvées et
                         performantes.
                     </p>
-                    <p class="text-lg leading-relaxed text-slate-300">
+                    <p class="mb-6 text-lg leading-relaxed text-slate-300">
                         Notre approche combine design moderne, développement de
                         qualité et optimisation SEO pour garantir la visibilité
                         de votre
                         <strong class="text-blue-400">site internet</strong>
-                        dans les moteurs de recherche.
+                        dans les moteurs de recherche. Nous accordons une attention particulière à chaque étape du processus : de l'analyse de vos besoins à la conception de l'interface utilisateur, en passant par le développement backend robuste et l'optimisation des performances.
+                    </p>
+                    <p class="mb-6 text-lg leading-relaxed text-slate-300">
+                        Chaque projet est unique, et nous adaptons notre méthodologie en conséquence. Pour un <strong class="text-blue-400">site web vitrine</strong>, nous nous concentrons sur l'expérience utilisateur, le design attractif et l'optimisation pour les moteurs de recherche. Pour une application SaaS, nous privilégions l'architecture scalable, la sécurité des données et les fonctionnalités avancées qui répondent aux besoins spécifiques de votre secteur d'activité.
+                    </p>
+                    <p class="text-lg leading-relaxed text-slate-300">
+                        Nous croyons en la transparence, la communication régulière et la livraison dans les délais convenus. Notre objectif est de créer non seulement un produit qui fonctionne, mais une solution qui contribue réellement à la croissance de votre entreprise et à l'amélioration de votre présence digitale.
                     </p>
                 </div>
             </div>
@@ -944,9 +966,12 @@ onMounted(() => {
                             >Nous</span
                         >
                     </h2>
-                    <p class="mx-auto max-w-2xl text-lg text-slate-400">
+                    <p class="mx-auto max-w-2xl text-lg text-slate-400 mb-4">
                         Discutons de votre projet de <strong class="text-blue-400">création de site web vitrine</strong> ou d'application SaaS. 
                         Remplissez le formulaire ci-dessous ou contactez-nous directement.
+                    </p>
+                    <p class="mx-auto max-w-2xl text-base text-slate-500">
+                        Nous sommes là pour répondre à toutes vos questions et vous accompagner dans la définition de votre projet. Que vous ayez une idée précise ou que vous souhaitiez explorer les possibilités, notre équipe vous guidera dans le processus de création de votre solution web. Nous offrons des consultations gratuites pour discuter de vos besoins et vous proposer la meilleure approche pour votre projet.
                     </p>
                 </div>
 
@@ -1165,6 +1190,9 @@ onMounted(() => {
                             </li>
                             <li>
                                 <a href="#contact" class="transition-colors hover:text-blue-400">Contact</a>
+                            </li>
+                            <li>
+                                <Link href="/blog" class="transition-colors hover:text-blue-400">Blog</Link>
                             </li>
                         </ul>
                     </div>
