@@ -318,11 +318,11 @@ onMounted(() => {
 <template>
     <Head>
         <title>
-            Création Site Web Vitrine | Développement Web & SaaS
+            Création Site Web Vitrine Professionnel | Web Discovery - Développement Web & SaaS sur Mesure
         </title>
         <meta
             name="description"
-            content="Création de site web vitrine à partir de 400€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js."
+            content="Création de site web vitrine professionnel à partir de 400€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js. Design moderne, responsive et optimisé SEO."
         />
         <meta
             name="keywords"
@@ -412,8 +412,10 @@ onMounted(() => {
         />
 
         <!-- Preconnect pour performance -->
-        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="preconnect" href="https://rsms.me/" crossorigin />
         <link rel="dns-prefetch" href="https://rsms.me/" />
+        <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+        <link rel="dns-prefetch" href="https://fonts.bunny.net" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
 
         <!-- Additional SEO meta tags -->
@@ -533,7 +535,7 @@ onMounted(() => {
         </header>
 
         <!-- Hero Section -->
-        <section
+        <main
             id="hero"
             class="relative flex min-h-screen items-center overflow-hidden px-6 pt-32 pb-24"
             role="main"
@@ -614,7 +616,7 @@ onMounted(() => {
                     </div>
                 </div>
             </div>
-        </section>
+        </main>
 
         <!-- Section Technologies -->
         <section
