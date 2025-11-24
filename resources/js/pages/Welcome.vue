@@ -564,7 +564,7 @@ onMounted(() => {
                                     >Vitrine & SaaS</span
                                 >
                             </h1>
-                            <p class="text-xl leading-relaxed text-slate-400 mb-4">
+                            <p class="text-xl leading-relaxed text-slate-300 mb-4">
                                 <strong class="text-white"
                                     >Création de site web vitrine</strong
                                 >
@@ -576,7 +576,7 @@ onMounted(() => {
                                 Design moderne, responsive et optimisé pour le
                                 référencement.
                             </p>
-                            <p class="text-lg leading-relaxed text-slate-500">
+                            <p class="text-lg leading-relaxed text-slate-300">
                                 Que vous soyez une entreprise cherchant à établir votre présence en ligne, un entrepreneur lançant une nouvelle activité, ou une organisation nécessitant une solution logicielle personnalisée, Web Discovery vous accompagne dans la réalisation de vos projets web. Nous combinons expertise technique, créativité et attention aux détails pour créer des solutions qui répondent parfaitement à vos besoins et à ceux de vos utilisateurs.
                             </p>
                         </div>
@@ -632,14 +632,14 @@ onMounted(() => {
                             >Maîtrisées</span
                         >
                     </h2>
-                    <p class="mx-auto max-w-3xl text-xl text-slate-400 mb-4">
+                    <p class="mx-auto max-w-3xl text-xl text-slate-300 mb-4">
                         Un stack technologique moderne et performant pour la
                         <strong class="text-blue-400"
                             >création de site web vitrine</strong
                         >
                         et le développement d'applications SaaS
                     </p>
-                    <p class="mx-auto max-w-3xl text-base text-slate-500">
+                    <p class="mx-auto max-w-3xl text-base text-slate-300">
                         Notre expertise couvre l'ensemble du cycle de développement web, de la conception initiale à la mise en production et au maintien de vos applications. Nous utilisons exclusivement des technologies open-source éprouvées, garantissant ainsi la pérennité, la sécurité et l'évolutivité de vos projets. Chaque technologie de notre stack a été soigneusement sélectionnée pour ses performances, sa communauté active et son écosystème riche en ressources.
                     </p>
                 </div>
@@ -664,7 +664,7 @@ onMounted(() => {
                                     {{ tech.name }}
                                 </h3>
                                 <p
-                                    class="text-sm leading-relaxed text-slate-400"
+                                    class="text-sm leading-relaxed text-slate-300"
                                 >
                                     {{ tech.description }}
                                 </p>
@@ -811,7 +811,7 @@ onMounted(() => {
                             <h3 class="mb-2 text-2xl font-bold text-white">
                                 Création Site Web Vitrine
                             </h3>
-                            <p class="mb-6 text-slate-400">
+                            <p class="mb-6 text-slate-300">
                                 Parfait pour présenter votre activité en ligne
                             </p>
 
@@ -869,7 +869,7 @@ onMounted(() => {
 
                             <div class="border-t border-slate-700 pt-4">
                                 <p
-                                    class="text-xs leading-relaxed text-slate-400"
+                                    class="text-xs leading-relaxed text-slate-300"
                                 >
                                     <span class="font-semibold text-blue-400"
                                         >*</span
@@ -895,7 +895,7 @@ onMounted(() => {
                             <h3 class="mb-2 text-2xl font-bold text-white">
                                 SaaS & Applications
                             </h3>
-                            <p class="mb-6 text-slate-400">
+                            <p class="mb-6 text-slate-300">
                                 Solutions sur mesure complexes
                             </p>
 
@@ -948,7 +948,7 @@ onMounted(() => {
                     </div>
                 </div>
 
-                <p class="scroll-animate mt-12 text-center text-slate-400">
+                <p class="scroll-animate mt-12 text-center text-slate-300">
                     Tous les projets sont personnalisés selon vos besoins
                     spécifiques
                 </p>
@@ -966,11 +966,11 @@ onMounted(() => {
                             >Nous</span
                         >
                     </h2>
-                    <p class="mx-auto max-w-2xl text-lg text-slate-400 mb-4">
+                    <p class="mx-auto max-w-2xl text-lg text-slate-300 mb-4">
                         Discutons de votre projet de <strong class="text-blue-400">création de site web vitrine</strong> ou d'application SaaS. 
                         Remplissez le formulaire ci-dessous ou contactez-nous directement.
                     </p>
-                    <p class="mx-auto max-w-2xl text-base text-slate-500">
+                    <p class="mx-auto max-w-2xl text-base text-slate-300">
                         Nous sommes là pour répondre à toutes vos questions et vous accompagner dans la définition de votre projet. Que vous ayez une idée précise ou que vous souhaitiez explorer les possibilités, notre équipe vous guidera dans le processus de création de votre solution web. Nous offrons des consultations gratuites pour discuter de vos besoins et vous proposer la meilleure approche pour votre projet.
                     </p>
                 </div>
@@ -1122,7 +1122,7 @@ onMounted(() => {
                             </div>
                         </div>
 
-                        <p class="text-xs text-slate-400">
+                        <p class="text-xs text-slate-300">
                             En soumettant ce formulaire, vous acceptez que vos
                             données soient utilisées pour vous contacter.
                             <Link
@@ -1170,7 +1170,7 @@ onMounted(() => {
                             />
                             <span class="text-lg font-bold">WEB DISCOVERY</span>
                         </div>
-                        <p class="mb-4 text-sm text-slate-400">
+                        <p class="mb-4 text-sm text-slate-300">
                             Création de sites web vitrine et applications SaaS sur mesure
                         </p>
                     </div>
@@ -1178,7 +1178,7 @@ onMounted(() => {
                     <!-- Liens rapides -->
                     <div>
                         <h3 class="mb-4 text-sm font-semibold text-white">Liens rapides</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
+                        <ul class="space-y-2 text-sm text-slate-300">
                             <li>
                                 <a href="#technologies" class="transition-colors hover:text-blue-400">Technologies</a>
                             </li>
@@ -1200,7 +1200,7 @@ onMounted(() => {
                     <!-- Légales -->
                     <div>
                         <h3 class="mb-4 text-sm font-semibold text-white">Informations légales</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
+                        <ul class="space-y-2 text-sm text-slate-300">
                             <li>
                                 <Link
                                     href="/mentions-legales"
@@ -1219,7 +1219,7 @@ onMounted(() => {
                     </div>
                 </div>
                 <div class="border-t border-slate-800 pt-6">
-                    <p class="text-center text-sm text-slate-500">
+                    <p class="text-center text-sm text-slate-300">
                         © {{ new Date().getFullYear() }} Web Discovery. Tous droits
                         réservés.
                     </p>
