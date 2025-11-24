@@ -69,17 +69,13 @@ class ArticleForm
                                 'underline',
                                 'undo',
                             ]),
-                    ]),
 
-                Section::make('Publication')
-                    ->schema([
-                        DateTimePicker::make('published_at')
-                            ->label('Date de publication')
-                            ->nullable()
-                            ->displayFormat('d/m/Y H:i')
-                            ->timezone('Europe/Paris'),
-                    ])
-                    ->collapsible(),
+                            DateTimePicker::make('published_at')
+                                ->label('Date de publication')
+                                ->nullable()
+                                ->displayFormat('d/m/Y H:i')
+                                ->timezone('Europe/Paris'),
+                    ]),
             ]);
     }
 }
