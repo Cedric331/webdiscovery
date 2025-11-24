@@ -46,7 +46,22 @@ class Article extends Model implements HasMedia
      */
     public function getImageUrlAttribute(): ?string
     {
-        return $this->getFirstMediaUrl(self::MEDIA_IMAGE);
+        $media = $this->getFirstMedia(self::MEDIA_IMAGE);
+        
+        if (!$media) {
+            return null;
+        }
+        
+        // getUrl() retourne une URL relative, on la convertit en URL absolue
+        $url = $media->getUrl();
+        
+        // Si l'URL commence déjà par http:// ou https://, c'est déjà une URL absolue
+        if (str_starts_with($url, 'http://') || str_starts_with($url, 'https://')) {
+            return $url;
+        }
+        
+        // Sinon, on utilise asset() pour générer une URL absolue
+        return asset($url);
     }
 
     /**
