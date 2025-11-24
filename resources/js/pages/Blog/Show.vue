@@ -19,6 +19,7 @@ interface Article {
     created_at: string;
     updated_at: string;
     media?: Media[];
+    image_url?: string | null;
 }
 
 interface Props {

@@ -49,7 +49,6 @@ class Article extends Model implements HasMedia
         return $this->getFirstMediaUrl(self::MEDIA_IMAGE);
     }
 
-
     /**
      * Register media collections for the model.
      */
