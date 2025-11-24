@@ -18,6 +18,30 @@ class ArticleForm
             ->components([
                 Section::make('Informations de l\'article')
                     ->schema([
+                        TextInput::make('title')
+                            ->label('Titre')
+                            ->required()
+                            ->maxLength(255)
+                            ->columnSpan(2)
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function ($state, $set, $get) {
+                                if (!$get('slug')) {
+                                    $set('slug', \Illuminate\Support\Str::slug($state));
+                                }
+                            }),
+                        DateTimePicker::make('published_at')
+                            ->label('Date de publication')
+                            ->nullable()
+                            ->displayFormat('d/m/Y H:i')
+                            ->timezone('Europe/Paris')
+                            ->columnSpan(2),
+                        TextInput::make('slug')
+                            ->label('Slug')
+                            ->required()
+                            ->maxLength(255)
+                            ->unique(ignoreRecord: true)
+                            ->columnSpanFull()
+                            ->helperText('URL-friendly version du titre'),
                         SpatieMediaLibraryFileUpload::make('image')
                             ->label('Image de l\'article')
                             ->collection(Article::MEDIA_IMAGE)
@@ -30,25 +54,6 @@ class ArticleForm
                                 '1:1',
                             ])
                             ->columnSpanFull(),
-
-                        TextInput::make('title')
-                            ->label('Titre')
-                            ->required()
-                            ->maxLength(255)
-                            ->columnSpanFull()
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(function ($state, $set, $get) {
-                                if (!$get('slug')) {
-                                    $set('slug', \Illuminate\Support\Str::slug($state));
-                                }
-                            }),
-                        TextInput::make('slug')
-                            ->label('Slug')
-                            ->required()
-                            ->maxLength(255)
-                            ->unique(ignoreRecord: true)
-                            ->columnSpanFull()
-                            ->helperText('URL-friendly version du titre'),
                         RichEditor::make('content')
                             ->label('Contenu')
                             ->required()
@@ -69,13 +74,8 @@ class ArticleForm
                                 'underline',
                                 'undo',
                             ]),
-
-                            DateTimePicker::make('published_at')
-                                ->label('Date de publication')
-                                ->nullable()
-                                ->displayFormat('d/m/Y H:i')
-                                ->timezone('Europe/Paris'),
-                    ]),
+                    ])
+                    ->columns(4),
             ]);
     }
 }

@@ -10,6 +10,8 @@ class CreateArticle extends CreateRecord
 {
     protected static string $resource = ArticleResource::class;
 
+    protected static ?string $formMaxWidth = '7xl';
+
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         if (empty($data['slug'])) {
