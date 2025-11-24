@@ -18,6 +18,19 @@ class ArticleForm
             ->components([
                 Section::make('Informations de l\'article')
                     ->schema([
+                        SpatieMediaLibraryFileUpload::make('image')
+                            ->label('Image de l\'article')
+                            ->collection(Article::MEDIA_IMAGE)
+                            ->image()
+                            ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                null,
+                                '16:9',
+                                '4:3',
+                                '1:1',
+                            ])
+                            ->columnSpanFull(),
+
                         TextInput::make('title')
                             ->label('Titre')
                             ->required()
@@ -57,23 +70,6 @@ class ArticleForm
                                 'undo',
                             ]),
                     ]),
-
-                Section::make('Image')
-                    ->schema([
-                        SpatieMediaLibraryFileUpload::make('image')
-                            ->label('Image de l\'article')
-                            ->collection(Article::MEDIA_IMAGE)
-                            ->image()
-                            ->imageEditor()
-                            ->imageEditorAspectRatios([
-                                null,
-                                '16:9',
-                                '4:3',
-                                '1:1',
-                            ])
-                            ->columnSpanFull(),
-                    ])
-                    ->collapsible(),
 
                 Section::make('Publication')
                     ->schema([
