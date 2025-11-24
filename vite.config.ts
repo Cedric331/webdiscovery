@@ -24,4 +24,32 @@ export default defineConfig({
             },
         }),
     ],
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: undefined,
+            },
+        },
+        commonjsOptions: {
+            include: [/node_modules/],
+            transformMixedEsModules: true,
+        },
+    },
+    optimizeDeps: {
+        include: [
+            'reka-ui',
+            'class-variance-authority',
+            'es-errors',
+            'es-errors/type',
+        ],
+        esbuildOptions: {
+            target: 'esnext',
+        },
+    },
+    resolve: {
+        dedupe: ['vue'],
+    },
+    ssr: {
+        noExternal: ['reka-ui', 'class-variance-authority'],
+    },
 });
