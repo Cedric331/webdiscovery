@@ -36,7 +36,7 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // Sitemap XML
 Route::get('/sitemap.xml', function () {
-    $baseUrl = config('app.url');
+    $baseUrl = rtrim(config('app.url'), '/');
     $lastmod = date('Y-m-d');
     
     $sitemap = '<?xml version="1.0" encoding="UTF-8"?>
@@ -44,31 +44,31 @@ Route::get('/sitemap.xml', function () {
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
-        <loc>'.$baseUrl.'</loc>
+        <loc>'.htmlspecialchars($baseUrl, ENT_XML1, 'UTF-8').'</loc>
         <lastmod>'.$lastmod.'</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
-        <xhtml:link rel="alternate" hreflang="fr" href="'.$baseUrl.'" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="'.$baseUrl.'" />
+        <xhtml:link rel="alternate" hreflang="fr" href="'.htmlspecialchars($baseUrl, ENT_XML1, 'UTF-8').'" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="'.htmlspecialchars($baseUrl, ENT_XML1, 'UTF-8').'" />
     </url>
     <url>
-        <loc>'.$baseUrl.'/mentions-legales</loc>
+        <loc>'.htmlspecialchars($baseUrl.'/mentions-legales', ENT_XML1, 'UTF-8').'</loc>
         <lastmod>'.$lastmod.'</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.3</priority>
-        <xhtml:link rel="alternate" hreflang="fr" href="'.$baseUrl.'/mentions-legales" />
+        <xhtml:link rel="alternate" hreflang="fr" href="'.htmlspecialchars($baseUrl.'/mentions-legales', ENT_XML1, 'UTF-8').'" />
     </url>
     <url>
-        <loc>'.$baseUrl.'/politique-confidentialite</loc>
+        <loc>'.htmlspecialchars($baseUrl.'/politique-confidentialite', ENT_XML1, 'UTF-8').'</loc>
         <lastmod>'.$lastmod.'</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.3</priority>
-        <xhtml:link rel="alternate" hreflang="fr" href="'.$baseUrl.'/politique-confidentialite" />
+        <xhtml:link rel="alternate" hreflang="fr" href="'.htmlspecialchars($baseUrl.'/politique-confidentialite', ENT_XML1, 'UTF-8').'" />
     </url>
 </urlset>';
 
     return response($sitemap, 200)
-        ->header('Content-Type', 'application/xml')
+        ->header('Content-Type', 'application/xml; charset=utf-8')
         ->header('Cache-Control', 'public, max-age=3600');
 })->name('sitemap');
 

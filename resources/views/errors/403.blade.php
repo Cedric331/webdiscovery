@@ -1,0 +1,6 @@
+@extends('errors::layout')
+
+@section('title', __('Forbidden'))
+@section('code', '403')
+@section('message', __($exception->getMessage() ?: 'Forbidden'))
+@section('description', "Acces refuse. Cette ressource demande des droits supplementaires.")
