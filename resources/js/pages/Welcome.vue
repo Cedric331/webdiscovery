@@ -183,9 +183,9 @@ const structuredData = {
     '@type': 'ProfessionalService',
     name: 'Web Discovery',
     description:
-        'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js. Tarifs à partir de 400€.',
+        'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js. Tarifs à partir de 600€.',
     url: typeof window !== 'undefined' ? window.location.origin : '',
-    priceRange: 'À partir de 400€',
+    priceRange: 'À partir de 600€',
     areaServed: {
         '@type': 'Country',
         name: 'France',
@@ -231,7 +231,7 @@ const localBusinessData = {
     description:
         'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js.',
     url: typeof window !== 'undefined' ? window.location.origin : '',
-    priceRange: 'À partir de 400€',
+    priceRange: 'À partir de 600€',
     address: {
         '@type': 'PostalAddress',
         addressCountry: 'FR',
@@ -322,7 +322,7 @@ onMounted(() => {
         </title>
         <meta
             name="description"
-            content="Création de site web vitrine professionnel à partir de 400€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js. Design moderne, responsive et optimisé SEO."
+            content="Création de site web vitrine professionnel à partir de 600€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js. Design moderne, responsive et optimisé SEO."
         />
         <meta
             name="keywords"
@@ -352,7 +352,7 @@ onMounted(() => {
         />
         <meta
             property="og:description"
-            content="Création de site web vitrine professionnel à partir de 400€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js."
+            content="Création de site web vitrine professionnel à partir de 600€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js."
         />
         <meta property="og:site_name" content="Web Discovery" />
         <meta property="og:locale" content="fr_FR" />
@@ -379,7 +379,7 @@ onMounted(() => {
         />
         <meta
             name="twitter:description"
-            content="Création de site web vitrine professionnel à partir de 400€. Développement web sur mesure avec Laravel et Vue.js."
+            content="Création de site web vitrine professionnel à partir de 600€. Développement web sur mesure avec Laravel et Vue.js."
         />
         <meta
             name="twitter:image"
@@ -825,7 +825,7 @@ onMounted(() => {
                                 </div>
                                 <div class="flex items-baseline gap-2">
                                     <span class="text-5xl font-black text-white"
-                                        >400€</span
+                                        >600€</span
                                     >
                                     <span
                                         class="text-xl font-semibold text-blue-400"
