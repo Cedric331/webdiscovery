@@ -46,6 +46,31 @@ const handleClick = (portfolio: Portfolio) => {
         window.open(portfolio.url, '_blank', 'noopener,noreferrer');
     }
 };
+
+const getTags = (portfolio: Portfolio): string[] => {
+    if (!portfolio.tags) {
+        return [];
+    }
+    // Si c'est déjà un tableau, on le retourne tel quel
+    if (Array.isArray(portfolio.tags)) {
+        return portfolio.tags.filter((tag: string) => tag && tag.trim() !== '');
+    }
+    // Si c'est une chaîne, on essaie de la parser
+    if (typeof portfolio.tags === 'string') {
+        const tagsStr: string = portfolio.tags;
+        // D'abord, on essaie de parser comme JSON
+        try {
+            const parsed = JSON.parse(tagsStr);
+            if (Array.isArray(parsed)) {
+                return parsed.filter((tag: string) => tag && tag.trim() !== '');
+            }
+        } catch {
+            // Si ce n'est pas du JSON valide, on essaie de séparer par virgule
+            return tagsStr.split(',').map((tag: string) => tag.trim()).filter((tag: string) => tag !== '');
+        }
+    }
+    return [];
+};
 </script>
 
 <template>
@@ -194,11 +219,11 @@ const handleClick = (portfolio: Portfolio) => {
                                 
                                 <!-- Tags -->
                                 <div
-                                    v-if="portfolio.tags && portfolio.tags.length > 0"
+                                    v-if="getTags(portfolio).length > 0"
                                     class="mb-4 flex flex-wrap gap-2"
                                 >
                                     <span
-                                        v-for="tag in portfolio.tags"
+                                        v-for="tag in getTags(portfolio)"
                                         :key="tag"
                                         class="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-300"
                                     >
