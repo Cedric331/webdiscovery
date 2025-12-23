@@ -183,9 +183,9 @@ const structuredData = {
     '@type': 'ProfessionalService',
     name: 'Web Discovery',
     description:
-        'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js. Tarifs à partir de 600€.',
+        'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js. Tarifs à partir de 500€.',
     url: typeof window !== 'undefined' ? window.location.origin : '',
-    priceRange: 'À partir de 600€',
+    priceRange: 'À partir de 500€',
     areaServed: {
         '@type': 'Country',
         name: 'France',
@@ -204,12 +204,12 @@ const structuredData = {
         name: 'Création site web vitrine',
         description:
             'Création de site web vitrine professionnel avec design moderne, responsive et optimisé SEO',
-        price: '400',
+        price: '500',
         priceCurrency: 'EUR',
         availability: 'https://schema.org/InStock',
         priceSpecification: {
             '@type': 'UnitPriceSpecification',
-            price: '400',
+            price: '500',
             priceCurrency: 'EUR',
             valueAddedTaxIncluded: true,
         },
@@ -231,7 +231,7 @@ const localBusinessData = {
     description:
         'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js.',
     url: typeof window !== 'undefined' ? window.location.origin : '',
-    priceRange: 'À partir de 600€',
+    priceRange: 'À partir de 500€',
     address: {
         '@type': 'PostalAddress',
         addressCountry: 'FR',
@@ -322,7 +322,7 @@ onMounted(() => {
         </title>
         <meta
             name="description"
-            content="Création de site web vitrine professionnel à partir de 600€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js. Design moderne, responsive et optimisé SEO."
+            content="Création de site web vitrine professionnel à partir de 500€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js. Design moderne, responsive et optimisé SEO."
         />
         <meta
             name="keywords"
@@ -352,7 +352,7 @@ onMounted(() => {
         />
         <meta
             property="og:description"
-            content="Création de site web vitrine professionnel à partir de 600€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js."
+            content="Création de site web vitrine professionnel à partir de 500€. Développement de sites web et applications SaaS sur mesure."
         />
         <meta property="og:site_name" content="Web Discovery" />
         <meta property="og:locale" content="fr_FR" />
@@ -379,7 +379,7 @@ onMounted(() => {
         />
         <meta
             name="twitter:description"
-            content="Création de site web vitrine professionnel à partir de 600€. Développement web sur mesure avec Laravel et Vue.js."
+            content="Création de site web vitrine professionnel à partir de 500€."
         />
         <meta
             name="twitter:image"
@@ -507,6 +507,16 @@ onMounted(() => {
                     >
                         Contact
                     </button>
+                    <Link
+                        href="/portfolio"
+                        :class="[
+                            'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                            'text-slate-300 hover:bg-slate-800 hover:text-white',
+                        ]"
+                        aria-label="Voir le portfolio"
+                    >
+                        Portfolio
+                    </Link>
                     <Link
                         href="/blog"
                         :class="[
@@ -825,7 +835,7 @@ onMounted(() => {
                                 </div>
                                 <div class="flex items-baseline gap-2">
                                     <span class="text-5xl font-black text-white"
-                                        >600€</span
+                                        >500€</span
                                     >
                                     <span
                                         class="text-xl font-semibold text-blue-400"
@@ -970,10 +980,7 @@ onMounted(() => {
                     </h2>
                     <p class="mx-auto max-w-2xl text-lg text-slate-300 mb-4">
                         Discutons de votre projet de <strong class="text-blue-400">création de site web vitrine</strong> ou d'application SaaS. 
-                        Remplissez le formulaire ci-dessous ou contactez-nous directement.
-                    </p>
-                    <p class="mx-auto max-w-2xl text-base text-slate-300">
-                        Nous sommes là pour répondre à toutes vos questions et vous accompagner dans la définition de votre projet. Que vous ayez une idée précise ou que vous souhaitiez explorer les possibilités, notre équipe vous guidera dans le processus de création de votre solution web. Nous offrons des consultations gratuites pour discuter de vos besoins et vous proposer la meilleure approche pour votre projet.
+                        Remplissez le formulaire ci-dessous pour nous contacter.
                     </p>
                 </div>
 
@@ -1192,6 +1199,9 @@ onMounted(() => {
                             </li>
                             <li>
                                 <a href="#contact" class="transition-colors hover:text-blue-400">Contact</a>
+                            </li>
+                            <li>
+                                <Link href="/portfolio" class="transition-colors hover:text-blue-400">Portfolio</Link>
                             </li>
                             <li>
                                 <Link href="/blog" class="transition-colors hover:text-blue-400">Blog</Link>

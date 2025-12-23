@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PortfolioController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -33,6 +34,8 @@ Route::get('/politique-confidentialite', function () {
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
 
 // Sitemap XML
 Route::get('/sitemap.xml', function () {

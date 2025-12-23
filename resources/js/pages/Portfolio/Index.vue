@@ -1,27 +1,21 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
 
-interface Article {
+interface Portfolio {
     id: number;
     title: string;
-    slug: string;
-    content: string;
-    published_at: string | null;
+    description: string;
+    url: string | null;
+    tags: string[] | null;
+    is_published: boolean;
     created_at: string;
     updated_at: string;
-    media?: Array<{
-        id: number;
-        file_name: string;
-        mime_type: string;
-        size: number;
-        url: string;
-    }>;
+    image_url?: string | null;
 }
 
 interface Props {
-    articles: {
-        data: Article[];
+    portfolios: {
+        data: Portfolio[];
         current_page: number;
         last_page: number;
         per_page: number;
@@ -40,26 +34,26 @@ const formatDate = (date: string | null) => {
     });
 };
 
-const getImageUrl = (article: Article) => {
-    // Utiliser l'accessor image_url du modèle Article
-    if (article.image_url) {
-        return article.image_url;
+const getImageUrl = (portfolio: Portfolio) => {
+    if (portfolio.image_url) {
+        return portfolio.image_url;
     }
     return '/images/placeholder.png';
 };
 
-const excerpt = (content: string, length: number = 150) => {
-    const text = content.replace(/<[^>]*>/g, '');
-    return text.length > length ? text.substring(0, length) + '...' : text;
+const handleClick = (portfolio: Portfolio) => {
+    if (portfolio.url) {
+        window.open(portfolio.url, '_blank', 'noopener,noreferrer');
+    }
 };
 </script>
 
 <template>
     <Head>
-        <title>Blog - Web Discovery</title>
+        <title>Portfolio - Web Discovery</title>
         <meta
             name="description"
-            content="Découvrez nos articles sur le développement web, la création de sites web vitrine et les applications SaaS."
+            content="Découvrez nos créations : sites web vitrine, applications SaaS et projets de développement web."
         />
     </Head>
 
@@ -110,13 +104,13 @@ const excerpt = (content: string, length: number = 150) => {
                     </Link>
                     <Link
                         href="/portfolio"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
+                        class="rounded-lg px-3 py-2 text-sm font-medium bg-blue-500/10 text-blue-400 transition-colors hover:bg-blue-500/20"
                     >
                         Portfolio
                     </Link>
                     <Link
                         href="/blog"
-                        class="rounded-lg px-3 py-2 text-sm font-medium bg-blue-500/10 text-blue-400 transition-colors hover:bg-blue-500/20"
+                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
                     >
                         Blog
                     </Link>
@@ -128,21 +122,20 @@ const excerpt = (content: string, length: number = 150) => {
             <div class="container mx-auto max-w-7xl">
                 <div class="mb-16 text-center">
                     <div class="mb-6 inline-block rounded-full bg-blue-500/10 px-4 py-2 text-sm font-semibold text-blue-400">
-                        Articles & Actualités
+                        Nos Créations
                     </div>
                     <h1
                         class="mb-6 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-5xl font-black leading-tight text-transparent drop-shadow-lg md:text-6xl lg:text-7xl"
                     >
-                        Blog
+                        Portfolio
                     </h1>
                     <p class="mx-auto max-w-2xl text-xl leading-relaxed text-slate-300">
-                        Découvrez nos articles sur le développement web, la
-                        création de sites web et les applications SaaS
+                        Découvrez nos réalisations : sites web vitrine, applications SaaS et projets de développement web
                     </p>
                 </div>
 
                 <div
-                    v-if="articles.data.length === 0"
+                    v-if="portfolios.data.length === 0"
                     class="rounded-2xl border border-slate-700/50 bg-slate-800/30 p-12 text-center"
                 >
                     <svg
@@ -155,14 +148,14 @@ const excerpt = (content: string, length: number = 150) => {
                             stroke-linecap="round"
                             stroke-linejoin="round"
                             stroke-width="2"
-                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
                         />
                     </svg>
                     <p class="text-xl font-medium text-slate-400">
-                        Aucun article disponible pour le moment.
+                        Aucune création disponible pour le moment.
                     </p>
                     <p class="mt-2 text-sm text-slate-500">
-                        Revenez bientôt pour découvrir nos nouveaux articles !
+                        Revenez bientôt pour découvrir nos nouvelles créations !
                     </p>
                 </div>
 
@@ -171,46 +164,53 @@ const excerpt = (content: string, length: number = 150) => {
                     class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
                 >
                     <article
-                        v-for="article in articles.data"
-                        :key="article.id"
-                        class="group relative flex flex-col transform overflow-hidden rounded-2xl border border-slate-700/50 bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10"
+                        v-for="portfolio in portfolios.data"
+                        :key="portfolio.id"
+                        class="group relative flex flex-col transform overflow-hidden rounded-2xl border border-slate-700/50 bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm transition-all duration-300 hover:scale-[1] hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 cursor-pointer"
+                        @click="handleClick(portfolio)"
                     >
-                        <Link :href="`/blog/${article.slug}`" class="flex flex-col h-full">
+                        <div class="flex flex-col h-full">
                             <div class="relative h-56 overflow-hidden flex-shrink-0">
                                 <img
-                                    :src="getImageUrl(article)"
-                                    :alt="article.title"
+                                    :src="getImageUrl(portfolio)"
+                                    :alt="portfolio.title"
                                     class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                                 />
                                 <div
                                     class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent"
                                 ></div>
-                                <div
-                                    class="absolute top-4 right-4 rounded-full bg-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-300 backdrop-blur-sm"
-                                >
-                                    Article
-                                </div>
                             </div>
                             <div class="flex flex-col flex-grow p-6">
-                                <time
-                                    v-if="article.published_at"
-                                    class="mb-3 block text-xs font-medium uppercase tracking-wide text-slate-400"
-                                >
-                                    {{ formatDate(article.published_at) }}
-                                </time>
                                 <h2
                                     class="mb-4 text-2xl font-bold leading-tight text-white transition-colors duration-300 group-hover:text-blue-400"
                                 >
-                                    {{ article.title }}
+                                    {{ portfolio.title }}
                                 </h2>
+                                <p
+                                    class="mb-4 text-sm leading-relaxed text-slate-300 line-clamp-3 flex-grow"
+                                >
+                                    {{ portfolio.description }}
+                                </p>
+                                
+                                <!-- Tags -->
                                 <div
-                                    class="article-excerpt mb-4 text-sm leading-relaxed text-slate-300 line-clamp-3 flex-grow"
-                                    v-html="excerpt(article.content, 120)"
-                                ></div>
+                                    v-if="portfolio.tags && portfolio.tags.length > 0"
+                                    class="mb-4 flex flex-wrap gap-2"
+                                >
+                                    <span
+                                        v-for="tag in portfolio.tags"
+                                        :key="tag"
+                                        class="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-300"
+                                    >
+                                        {{ tag }}
+                                    </span>
+                                </div>
+
                                 <div
+                                    v-if="portfolio.url"
                                     class="mt-auto inline-flex items-center gap-2 font-semibold text-blue-400 transition-all duration-300 group-hover:gap-3 group-hover:text-blue-300"
                                 >
-                                    Lire la suite
+                                    Voir le projet
                                     <svg
                                         class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
                                         fill="none"
@@ -221,23 +221,23 @@ const excerpt = (content: string, length: number = 150) => {
                                             stroke-linecap="round"
                                             stroke-linejoin="round"
                                             stroke-width="2"
-                                            d="M9 5l7 7-7 7"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                                         />
                                     </svg>
                                 </div>
                             </div>
-                        </Link>
+                        </div>
                     </article>
                 </div>
 
                 <!-- Pagination -->
                 <div
-                    v-if="articles.last_page > 1"
+                    v-if="portfolios.last_page > 1"
                     class="mt-16 flex flex-wrap items-center justify-center gap-4"
                 >
                     <Link
-                        v-if="articles.current_page > 1"
-                        :href="`/blog?page=${articles.current_page - 1}`"
+                        v-if="portfolios.current_page > 1"
+                        :href="`/portfolio?page=${portfolios.current_page - 1}`"
                         class="group flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800/50 px-6 py-3 text-slate-300 transition-all hover:border-blue-500/50 hover:bg-slate-800 hover:text-white"
                     >
                         <svg
@@ -258,18 +258,18 @@ const excerpt = (content: string, length: number = 150) => {
 
                     <div class="flex items-center gap-2">
                         <span
-                            v-for="page in articles.last_page"
+                            v-for="page in portfolios.last_page"
                             :key="page"
                             class="rounded-lg px-4 py-2 text-sm font-medium transition-colors"
                             :class="
-                                page === articles.current_page
+                                page === portfolios.current_page
                                     ? 'bg-blue-500 text-white'
                                     : 'text-slate-400 hover:bg-slate-800 hover:text-white'
                             "
                         >
                             <Link
-                                v-if="page !== articles.current_page"
-                                :href="`/blog?page=${page}`"
+                                v-if="page !== portfolios.current_page"
+                                :href="`/portfolio?page=${page}`"
                                 class="block"
                             >
                                 {{ page }}
@@ -279,8 +279,8 @@ const excerpt = (content: string, length: number = 150) => {
                     </div>
 
                     <Link
-                        v-if="articles.current_page < articles.last_page"
-                        :href="`/blog?page=${articles.current_page + 1}`"
+                        v-if="portfolios.current_page < portfolios.last_page"
+                        :href="`/portfolio?page=${portfolios.current_page + 1}`"
                         class="group flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800/50 px-6 py-3 text-slate-300 transition-all hover:border-blue-500/50 hover:bg-slate-800 hover:text-white"
                     >
                         Suivant
@@ -387,25 +387,6 @@ const excerpt = (content: string, length: number = 150) => {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-}
-
-.article-excerpt :deep(p) {
-    margin: 0;
-    line-height: 1.6;
-}
-
-.article-excerpt :deep(strong) {
-    font-weight: 600;
-    color: rgb(255 255 255);
-}
-
-.article-excerpt :deep(em) {
-    font-style: italic;
-}
-
-.article-excerpt :deep(a) {
-    color: rgb(96 165 250);
-    text-decoration: underline;
 }
 </style>
 
