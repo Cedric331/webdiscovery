@@ -5,5 +5,5 @@ Disallow: /settings
 Disallow: /login
 Disallow: /register
 
-# Sitemap
-Sitemap: https://web-discovery.com/sitemap.xml
+# Sitemap (sera remplacé dynamiquement par la route /sitemap.xml)
+Sitemap: /sitemap.xml

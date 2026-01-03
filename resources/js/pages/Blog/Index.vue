@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
+import SEO from '@/components/SEO.vue';
+import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 interface Article {
@@ -55,13 +56,12 @@ const excerpt = (content: string, length: number = 150) => {
 </script>
 
 <template>
-    <Head>
-        <title>Blog - Web Discovery</title>
-        <meta
-            name="description"
-            content="Découvrez nos articles sur le développement web, la création de sites web vitrine et les applications SaaS."
-        />
-    </Head>
+    <SEO
+        title="Blog - Web Discovery"
+        description="Découvrez nos articles sur le développement web, la création de sites web vitrine et les applications SaaS."
+        canonical="/blog"
+        keywords="blog développement web, articles création site web, blog SaaS, actualités web"
+    />
 
     <div
         class="min-h-screen bg-slate-950 text-white"
@@ -181,6 +181,7 @@ const excerpt = (content: string, length: number = 150) => {
                                     :src="getImageUrl(article)"
                                     :alt="article.title"
                                     class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    loading="lazy"
                                 />
                                 <div
                                     class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent"

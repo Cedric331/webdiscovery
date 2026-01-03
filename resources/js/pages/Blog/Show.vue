@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
+import SEO from '@/components/SEO.vue';
+import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 interface Media {
@@ -55,13 +56,12 @@ const currentUrl = computed(() => {
 </script>
 
 <template>
-    <Head>
-        <title>{{ article.title }} - Blog Web Discovery</title>
-        <meta
-            name="description"
-            :content="article.content.replace(/<[^>]*>/g, '').substring(0, 160)"
-        />
-    </Head>
+    <SEO
+        :title="article.title"
+        :description="article.content.replace(/<[^>]*>/g, '').substring(0, 160)"
+        :canonical="`/blog/${article.slug}`"
+        :og-image="getImageUrl()"
+    />
 
     <div
         class="min-h-screen bg-slate-950 text-white"
@@ -148,6 +148,7 @@ const currentUrl = computed(() => {
                             :src="getImageUrl()"
                             :alt="article.title"
                             class="h-full w-full object-cover"
+                            loading="eager"
                         />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"

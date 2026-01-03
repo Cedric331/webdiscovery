@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import GdprBanner from '@/components/GdprBanner.vue';
+import SEO from '@/components/SEO.vue';
 import { dashboard, login, register } from '@/routes';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import { onMounted, onUnmounted, ref } from 'vue';
 
 withDefaults(
@@ -178,258 +179,140 @@ onUnmounted(() => {
 });
 
 // Structured Data pour le SEO - Optimisé pour "création site web vitrine"
-const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    name: 'Web Discovery',
-    description:
-        'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js. Tarifs à partir de 500€.',
-    url: typeof window !== 'undefined' ? window.location.origin : '',
-    priceRange: 'À partir de 500€',
-    areaServed: {
-        '@type': 'Country',
-        name: 'France',
-    },
-    serviceType: [
-        'Création site web vitrine',
-        'Développement site web',
-        'Création site internet',
-        'Site web sur mesure',
-        'Application SaaS',
-        'Développement web Laravel',
-        'Développement web Vue.js',
-    ],
-    offers: {
-        '@type': 'Offer',
-        name: 'Création site web vitrine',
+const structuredData = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'ProfessionalService',
+        name: 'Web Discovery',
         description:
-            'Création de site web vitrine professionnel avec design moderne, responsive et optimisé SEO',
-        price: '500',
-        priceCurrency: 'EUR',
-        availability: 'https://schema.org/InStock',
-        priceSpecification: {
-            '@type': 'UnitPriceSpecification',
+            'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js. Tarifs à partir de 500€.',
+        url: typeof window !== 'undefined' ? window.location.origin : '',
+        priceRange: 'À partir de 500€',
+        areaServed: {
+            '@type': 'Country',
+            name: 'France',
+        },
+        serviceType: [
+            'Création site web vitrine',
+            'Développement site web',
+            'Création site internet',
+            'Site web sur mesure',
+            'Application SaaS',
+            'Développement web Laravel',
+            'Développement web Vue.js',
+        ],
+        offers: {
+            '@type': 'Offer',
+            name: 'Création site web vitrine',
+            description:
+                'Création de site web vitrine professionnel avec design moderne, responsive et optimisé SEO',
             price: '500',
             priceCurrency: 'EUR',
-            valueAddedTaxIncluded: true,
+            availability: 'https://schema.org/InStock',
+            priceSpecification: {
+                '@type': 'UnitPriceSpecification',
+                price: '500',
+                priceCurrency: 'EUR',
+                valueAddedTaxIncluded: true,
+            },
+        },
+        aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '5',
+            reviewCount: '1',
+        },
+        sameAs: [],
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        '@id': typeof window !== 'undefined' ? window.location.origin : '',
+        name: 'Web Discovery',
+        description:
+            'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js.',
+        url: typeof window !== 'undefined' ? window.location.origin : '',
+        priceRange: 'À partir de 500€',
+        address: {
+            '@type': 'PostalAddress',
+            addressCountry: 'FR',
+            addressLocality: 'France',
+        },
+        geo: {
+            '@type': 'GeoCoordinates',
+            addressCountry: 'FR',
+        },
+        areaServed: {
+            '@type': 'Country',
+            name: 'France',
+        },
+        serviceArea: {
+            '@type': 'Country',
+            name: 'France',
+        },
+        hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: 'Services Web Discovery',
+            itemListElement: [
+                {
+                    '@type': 'Offer',
+                    itemOffered: {
+                        '@type': 'Service',
+                        name: 'Création site web vitrine',
+                        description:
+                            'Création de site web vitrine professionnel avec design moderne, responsive et optimisé SEO',
+                        provider: {
+                            '@type': 'LocalBusiness',
+                            name: 'Web Discovery',
+                        },
+                    },
+                    price: '400',
+                    priceCurrency: 'EUR',
+                },
+                {
+                    '@type': 'Offer',
+                    itemOffered: {
+                        '@type': 'Service',
+                        name: 'Application SaaS',
+                        description:
+                            'Développement d\'applications SaaS sur mesure avec Laravel et Vue.js',
+                        provider: {
+                            '@type': 'LocalBusiness',
+                            name: 'Web Discovery',
+                        },
+                    },
+                },
+            ],
         },
     },
-    aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '5',
-        reviewCount: '1',
-    },
-    sameAs: [],
-};
-
-// Structured Data LocalBusiness pour améliorer le SEO local
-const localBusinessData = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    '@id': typeof window !== 'undefined' ? window.location.origin : '',
-    name: 'Web Discovery',
-    description:
-        'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js.',
-    url: typeof window !== 'undefined' ? window.location.origin : '',
-    priceRange: 'À partir de 500€',
-    address: {
-        '@type': 'PostalAddress',
-        addressCountry: 'FR',
-        addressLocality: 'France',
-    },
-    geo: {
-        '@type': 'GeoCoordinates',
-        addressCountry: 'FR',
-    },
-    areaServed: {
-        '@type': 'Country',
-        name: 'France',
-    },
-    serviceArea: {
-        '@type': 'Country',
-        name: 'France',
-    },
-    hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: 'Services Web Discovery',
-        itemListElement: [
-            {
-                '@type': 'Offer',
-                itemOffered: {
-                    '@type': 'Service',
-                    name: 'Création site web vitrine',
-                    description:
-                        'Création de site web vitrine professionnel avec design moderne, responsive et optimisé SEO',
-                    provider: {
-                        '@type': 'LocalBusiness',
-                        name: 'Web Discovery',
-                    },
-                },
-                price: '400',
-                priceCurrency: 'EUR',
-            },
-            {
-                '@type': 'Offer',
-                itemOffered: {
-                    '@type': 'Service',
-                    name: 'Application SaaS',
-                    description:
-                        'Développement d\'applications SaaS sur mesure avec Laravel et Vue.js',
-                    provider: {
-                        '@type': 'LocalBusiness',
-                        name: 'Web Discovery',
-                    },
-                },
-            },
-        ],
-    },
-};
+];
 
 // Injection du structured data dans le head
 onMounted(() => {
-    // Injection du ProfessionalService
-    const existingScript = document.querySelector(
-        'script[type="application/ld+json"][data-type="professional-service"]',
-    );
+    structuredData.forEach((data, index) => {
+        const dataType = index === 0 ? 'professional-service' : 'local-business';
+        const existingScript = document.querySelector(
+            `script[type="application/ld+json"][data-type="${dataType}"]`,
+        );
 
-    if (!existingScript) {
-        const script = document.createElement('script');
-        script.setAttribute('type', 'application/ld+json');
-        script.setAttribute('data-type', 'professional-service');
-        script.textContent = JSON.stringify(structuredData);
-        document.head.appendChild(script);
-    }
-
-    // Injection du LocalBusiness
-    const existingLocalBusiness = document.querySelector(
-        'script[type="application/ld+json"][data-type="local-business"]',
-    );
-
-    if (!existingLocalBusiness) {
-        const script = document.createElement('script');
-        script.setAttribute('type', 'application/ld+json');
-        script.setAttribute('data-type', 'local-business');
-        script.textContent = JSON.stringify(localBusinessData);
-        document.head.appendChild(script);
-    }
+        if (!existingScript) {
+            const script = document.createElement('script');
+            script.setAttribute('type', 'application/ld+json');
+            script.setAttribute('data-type', dataType);
+            script.textContent = JSON.stringify(data);
+            document.head.appendChild(script);
+        }
+    });
 });
 </script>
 
 <template>
-    <Head>
-        <title>
-            Création Site Web Vitrine Professionnel | Web Discovery - Développement Web & SaaS sur Mesure
-        </title>
-        <meta
-            name="description"
-            content="Création de site web vitrine professionnel à partir de 500€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js. Design moderne, responsive et optimisé SEO."
-        />
-        <meta
-            name="keywords"
-            content="création site web vitrine, création site internet, développement site web, site web sur mesure, création site web professionnel, site vitrine pas cher, développement web Laravel, développement web Vue.js, application SaaS, site web responsive"
-        />
-        <meta name="author" content="Web Discovery" />
-        <meta
-            name="robots"
-            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-        />
-        <meta name="language" content="French" />
-        <meta name="revisit-after" content="7 days" />
-        <meta name="rating" content="general" />
-        <meta name="distribution" content="global" />
-        <meta name="geo.region" content="FR" />
-        <meta name="geo.placename" content="France" />
-
-        <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="website" />
-        <meta
-            property="og:url"
-            :content="typeof window !== 'undefined' ? window.location.href : ''"
-        />
-        <meta
-            property="og:title"
-            content="Création Site Web Vitrine | Web Discovery - Développement Web & SaaS"
-        />
-        <meta
-            property="og:description"
-            content="Création de site web vitrine professionnel à partir de 500€. Développement de sites web et applications SaaS sur mesure."
-        />
-        <meta property="og:site_name" content="Web Discovery" />
-        <meta property="og:locale" content="fr_FR" />
-        <meta
-            property="og:image"
-            :content="
-                typeof window !== 'undefined'
-                    ? window.location.origin + '/og-image.jpg'
-                    : ''
-            "
-        />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta
-            property="og:image:alt"
-            content="Web Discovery - Création de sites web vitrine et applications SaaS"
-        />
-
-        <!-- Twitter -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-            name="twitter:title"
-            content="Création Site Web Vitrine | Web Discovery"
-        />
-        <meta
-            name="twitter:description"
-            content="Création de site web vitrine professionnel à partir de 500€."
-        />
-        <meta
-            name="twitter:image"
-            :content="
-                typeof window !== 'undefined'
-                    ? window.location.origin + '/og-image.jpg'
-                    : ''
-            "
-        />
-        <meta
-            name="twitter:image:alt"
-            content="Web Discovery - Création de sites web vitrine et applications SaaS"
-        />
-
-        <!-- Canonical URL -->
-        <link
-            rel="canonical"
-            :href="typeof window !== 'undefined' ? window.location.href : ''"
-        />
-
-        <!-- Sitemap -->
-        <link
-            rel="sitemap"
-            type="application/xml"
-            :href="
-                typeof window !== 'undefined'
-                    ? window.location.origin + '/sitemap.xml'
-                    : ''
-            "
-        />
-
-        <!-- Preconnect pour performance -->
-        <link rel="preconnect" href="https://rsms.me/" crossorigin />
-        <link rel="dns-prefetch" href="https://rsms.me/" />
-        <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-        <link rel="dns-prefetch" href="https://fonts.bunny.net" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-
-        <!-- Additional SEO meta tags -->
-        <meta name="theme-color" content="#3b82f6" />
-        <meta name="msapplication-TileColor" content="#3b82f6" />
-        <meta name="application-name" content="Web Discovery" />
-        
-        <!-- Language and region -->
-        <meta http-equiv="content-language" content="fr-FR" />
-        <meta name="geo.region" content="FR" />
-        
-        <!-- Verification tags (à remplir si vous avez Google Search Console, etc.) -->
-        <!-- <meta name="google-site-verification" content="..." /> -->
-    </Head>
+    <SEO
+        title="Création Site Web Vitrine Professionnel | Web Discovery - Développement Web & SaaS sur Mesure"
+        description="Création de site web vitrine professionnel à partir de 500€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js. Design moderne, responsive et optimisé SEO."
+        canonical="/"
+        keywords="création site web vitrine, création site internet, développement site web, site web sur mesure, création site web professionnel, site vitrine pas cher, développement web Laravel, développement web Vue.js, application SaaS, site web responsive"
+        :structured-data="structuredData"
+    />
 
     <div
         class="min-h-screen bg-slate-950 text-white"
@@ -445,11 +328,12 @@ onMounted(() => {
                 class="container mx-auto flex items-center justify-between px-6 py-4"
             >
                 <Link href="/" class="group flex items-center gap-3">
-                    <img
-                        src="/asset/logo.png"
-                        alt="Logo Web Discovery"
-                        class="h-10 w-auto object-contain"
-                    />
+                        <img
+                            src="/asset/logo.png"
+                            alt="Logo Web Discovery"
+                            class="h-10 w-auto object-contain"
+                            loading="lazy"
+                        />
                     <span class="text-xl font-bold">WEB DISCOVERY</span>
                 </Link>
 
@@ -621,6 +505,7 @@ onMounted(() => {
                                 src="/asset/logo.png"
                                 alt="Logo Web Discovery"
                                 class="animate-float mx-auto h-auto w-full max-w-md object-contain"
+                                loading="eager"
                             />
                         </div>
                     </div>
@@ -1172,11 +1057,12 @@ onMounted(() => {
                     <!-- Informations entreprise -->
                     <div>
                         <div class="mb-4 flex items-center gap-3">
-                            <img
-                                src="/asset/logo.png"
-                                alt="Logo Web Discovery"
-                                class="h-10 w-auto object-contain"
-                            />
+                        <img
+                            src="/asset/logo.png"
+                            alt="Logo Web Discovery"
+                            class="h-10 w-auto object-contain"
+                            loading="lazy"
+                        />
                             <span class="text-lg font-bold">WEB DISCOVERY</span>
                         </div>
                         <p class="mb-4 text-sm text-slate-300">
