@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import SEO from '@/components/SEO.vue';
 import { Link, useForm } from '@inertiajs/vue3';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 
 interface Service {
     title: string;
@@ -43,23 +43,6 @@ const currentUrl = computed(() => {
         return window.location.href;
     }
     return '';
-});
-
-// Injection des données structurées
-onMounted(() => {
-    props.structuredData.forEach((data, index) => {
-        const existingScript = document.querySelector(
-            `script[type="application/ld+json"][data-service="${index}"]`,
-        );
-
-        if (!existingScript) {
-            const script = document.createElement('script');
-            script.setAttribute('type', 'application/ld+json');
-            script.setAttribute('data-service', index.toString());
-            script.textContent = JSON.stringify(data);
-            document.head.appendChild(script);
-        }
-    });
 });
 </script>
 

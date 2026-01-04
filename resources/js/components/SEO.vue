@@ -58,13 +58,16 @@ onMounted(() => {
             : [props.structuredData];
         
         dataArray.forEach((data, index) => {
+            // Vérifier par type de schéma pour éviter les doublons
+            const schemaType = (data as Record<string, unknown>)?.['@type'] || 'unknown';
             const existingScript = document.querySelector(
-                `script[type="application/ld+json"][data-seo-index="${index}"]`,
+                `script[type="application/ld+json"][data-schema-type="${schemaType}"]`,
             );
 
             if (!existingScript) {
                 const script = document.createElement('script');
                 script.setAttribute('type', 'application/ld+json');
+                script.setAttribute('data-schema-type', schemaType as string);
                 script.setAttribute('data-seo-index', index.toString());
                 script.textContent = JSON.stringify(data);
                 document.head.appendChild(script);
