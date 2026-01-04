@@ -131,7 +131,7 @@ const getTags = (portfolio: Portfolio): string[] => {
                         href="/portfolio"
                         class="rounded-lg px-3 py-2 text-sm font-medium bg-blue-500/10 text-blue-400 transition-colors hover:bg-blue-500/20"
                     >
-                        Portfolio
+                        Réalisations
                     </Link>
                     <Link
                         href="/blog"

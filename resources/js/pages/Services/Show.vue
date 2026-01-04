@@ -85,7 +85,7 @@ const currentUrl = computed(() => {
                         href="/portfolio"
                         class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
                     >
-                        Portfolio
+                        Réalisations
                     </Link>
                     <Link
                         href="/blog"
@@ -448,7 +448,7 @@ const currentUrl = computed(() => {
                                 <Link
                                     href="/portfolio"
                                     class="transition-colors hover:text-blue-400"
-                                    >Portfolio</Link
+                                    >Réalisations</Link
                                 >
                             </li>
                             <li>
