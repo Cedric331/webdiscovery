@@ -185,9 +185,9 @@ const structuredData = [
         '@type': 'ProfessionalService',
         name: 'Web Discovery',
         description:
-            'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js. Tarifs à partir de 799€.',
+            'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js. Tarifs à partir de 699€.',
         url: typeof window !== 'undefined' ? window.location.origin : '',
-        priceRange: 'À partir de 799€',
+        priceRange: 'À partir de 699€',
         areaServed: {
             '@type': 'Country',
             name: 'France',
@@ -206,12 +206,12 @@ const structuredData = [
             name: 'Création site web vitrine',
             description:
                 'Création de site web vitrine professionnel avec design moderne, responsive et optimisé SEO',
-            price: '799',
+            price: '699',
             priceCurrency: 'EUR',
             availability: 'https://schema.org/InStock',
             priceSpecification: {
                 '@type': 'UnitPriceSpecification',
-                price: '799',
+                price: '699',
                 priceCurrency: 'EUR',
                 valueAddedTaxIncluded: true,
             },
@@ -231,7 +231,7 @@ const structuredData = [
         description:
             'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js.',
         url: typeof window !== 'undefined' ? window.location.origin : '',
-        priceRange: 'À partir de 799€',
+        priceRange: 'À partir de 699€',
         address: {
             '@type': 'PostalAddress',
             addressCountry: 'FR',
@@ -308,7 +308,7 @@ onMounted(() => {
 <template>
     <SEO
         title="Création Site Web Vitrine Professionnel | Web Discovery - Développement Web & SaaS sur Mesure"
-        description="Création de site web vitrine professionnel à partir de 799€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js. Design moderne, responsive et optimisé SEO."
+        description="Création de site web vitrine professionnel à partir de 699€. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js. Design moderne, responsive et optimisé SEO."
         canonical="/"
         keywords="création site web vitrine, création site internet, développement site web, site web sur mesure, création site web professionnel, site vitrine pas cher, développement web Laravel, développement web Vue.js, application SaaS, site web responsive"
         :structured-data="structuredData"
@@ -720,7 +720,7 @@ onMounted(() => {
                                 </div>
                                 <div class="flex items-baseline gap-2">
                                     <span class="text-5xl font-black text-white"
-                                        >799€</span
+                                        >699€</span
                                     >
                                     <span
                                         class="text-xl font-semibold text-blue-400"
@@ -852,8 +852,131 @@ onMounted(() => {
             </div>
         </section>
 
+        <!-- Section Aides -->
+        <section id="aides" class="bg-slate-900/50 px-6 py-12">
+            <div class="container mx-auto max-w-6xl">
+                <div class="scroll-animate mb-16 text-center">
+                    <h2 class="mb-4 text-4xl font-black md:text-5xl">
+                        <span class="text-white">Aides</span>
+                        <span
+                            class="block bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent"
+                        >
+                            & Subventions
+                        </span>
+                    </h2>
+                    <p class="mx-auto mt-4 max-w-3xl text-slate-300">
+                        Financez une partie de votre site web grâce aux dispositifs publics
+                    </p>
+                </div>
+
+                <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
+                    <!-- Aide site vitrine -->
+                    <div
+                        class="scroll-animate group relative transform overflow-hidden rounded-2xl border border-slate-700 bg-slate-800/50 p-8 transition-all hover:scale-[1.02] hover:border-emerald-500/50 hover:bg-slate-800"
+                    >
+                        <div
+                            class="absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+                        ></div>
+
+                        <div class="relative z-10">
+                            <h3 class="mb-2 text-2xl font-bold text-white">
+                                Aide à la création de site web
+                            </h3>
+
+                            <div class="mb-6">
+                                <div class="mb-2 text-sm font-semibold text-emerald-400">
+                                    Jusqu’à
+                                </div>
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-5xl font-black text-white">
+                                        40%
+                                    </span>
+                                    <span class="text-xl font-semibold text-emerald-400">
+                                        du projet
+                                    </span>
+                                </div>
+                            </div>
+
+                            <ul class="mb-6 space-y-3 text-slate-300">
+                                <li class="group/item flex items-center gap-3 transition-colors hover:text-white">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-400 transition-all group-hover/item:scale-150 group-hover/item:shadow-lg group-hover/item:shadow-emerald-400/50"></span>
+                                    <span>Subvention État (France Num)</span>
+                                </li>
+                                <li class="group/item flex items-center gap-3 transition-colors hover:text-white">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-400 transition-all group-hover/item:scale-150 group-hover/item:shadow-lg group-hover/item:shadow-emerald-400/50"></span>
+                                    <span>Création ou refonte de site web</span>
+                                </li>
+                                <li class="group/item flex items-center gap-3 transition-colors hover:text-white">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-400 transition-all group-hover/item:scale-150 group-hover/item:shadow-lg group-hover/item:shadow-emerald-400/50"></span>
+                                    <span>E-commerce, vitrine, réservation</span>
+                                </li>
+                            </ul>
+
+                            <a
+                                href="#contact"
+                                class="inline-flex w-full items-center justify-center rounded-xl bg-emerald-500 px-6 py-3 font-semibold text-slate-900 transition hover:bg-emerald-400"
+                            >
+                                Vérifier mon éligibilité
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Aides régionales -->
+                    <div
+                        class="scroll-animate group relative transform overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-900/20 to-slate-800/50 p-8 transition-all hover:scale-[1.02] hover:border-emerald-400/50 hover:from-emerald-900/30"
+                    >
+                        <div
+                            class="absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-emerald-400 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+                        ></div>
+
+                        <div class="relative z-10">
+                            <h3 class="mb-2 text-2xl font-bold text-white">
+                                Chèques & aides régionales
+                            </h3>
+                            
+                            <div class="mb-6">
+                                <div class="mb-2 text-sm font-semibold text-emerald-400">
+                                    Jusqu’à
+                                </div>
+                                <div class="text-5xl font-black text-white">
+                                    1 500 €
+                                </div>
+                            </div>
+
+                            <ul class="mb-6 space-y-3 text-slate-300">
+                                <li class="group/item flex items-center gap-3 transition-colors hover:text-white">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-400 transition-all group-hover/item:scale-150 group-hover/item:shadow-lg group-hover/item:shadow-emerald-400/50"></span>
+                                    <span>Chèque numérique régional</span>
+                                </li>
+                                <li class="group/item flex items-center gap-3 transition-colors hover:text-white">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-400 transition-all group-hover/item:scale-150 group-hover/item:shadow-lg group-hover/item:shadow-emerald-400/50"></span>
+                                    <span>Commerçants, artisans, indépendants</span>
+                                </li>
+                                <li class="group/item flex items-center gap-3 transition-colors hover:text-white">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-400 transition-all group-hover/item:scale-150 group-hover/item:shadow-lg group-hover/item:shadow-emerald-400/50"></span>
+                                    <span>Site web, boutique en ligne, outils</span>
+                                </li>
+                            </ul>
+
+                            <a
+                                href="#contact"
+                                class="inline-flex w-full items-center justify-center rounded-xl border border-emerald-400/50 px-6 py-3 font-semibold text-emerald-400 transition hover:bg-emerald-400 hover:text-slate-900"
+                            >
+                            Analyser mon projet et mes aides possibles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="scroll-animate mt-12 text-center text-slate-300">
+                    Les aides dépendent de votre région, de votre statut et de votre projet.
+                    Vous devez faire une demande de subvention auprès de votre région.
+                </p>
+            </div>
+        </section>
+
         <!-- Section Contact -->
-        <section id="contact" class="px-6 py-24">
+        <section id="contact" class="px-6 py-12">
             <div class="container mx-auto max-w-3xl">
                 <div class="scroll-animate mb-12 text-center">
                     <h2 class="mb-4 text-4xl font-black md:text-5xl">
