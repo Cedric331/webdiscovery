@@ -36,12 +36,6 @@ export default defineConfig({
         },
     },
     optimizeDeps: {
-        include: [
-            'reka-ui',
-            'class-variance-authority',
-            'es-errors',
-            'es-errors/type',
-        ],
         esbuildOptions: {
             target: 'esnext',
         },
