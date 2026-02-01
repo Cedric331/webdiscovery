@@ -716,15 +716,11 @@ onMounted(() => {
                                 <div
                                     class="mb-2 text-sm font-semibold text-blue-400"
                                 >
-                                    À partir de
+                                    Sur
                                 </div>
                                 <div class="flex items-baseline gap-2">
                                     <span class="text-5xl font-black text-white"
-                                        >sur devis</span
-                                    >
-                                    <span
-                                        class="text-xl font-semibold text-blue-400"
-                                        >*</span
+                                        >Devis</span
                                     >
                                 </div>
                             </div>
@@ -763,21 +759,6 @@ onMounted(() => {
                                     <span>Mise en ligne incluse</span>
                                 </li>
                             </ul>
-
-                            <div class="border-t border-slate-700 pt-4">
-                                <p
-                                    class="text-xs leading-relaxed text-slate-300"
-                                >
-                                    <span class="font-semibold text-blue-400"
-                                        >*</span
-                                    >
-                                    Ce tarif peut évoluer selon les
-                                    spécifications de votre site web vitrine
-                                    (nombre de pages, fonctionnalités,
-                                    intégrations, etc.). Un devis personnalisé
-                                    sera établi après analyse de vos besoins.
-                                </p>
-                            </div>
                         </div>
                     </div>
 
