@@ -74,7 +74,7 @@ class ServiceController extends Controller
                     ],
                     [
                         'question' => 'Combien coûte un site web pour coiffeur ?',
-                        'answer' => 'Un site web professionnel pour coiffeur démarre à partir de 399€. Le prix peut augmenter si vous souhaitez intégrer un système de réservation en ligne ou d\'autres fonctionnalités avancées.',
+                        'answer' => 'Le prix d\'un site est variable suivant les besoins (nombre de pages, galerie photos, formulaire de réservation, etc.).',
                     ],
                     [
                         'question' => 'Mon site affichera-t-il mes tarifs ?',
@@ -111,7 +111,7 @@ class ServiceController extends Controller
                     ],
                     [
                         'question' => 'Combien coûte un site web pour plombier ?',
-                        'answer' => 'Un site web professionnel pour plombier démarre à partir de 399€. Le prix varie selon le nombre de pages et les fonctionnalités demandées.',
+                        'answer' => 'Le prix d\'un site est variable suivant les besoins (nombre de pages, galerie photos, formulaire de réservation, etc.).',
                     ],
                 ],
             ],
@@ -140,7 +140,7 @@ class ServiceController extends Controller
                     ],
                     [
                         'question' => 'Combien coûte un site web pour électricien ?',
-                        'answer' => 'Un site web professionnel pour électricien démarre à partir de 399€. Le prix varie selon le nombre de pages et les fonctionnalités demandées.',
+                        'answer' => 'Le prix d\'un site est variable suivant les besoins (nombre de pages, galerie photos, formulaire de réservation, etc.).',
                     ],
                 ],
             ],
@@ -169,7 +169,7 @@ class ServiceController extends Controller
                     ],
                     [
                         'question' => 'Combien coûte un site web pour menuisier ?',
-                        'answer' => 'Un site web professionnel pour menuisier démarre à partir de 399€. Le prix varie selon le nombre de pages et la taille de la galerie photos.',
+                        'answer' => 'Le prix d\'un site est variable suivant les besoins (nombre de pages, galerie photos, formulaire de réservation, etc.).',
                     ],
                 ],
             ],
@@ -194,7 +194,7 @@ class ServiceController extends Controller
                 'name' => 'Web Discovery',
                 'description' => $serviceData['description'],
                 'url' => url('/'),
-                'priceRange' => 'À partir de 399€',
+                'priceRange' => 'Sur devis',
                 'areaServed' => [
                     '@type' => 'Country',
                     'name' => 'France',
