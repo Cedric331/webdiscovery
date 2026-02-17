@@ -39,7 +39,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
         <link rel="dns-prefetch" href="https://fonts.bunny.net" />
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600&display=swap" rel="stylesheet" />
-
+        <meta name="facebook-domain-verification" content="05fsscl4fjxue4zzvwo0fp7timx9fd" />
         {{-- Humans.txt for SEO --}}
         <link rel="author" href="/humans.txt" />
 
