@@ -44,7 +44,12 @@
         {{-- Open Graph Meta Tags pour Facebook --}}
         <meta property="og:title" content="{{ config('app.name', 'WebDiscovery') }}" />
         <meta property="og:description" content="WebDiscovery - Agence digitale spécialisée dans la création de sites web et le développement d'applications sur mesure." />
-        <meta property="og:image" content="{{ asset('asset/logo.png') }}" />
+        <meta property="og:image" content="{{ url('asset/logo.png') }}" />
+        <meta property="og:image:secure_url" content="{{ url('asset/logo.png') }}" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="WebDiscovery Logo" />
         <meta property="og:url" content="{{ url()->current() }}" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="{{ config('app.name', 'WebDiscovery') }}" />
@@ -54,7 +59,7 @@
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="{{ config('app.name', 'WebDiscovery') }}" />
         <meta name="twitter:description" content="WebDiscovery - Agence digitale spécialisée dans la création de sites web et le développement d'applications sur mesure." />
-        <meta name="twitter:image" content="{{ asset('asset/logo.png') }}" />
+        <meta name="twitter:image" content="{{ url('asset/logo.png') }}" />
         
         {{-- Humans.txt for SEO --}}
         <link rel="author" href="/humans.txt" />
