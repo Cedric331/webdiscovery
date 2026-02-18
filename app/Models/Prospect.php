@@ -27,6 +27,7 @@ class Prospect extends Model
         'notes',
         'status',
         'prospect_date',
+        'source',
     ];
 
     /**

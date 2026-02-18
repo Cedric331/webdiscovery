@@ -72,6 +72,13 @@ class ProspectForm
                             ])
                             ->required()
                             ->default('in_progress'),
+                        Select::make('source')
+                            ->label('Source')
+                            ->options([
+                                'concours' => 'Concours',
+                                'contact' => 'Contact',
+                            ])
+                            ->nullable(),
                         DatePicker::make('prospect_date')
                             ->label('Date de prospection'),
                     ])

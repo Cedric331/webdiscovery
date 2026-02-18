@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ConcoursController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ServiceController;
@@ -32,6 +33,13 @@ Route::get('/mentions-legales', function () {
 Route::get('/politique-confidentialite', function () {
     return Inertia::render('PolitiqueConfidentialite');
 })->name('politique-confidentialite');
+
+Route::get('/concours', function () {
+    return Inertia::render('Concours');
+})->name('concours');
+
+Route::get('/participation-concours', [ConcoursController::class, 'show'])->name('participation-concours');
+Route::post('/participation-concours', [ConcoursController::class, 'store'])->name('participation-concours.store');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');

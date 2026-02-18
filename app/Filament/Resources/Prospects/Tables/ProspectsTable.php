@@ -41,6 +41,22 @@ class ProspectsTable
                     ->searchable()
                     ->sortable()
                     ->icon('heroicon-o-phone'),
+                TextColumn::make('source')
+                    ->label('Source')
+                    ->badge()
+                    ->color(fn (?string $state): string => match ($state) {
+                        'concours' => 'success',
+                        'contact' => 'info',
+                        default => 'gray',
+                    })
+                    ->formatStateUsing(fn (?string $state): string => match ($state) {
+                        'concours' => 'Concours',
+                        'contact' => 'Contact',
+                        null => 'Non spécifié',
+                        default => $state,
+                    })
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('status')
                     ->label('Statut')
                     ->badge()
@@ -73,6 +89,12 @@ class ProspectsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                SelectFilter::make('source')
+                    ->label('Source')
+                    ->options([
+                        'concours' => 'Concours',
+                        'contact' => 'Contact',
+                    ]),
                 SelectFilter::make('status')
                     ->label('Statut')
                     ->options([

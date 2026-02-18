@@ -303,6 +303,9 @@ const currentUrl = computed(() => {
                             <li>
                                 <Link href="/blog" class="transition-colors hover:text-blue-400">Blog</Link>
                             </li>
+                            <li>
+                                <Link href="/participation-concours" class="transition-colors hover:text-blue-400">Jeu concours</Link>
+                            </li>
                         </ul>
                     </div>
 

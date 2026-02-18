@@ -347,6 +347,9 @@ const excerpt = (content: string, length: number = 150) => {
                             <li>
                                 <Link href="/blog" class="transition-colors hover:text-blue-400">Blog</Link>
                             </li>
+                            <li>
+                                <Link href="/participation-concours" class="transition-colors hover:text-blue-400">Jeu concours</Link>
+                            </li>
                         </ul>
                     </div>
 

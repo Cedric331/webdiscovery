@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources\Prospects\Pages;
 
+use App\Filament\Exports\ProspectExporter;
 use App\Filament\Resources\Prospects\ProspectResource;
 use Filament\Actions\CreateAction;
+use Filament\Actions\ExportAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListProspects extends ListRecords
@@ -14,6 +16,9 @@ class ListProspects extends ListRecords
     {
         return [
             CreateAction::make(),
+            ExportAction::make()
+                ->label('Exporter')
+                ->exporter(ProspectExporter::class),
         ];
     }
 }
