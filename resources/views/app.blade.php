@@ -40,6 +40,22 @@
         <link rel="dns-prefetch" href="https://fonts.bunny.net" />
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600&display=swap" rel="stylesheet" />
         <meta name="facebook-domain-verification" content="05fsscl4fjxue4zzvwo0fp7timx9fd" />
+        
+        {{-- Open Graph Meta Tags pour Facebook --}}
+        <meta property="og:title" content="{{ config('app.name', 'WebDiscovery') }}" />
+        <meta property="og:description" content="WebDiscovery - Agence digitale spécialisée dans la création de sites web et le développement d'applications sur mesure." />
+        <meta property="og:image" content="{{ asset('asset/logo.png') }}" />
+        <meta property="og:url" content="{{ url()->current() }}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="{{ config('app.name', 'WebDiscovery') }}" />
+        <meta property="og:locale" content="fr_FR" />
+        
+        {{-- Twitter Card Meta Tags --}}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="{{ config('app.name', 'WebDiscovery') }}" />
+        <meta name="twitter:description" content="WebDiscovery - Agence digitale spécialisée dans la création de sites web et le développement d'applications sur mesure." />
+        <meta name="twitter:image" content="{{ asset('asset/logo.png') }}" />
+        
         {{-- Humans.txt for SEO --}}
         <link rel="author" href="/humans.txt" />
 
