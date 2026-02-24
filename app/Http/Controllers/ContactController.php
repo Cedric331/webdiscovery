@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
@@ -54,6 +55,15 @@ class ContactController extends Controller
                         ->replyTo($request->email, $request->name);
                 }
             );
+
+            // Log mail
+            Log::info('Email sent to ' . config('mail.from.address') . ' with subject: ' . 'Nouveau message de contact - Web Discovery', [
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'project_type' => $projectType,
+                'message' => $request->message,
+            ]);
 
             return back()->with('success', 'Votre message a été envoyé avec succès. Je vous répondrai dans les plus brefs délais.');
         } catch (\Exception $e) {
