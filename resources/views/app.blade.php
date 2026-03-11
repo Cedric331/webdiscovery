@@ -1,6 +1,49 @@
 <!DOCTYPE html>
 <html lang="fr" @class(['dark' => ($appearance ?? 'system') == 'dark']) itemscope itemtype="https://schema.org/WebSite">
     <head>
+        {{-- Schema.org LocalBusiness JSON-LD pour SEO Local --}}
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "@id": "{{ url('/') }}#organization",
+            "name": "{{ config('app.name', 'WebDiscovery') }}",
+            "description": "Agence digitale spécialisée dans la création de sites web et le développement d'applications sur mesure à Pau.",
+            "url": "{{ url('/') }}",
+            "logo": "{{ url('asset/logo.png') }}",
+            "image": "{{ url('asset/logo.png') }}",
+            "email": "limacedric@hotmail.fr",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Rue jean jaurès, 64000 Pau",
+                "addressLocality": "Pau",
+                "addressRegion": "Pau",
+                "postalCode": "64000",
+                "addressCountry": "FR"
+            },
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 43.2951,
+                "longitude": -0.3708
+            },
+            "areaServed": {
+                "@type": "Country",
+                "name": "Pau"
+            },
+            "priceRange": "$$",
+            "openingHoursSpecification": [
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+                    "opens": "09:00",
+                    "closes": "18:00"
+                }
+            ],
+            "sameAs": [
+                "https://www.facebook.com/profile.php?id=61587226977928",
+            ]
+        }
+        </script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -31,6 +74,17 @@
         </style>
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
+
+        {{-- SEO Meta Tags --}}
+        <meta name="description" content="WebDiscovery - Agence web à Pau spécialisée dans la création de sites web, développement d'applications et solutions digitales sur mesure." />
+        <meta name="keywords" content="agence web Pau, création site web, développement application, webdesign, SEO Pau" />
+        <link rel="canonical" href="{{ url()->current() }}" />
+
+        {{-- Geo Meta Tags pour SEO Local --}}
+        <meta name="geo.region" content="MU" />
+        <meta name="geo.placename" content="Pau" />
+        <meta name="geo.position" content="43.2951;-0.3708" />
+        <meta name="ICBM" content="43.2951, -0.3708" />
 
         <link rel="icon" href="/favicon.ico" sizes="any">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
