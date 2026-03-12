@@ -175,7 +175,7 @@
                         <a class="button primary" href="{{ url('/') }}">
                             Retour a l'accueil
                         </a>
-                        <a class="button ghost" href="mailto:bonjour@web-discovery.fr">
+                        <a class="button ghost" href="mailto:{{ config('mail.from.address') }}">
                             Nous contacter
                         </a>
                     </div>
