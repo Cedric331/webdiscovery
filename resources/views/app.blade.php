@@ -4,7 +4,6 @@
         {{-- Schema.org LocalBusiness JSON-LD pour SEO Local --}}
         <script type="application/ld+json">
         {
-            "@context": "https://schema.org",
             "@type": "LocalBusiness",
             "@id": "{{ url('/') }}#organization",
             "name": "{{ config('app.name', 'WebDiscovery') }}",
@@ -40,7 +39,7 @@
                 }
             ],
             "sameAs": [
-                "https://www.facebook.com/profile.php?id=61587226977928",
+                "https://www.facebook.com/profile.php?id=61587226977928"
             ]
         }
         </script>
