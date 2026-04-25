@@ -35,9 +35,7 @@ const formatDate = (date: string | null) => {
 };
 
 const getImageUrl = (portfolio: Portfolio) => {
-    if (portfolio.image_url) {
-        return portfolio.image_url;
-    }
+    if (portfolio.image_url) return portfolio.image_url;
     return '/images/placeholder.png';
 };
 
@@ -48,24 +46,18 @@ const handleClick = (portfolio: Portfolio) => {
 };
 
 const getTags = (portfolio: Portfolio): string[] => {
-    if (!portfolio.tags) {
-        return [];
-    }
-    // Si c'est déjà un tableau, on le retourne tel quel
+    if (!portfolio.tags) return [];
     if (Array.isArray(portfolio.tags)) {
         return portfolio.tags.filter((tag: string) => tag && tag.trim() !== '');
     }
-    // Si c'est une chaîne, on essaie de la parser
     if (typeof portfolio.tags === 'string') {
         const tagsStr: string = portfolio.tags;
-        // D'abord, on essaie de parser comme JSON
         try {
             const parsed = JSON.parse(tagsStr);
             if (Array.isArray(parsed)) {
                 return parsed.filter((tag: string) => tag && tag.trim() !== '');
             }
         } catch {
-            // Si ce n'est pas du JSON valide, on essaie de séparer par virgule
             return tagsStr.split(',').map((tag: string) => tag.trim()).filter((tag: string) => tag !== '');
         }
     }
@@ -76,251 +68,149 @@ const getTags = (portfolio: Portfolio): string[] => {
 <template>
     <Head>
         <title>Portfolio - Web Discovery</title>
-        <meta
-            name="description"
-            content="Découvrez nos créations : sites web vitrine, applications SaaS et projets de développement web."
-        />
+        <meta name="description" content="Découvrez nos créations : sites web vitrine, applications SaaS et projets de développement web." />
     </Head>
 
-    <div
-        class="min-h-screen bg-slate-950 text-white"
-    >
-        <header
-            class="fixed top-0 right-0 left-0 z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl"
-            role="banner"
-        >
-            <nav
-                class="container mx-auto flex items-center justify-between px-6 py-4"
-            >
-                <Link href="/" class="group flex items-center gap-3">
-                    <img
-                        src="/asset/logo.png"
-                        alt="Logo Web Discovery"
-                        class="h-10 w-auto object-contain"
-                    />
-                    <span class="text-xl font-bold">WEB DISCOVERY</span>
-                </Link>
+    <div class="min-h-screen bg-[#080c14] text-white">
 
-                <!-- Navigation links -->
-                <div class="hidden items-center gap-6 md:flex">
-                    <Link
-                        href="/#technologies"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
-                    >
-                        Technologies
-                    </Link>
-                    <Link
-                        href="/#entreprise"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
-                    >
-                        À propos
-                    </Link>
-                    <Link
-                        href="/#tarifs"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
-                    >
-                        Tarifs
-                    </Link>
-                    <Link
-                        href="/#contact"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
-                    >
-                        Contact
-                    </Link>
-                    <Link
-                        href="/portfolio"
-                        class="rounded-lg px-3 py-2 text-sm font-medium bg-blue-500/10 text-blue-400 transition-colors hover:bg-blue-500/20"
-                    >
-                        Réalisations
-                    </Link>
-                    <Link
-                        href="/blog"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
-                    >
-                        Blog
-                    </Link>
+        <!-- Header -->
+        <header class="fixed top-0 inset-x-0 z-50" role="banner">
+            <div class="mx-auto max-w-7xl px-6">
+                <div class="mt-4 rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-2xl shadow-xl shadow-black/20">
+                    <nav class="flex items-center justify-between px-6 py-3">
+                        <Link href="/" class="flex items-center gap-3 group">
+                            <img src="/asset/logo.png" alt="Logo Web Discovery" class="h-9 w-auto object-contain transition-opacity group-hover:opacity-90" loading="lazy" />
+                            <span class="text-sm font-bold tracking-widest text-white/80 uppercase">Web Discovery</span>
+                        </Link>
+
+                        <div class="hidden md:flex items-center gap-1">
+                            <Link href="/#technologies" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">Technologies</Link>
+                            <Link href="/#entreprise" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">À propos</Link>
+                            <Link href="/#tarifs" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">Tarifs</Link>
+                            <Link href="/#contact" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">Contact</Link>
+                            <div class="mx-3 h-5 w-px bg-white/10"></div>
+                            <Link href="/portfolio" class="relative px-4 py-2 text-sm font-medium text-white rounded-xl">
+                                <span class="absolute inset-0 rounded-xl bg-white/[0.08]"></span>
+                                <span class="relative">Réalisations</span>
+                            </Link>
+                            <Link href="/blog" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">Blog</Link>
+                            <Link href="/#contact" class="ml-2 px-5 py-2 text-sm font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40">
+                                Démarrer →
+                            </Link>
+                        </div>
+                    </nav>
                 </div>
-            </nav>
+            </div>
         </header>
 
-        <main class="px-6 pt-32 pb-20">
-            <div class="container mx-auto max-w-7xl">
-                <div class="mb-16 text-center">
-                    <div class="mb-6 inline-block rounded-full bg-blue-500/10 px-4 py-2 text-sm font-semibold text-blue-400">
-                        Nos Créations
-                    </div>
-                    <h1
-                        class="mb-6 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-5xl font-black leading-tight text-transparent drop-shadow-lg md:text-6xl lg:text-7xl"
-                    >
-                        Portfolio
-                    </h1>
-                    <p class="mx-auto max-w-2xl text-xl leading-relaxed text-slate-300">
-                        Découvrez nos réalisations : sites web vitrine, applications SaaS et projets de développement web
-                    </p>
-                </div>
+        <!-- Hero -->
+        <div class="relative pt-40 pb-16 px-6 text-center overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(99,102,241,0.12),transparent)]"></div>
+            <div class="relative z-10 space-y-4">
+                <span class="inline-block px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] text-xs font-medium text-white/50 uppercase tracking-widest">
+                    Nos créations
+                </span>
+                <h1 class="text-5xl sm:text-6xl font-black text-white">
+                    Port<span class="gradient-text">folio</span>
+                </h1>
+                <p class="mx-auto max-w-xl text-white/45 text-lg">
+                    Sites web vitrine, applications SaaS et projets de développement web sur mesure.
+                </p>
+            </div>
+        </div>
 
-                <div
-                    v-if="portfolios.data.length === 0"
-                    class="rounded-2xl border border-slate-700/50 bg-slate-800/30 p-12 text-center"
-                >
-                    <svg
-                        class="mx-auto mb-4 h-16 w-16 text-slate-500"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                        />
+        <!-- Content -->
+        <main class="px-6 pb-24">
+            <div class="mx-auto max-w-7xl">
+
+                <!-- Empty state -->
+                <div v-if="portfolios.data.length === 0" class="mx-auto max-w-md text-center rounded-3xl border border-white/[0.06] bg-white/[0.02] p-16">
+                    <svg class="mx-auto mb-4 h-12 w-12 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
-                    <p class="text-xl font-medium text-slate-400">
-                        Aucune création disponible pour le moment.
-                    </p>
-                    <p class="mt-2 text-sm text-slate-500">
-                        Revenez bientôt pour découvrir nos nouvelles créations !
-                    </p>
+                    <p class="font-medium text-white/50">Aucune création disponible pour le moment.</p>
+                    <p class="mt-1 text-sm text-white/25">Revenez bientôt !</p>
                 </div>
 
-                <div
-                    v-else
-                    class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-                >
+                <!-- Grid -->
+                <div v-else class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     <article
                         v-for="portfolio in portfolios.data"
                         :key="portfolio.id"
-                        class="group relative flex flex-col transform overflow-hidden rounded-2xl border border-slate-700/50 bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm transition-all duration-300 hover:scale-[1] hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 cursor-pointer"
+                        class="group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-indigo-500/30 hover:bg-white/[0.04] transition-all duration-300 cursor-pointer"
+                        :class="{ 'hover:-translate-y-1': !!portfolio.url }"
                         @click="handleClick(portfolio)"
                     >
-                        <div class="flex flex-col h-full">
-                            <div class="relative h-56 overflow-hidden flex-shrink-0">
-                                <img
-                                    :src="getImageUrl(portfolio)"
-                                    :alt="portfolio.title"
-                                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                />
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent"
-                                ></div>
-                            </div>
-                            <div class="flex flex-col flex-grow p-6">
-                                <h2
-                                    class="mb-4 text-2xl font-bold leading-tight text-white transition-colors duration-300 group-hover:text-blue-400"
-                                >
-                                    {{ portfolio.title }}
-                                </h2>
-                                <p
-                                    class="mb-4 text-sm leading-relaxed text-slate-300 line-clamp-3 flex-grow"
-                                >
-                                    {{ portfolio.description }}
-                                </p>
-                                
-                                <!-- Tags -->
-                                <div
-                                    v-if="getTags(portfolio).length > 0"
-                                    class="mb-4 flex flex-wrap gap-2"
-                                >
-                                    <span
-                                        v-for="tag in getTags(portfolio)"
-                                        :key="tag"
-                                        class="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-300"
-                                    >
-                                        {{ tag }}
-                                    </span>
-                                </div>
+                        <!-- Image -->
+                        <div class="relative h-52 overflow-hidden flex-shrink-0">
+                            <img
+                                :src="getImageUrl(portfolio)"
+                                :alt="portfolio.title"
+                                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#080c14] via-[#080c14]/30 to-transparent"></div>
+                        </div>
 
-                                <div
-                                    v-if="portfolio.url"
-                                    class="mt-auto inline-flex items-center gap-2 font-semibold text-blue-400 transition-all duration-300 group-hover:gap-3 group-hover:text-blue-300"
-                                >
-                                    Voir le projet
-                                    <svg
-                                        class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                        />
-                                    </svg>
-                                </div>
+                        <!-- Body -->
+                        <div class="flex flex-col flex-grow p-6">
+                            <h2 class="mb-2 text-lg font-bold text-white group-hover:text-indigo-300 transition-colors leading-snug">
+                                {{ portfolio.title }}
+                            </h2>
+                            <p class="mb-4 text-sm text-white/45 leading-relaxed line-clamp-3 flex-grow">
+                                {{ portfolio.description }}
+                            </p>
+
+                            <!-- Tags -->
+                            <div v-if="getTags(portfolio).length > 0" class="mb-4 flex flex-wrap gap-1.5">
+                                <span v-for="tag in getTags(portfolio)" :key="tag"
+                                    class="px-2.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-medium text-indigo-300">
+                                    {{ tag }}
+                                </span>
+                            </div>
+
+                            <div v-if="portfolio.url" class="mt-auto flex items-center gap-1.5 text-sm font-semibold text-indigo-400 group-hover:text-indigo-300 transition-colors">
+                                Voir le projet
+                                <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
                             </div>
                         </div>
                     </article>
                 </div>
 
                 <!-- Pagination -->
-                <div
-                    v-if="portfolios.last_page > 1"
-                    class="mt-16 flex flex-wrap items-center justify-center gap-4"
-                >
+                <div v-if="portfolios.last_page > 1" class="mt-16 flex flex-wrap items-center justify-center gap-3">
                     <Link
                         v-if="portfolios.current_page > 1"
                         :href="`/portfolio?page=${portfolios.current_page - 1}`"
-                        class="group flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800/50 px-6 py-3 text-slate-300 transition-all hover:border-blue-500/50 hover:bg-slate-800 hover:text-white"
+                        class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-sm text-white/60 hover:text-white hover:bg-white/[0.06] transition-all"
                     >
-                        <svg
-                            class="h-4 w-4 transition-transform group-hover:-translate-x-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M15 19l-7-7 7-7"
-                            />
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
                         Précédent
                     </Link>
 
-                    <div class="flex items-center gap-2">
-                        <span
-                            v-for="page in portfolios.last_page"
-                            :key="page"
-                            class="rounded-lg px-4 py-2 text-sm font-medium transition-colors"
-                            :class="
-                                page === portfolios.current_page
-                                    ? 'bg-blue-500 text-white'
-                                    : 'text-slate-400 hover:bg-slate-800 hover:text-white'
-                            "
-                        >
-                            <Link
-                                v-if="page !== portfolios.current_page"
-                                :href="`/portfolio?page=${page}`"
-                                class="block"
-                            >
+                    <div class="flex items-center gap-1">
+                        <template v-for="page in portfolios.last_page" :key="page">
+                            <Link v-if="page !== portfolios.current_page" :href="`/portfolio?page=${page}`"
+                                class="h-9 w-9 rounded-lg text-sm font-medium text-white/40 hover:text-white hover:bg-white/[0.06] transition-all flex items-center justify-center">
                                 {{ page }}
                             </Link>
-                            <span v-else>{{ page }}</span>
-                        </span>
+                            <span v-else class="h-9 w-9 rounded-lg text-sm font-medium text-white bg-indigo-600 flex items-center justify-center">
+                                {{ page }}
+                            </span>
+                        </template>
                     </div>
 
                     <Link
                         v-if="portfolios.current_page < portfolios.last_page"
                         :href="`/portfolio?page=${portfolios.current_page + 1}`"
-                        class="group flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800/50 px-6 py-3 text-slate-300 transition-all hover:border-blue-500/50 hover:bg-slate-800 hover:text-white"
+                        class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-sm text-white/60 hover:text-white hover:bg-white/[0.06] transition-all"
                     >
                         Suivant
-                        <svg
-                            class="h-4 w-4 transition-transform group-hover:translate-x-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M9 5l7 7-7 7"
-                            />
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </Link>
                 </div>
@@ -328,81 +218,43 @@ const getTags = (portfolio: Portfolio): string[] => {
         </main>
 
         <!-- Footer -->
-        <footer
-            class="border-t border-slate-800 bg-slate-950 px-6 py-12"
-            role="contentinfo"
-        >
-            <div class="container mx-auto max-w-7xl">
-                <div class="mb-8 grid gap-8 md:grid-cols-3">
-                    <!-- Informations entreprise -->
-                    <div>
-                        <div class="mb-4 flex items-center gap-3">
-                            <img
-                                src="/asset/logo.png"
-                                alt="Logo Web Discovery"
-                                class="h-10 w-auto object-contain"
-                            />
-                            <span class="text-lg font-bold">WEB DISCOVERY</span>
+        <footer class="border-t border-white/[0.06] bg-white/[0.01] px-6 py-16" role="contentinfo">
+            <div class="mx-auto max-w-7xl">
+                <div class="grid gap-10 md:grid-cols-3 mb-12">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <img src="/asset/logo.png" alt="Logo Web Discovery" class="h-9 w-auto object-contain opacity-80" loading="lazy" />
+                            <span class="font-bold text-white/80 tracking-wider text-sm uppercase">Web Discovery</span>
                         </div>
-                        <p class="mb-4 text-sm text-slate-400">
-                            Création de sites web vitrine et applications SaaS sur mesure
+                        <p class="text-sm text-white/35 leading-relaxed max-w-xs">
+                            Création de sites web vitrine et applications SaaS sur mesure avec Laravel &amp; Vue.js.
                         </p>
                     </div>
 
-                    <!-- Liens rapides -->
                     <div>
-                        <h3 class="mb-4 text-sm font-semibold text-white">Liens rapides</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
-                            <li>
-                                <Link href="/#technologies" class="transition-colors hover:text-blue-400">Technologies</Link>
-                            </li>
-                            <li>
-                                <Link href="/#entreprise" class="transition-colors hover:text-blue-400">À propos</Link>
-                            </li>
-                            <li>
-                                <Link href="/#tarifs" class="transition-colors hover:text-blue-400">Tarifs</Link>
-                            </li>
-                            <li>
-                                <Link href="/#contact" class="transition-colors hover:text-blue-400">Contact</Link>
-                            </li>
-                            <li>
-                                <Link href="/portfolio" class="transition-colors hover:text-blue-400">Portfolio</Link>
-                            </li>
-                            <li>
-                                <Link href="/blog" class="transition-colors hover:text-blue-400">Blog</Link>
-                            </li>
-                            <li>
-                                <Link href="/participation-concours" class="transition-colors hover:text-blue-400">Jeu concours</Link>
-                            </li>
+                        <h3 class="mb-4 text-xs font-semibold text-white/40 uppercase tracking-widest">Navigation</h3>
+                        <ul class="space-y-2.5 text-sm">
+                            <li><Link href="/#technologies" class="text-white/40 hover:text-white/80 transition-colors">Technologies</Link></li>
+                            <li><Link href="/#entreprise" class="text-white/40 hover:text-white/80 transition-colors">À propos</Link></li>
+                            <li><Link href="/#tarifs" class="text-white/40 hover:text-white/80 transition-colors">Tarifs</Link></li>
+                            <li><Link href="/#contact" class="text-white/40 hover:text-white/80 transition-colors">Contact</Link></li>
+                            <li><Link href="/portfolio" class="text-white/40 hover:text-white/80 transition-colors">Réalisations</Link></li>
+                            <li><Link href="/blog" class="text-white/40 hover:text-white/80 transition-colors">Blog</Link></li>
                         </ul>
                     </div>
 
-                    <!-- Légales -->
                     <div>
-                        <h3 class="mb-4 text-sm font-semibold text-white">Informations légales</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
-                            <li>
-                                <Link
-                                    href="/mentions-legales"
-                                    class="transition-colors hover:text-blue-400"
-                                    >Mentions légales</Link
-                                >
-                            </li>
-                            <li>
-                                <Link
-                                    href="/politique-confidentialite"
-                                    class="transition-colors hover:text-blue-400"
-                                    >Politique de confidentialité</Link
-                                >
-                            </li>
+                        <h3 class="mb-4 text-xs font-semibold text-white/40 uppercase tracking-widest">Légal</h3>
+                        <ul class="space-y-2.5 text-sm">
+                            <li><Link href="/mentions-legales" class="text-white/40 hover:text-white/80 transition-colors">Mentions légales</Link></li>
+                            <li><Link href="/politique-confidentialite" class="text-white/40 hover:text-white/80 transition-colors">Politique de confidentialité</Link></li>
                         </ul>
                     </div>
                 </div>
-                <div class="border-t border-slate-800 pt-6">
-                    <p class="text-center text-sm text-slate-500">
-                        © {{ new Date().getFullYear() }} Web Discovery. Tous droits
-                        réservés.
-                    </p>
+
+                <div class="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <p class="text-xs text-white/25">© {{ new Date().getFullYear() }} Web Discovery. Tous droits réservés.</p>
+                    <span class="text-xs text-indigo-400/50">Laravel · Vue.js · InertiaJS</span>
                 </div>
             </div>
         </footer>
@@ -410,6 +262,13 @@ const getTags = (portfolio: Portfolio): string[] => {
 </template>
 
 <style scoped>
+.gradient-text {
+    background: linear-gradient(135deg, #818cf8 0%, #6366f1 40%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .line-clamp-3 {
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -417,4 +276,3 @@ const getTags = (portfolio: Portfolio): string[] => {
     overflow: hidden;
 }
 </style>
-
