@@ -63,7 +63,7 @@ import { Head, Link } from '@inertiajs/vue3';
                                 <strong class="text-white">Web Discovery</strong
                                 ><br />
                                 Développement Web & SaaS<br />
-                                <!-- Remplacez par vos coordonnées réelles -->
+                                SIRET : 84396946000016
                                 Email : limacedric@hotmail.fr
                             </p>
                         </section>
@@ -74,7 +74,6 @@ import { Head, Link } from '@inertiajs/vue3';
                             </h2>
                             <p>
                                 Le site est hébergé par :<br />
-                                <!-- Remplacez par les informations de votre hébergeur -->
                                 OVH SAS<br />
                                 2, rue Kellermann, 59100 Roubaix<br />
                             </p>
