@@ -252,7 +252,6 @@ onMounted(() => {
 
     <div class="min-h-screen bg-[#080c14] text-white" itemscope itemtype="https://schema.org/WebSite">
 
-        <!-- ── HEADER ─────────────────────────────────────────── -->
         <header class="fixed top-0 inset-x-0 z-50" role="banner">
             <div class="mx-auto max-w-7xl px-6">
                 <div class="mt-4 rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-2xl shadow-xl shadow-black/20">
@@ -262,7 +261,6 @@ onMounted(() => {
                             <span class="text-sm font-bold tracking-widest text-white/80 uppercase">Web Discovery</span>
                         </Link>
 
-                        <!-- Desktop nav -->
                         <div class="hidden md:flex items-center gap-1">
                             <button v-for="link in navLinks" :key="link.id" @click="scrollToSection(link.id)" type="button"
                                 :class="['relative px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200',
@@ -286,7 +284,6 @@ onMounted(() => {
                             </button>
                         </div>
 
-                        <!-- Mobile burger -->
                         <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="md:hidden p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/[0.06] transition-colors" aria-label="Menu">
                             <svg v-if="!mobileMenuOpen" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -297,7 +294,6 @@ onMounted(() => {
                         </button>
                     </nav>
 
-                    <!-- Mobile menu -->
                     <transition enter-active-class="transition duration-150 ease-out" enter-from-class="opacity-0 -translate-y-2" enter-to-class="opacity-100 translate-y-0" leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 -translate-y-2">
                         <div v-if="mobileMenuOpen" class="md:hidden border-t border-white/[0.06] px-4 py-4 space-y-1">
                             <button v-for="link in navLinks" :key="link.id" @click="scrollToSection(link.id)" type="button"
@@ -311,7 +307,6 @@ onMounted(() => {
                 </div>
             </div>
 
-            <!-- Hidden auth links -->
             <div class="hidden">
                 <Link v-if="$page.props.auth?.user" :href="dashboard()">Dashboard</Link>
                 <template v-else>
@@ -321,9 +316,7 @@ onMounted(() => {
             </div>
         </header>
 
-        <!-- ── HERO ───────────────────────────────────────────── -->
         <main id="hero" class="relative min-h-screen flex flex-col items-center justify-center px-6 pt-40 pb-24 overflow-hidden" role="main">
-            <!-- Background -->
             <div class="absolute inset-0 pointer-events-none">
                 <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(99,102,241,0.15),transparent)]"></div>
                 <div class="hero-grid absolute inset-0 opacity-[0.03]"></div>
@@ -333,13 +326,11 @@ onMounted(() => {
             </div>
 
             <div class="relative z-10 max-w-5xl mx-auto text-center space-y-8">
-                <!-- Badge -->
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-sm text-indigo-300 font-medium reveal">
                     <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
                     Développement web sur mesure · Laravel & Vue.js
                 </div>
 
-                <!-- Headline -->
                 <div class="reveal space-y-3">
                     <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black leading-[1.0] tracking-tight">
                         <span class="block text-white">Votre site web</span>
@@ -347,14 +338,12 @@ onMounted(() => {
                     </h1>
                 </div>
 
-                <!-- Subheadline -->
                 <p class="reveal mx-auto max-w-2xl text-lg sm:text-xl text-white/50 leading-relaxed">
                     De la <strong class="text-white/80 font-semibold">page vitrine</strong> à l'application
                     <strong class="text-white/80 font-semibold">SaaS complexe</strong> — nous concevons des solutions web modernes,
                     performantes et optimisées pour le référencement naturel.
                 </p>
 
-                <!-- CTAs -->
                 <div class="reveal flex flex-wrap gap-4 justify-center">
                     <a href="#contact" class="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all duration-200 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
                         Démarrer un projet
@@ -367,7 +356,6 @@ onMounted(() => {
                     </a>
                 </div>
 
-                <!-- Stats row -->
                 <div class="reveal pt-6 grid grid-cols-3 gap-6 max-w-lg mx-auto">
                     <div class="text-center">
                         <div class="text-2xl font-black text-white">100%</div>
@@ -384,14 +372,8 @@ onMounted(() => {
                 </div>
             </div>
 
-            <!-- Scroll indicator -->
-            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/20">
-                <span class="text-xs tracking-widest uppercase">Scroll</span>
-                <div class="w-px h-8 bg-gradient-to-b from-white/20 to-transparent animate-pulse"></div>
-            </div>
         </main>
 
-        <!-- ── TECHNOLOGIES ───────────────────────────────────── -->
         <section id="technologies" class="px-6 py-24" itemscope itemtype="https://schema.org/Service">
             <div class="mx-auto max-w-7xl">
                 <div class="reveal mb-16 text-center space-y-4">
@@ -416,7 +398,6 @@ onMounted(() => {
                     </div>
                 </div>
 
-                <!-- Why section -->
                 <div class="reveal mt-16 p-8 md:p-12 rounded-3xl border border-white/[0.06] bg-gradient-to-br from-indigo-500/[0.05] to-transparent">
                     <h3 class="mb-8 text-xl font-bold text-white">Pourquoi ces technologies ?</h3>
                     <div class="grid sm:grid-cols-2 gap-6">
@@ -441,7 +422,6 @@ onMounted(() => {
             </div>
         </section>
 
-        <!-- ── À PROPOS ───────────────────────────────────────── -->
         <section id="entreprise" class="px-6 py-24 border-t border-white/[0.04]" itemscope itemtype="https://schema.org/Organization">
             <div class="mx-auto max-w-6xl">
                 <div class="reveal mb-16 text-center space-y-4">
@@ -450,7 +430,6 @@ onMounted(() => {
                 </div>
 
                 <div class="grid lg:grid-cols-2 gap-8 items-start">
-                    <!-- Left: description -->
                     <div class="reveal space-y-5 text-white/55 leading-relaxed">
                         <p>
                             <strong class="text-white font-semibold">Web Discovery</strong> est spécialisé dans la
@@ -467,7 +446,6 @@ onMounted(() => {
                         </p>
                     </div>
 
-                    <!-- Right: key points -->
                     <div class="reveal grid gap-4">
                         <div v-for="(point, i) in [
                             { icon: '🎯', title: 'Approche sur mesure', desc: 'Chaque projet est unique. Nous adaptons notre méthodologie à vos besoins spécifiques.' },
@@ -486,7 +464,6 @@ onMounted(() => {
             </div>
         </section>
 
-        <!-- ── TARIFS ─────────────────────────────────────────── -->
         <section id="tarifs" class="px-6 py-24 border-t border-white/[0.04]" itemscope itemtype="https://schema.org/PriceSpecification">
             <div class="mx-auto max-w-6xl">
                 <div class="reveal mb-16 text-center space-y-4">
@@ -496,7 +473,6 @@ onMounted(() => {
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                    <!-- Vitrine -->
                     <div class="reveal group relative rounded-3xl border border-white/[0.08] bg-white/[0.02] p-8 hover:border-white/20 transition-all duration-300 hover:-translate-y-1">
                         <div class="mb-6">
                             <div class="text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">Site Vitrine</div>
@@ -523,7 +499,6 @@ onMounted(() => {
                         </a>
                     </div>
 
-                    <!-- SaaS -->
                     <div class="reveal group relative rounded-3xl border border-indigo-500/30 bg-gradient-to-br from-indigo-500/10 via-transparent to-transparent p-8 hover:border-indigo-400/50 transition-all duration-300 hover:-translate-y-1">
                         <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-xs font-semibold text-indigo-300">
                             Sur mesure
@@ -561,7 +536,6 @@ onMounted(() => {
             </div>
         </section>
 
-        <!-- ── AIDES & SUBVENTIONS ────────────────────────────── -->
         <section id="aides" class="px-6 py-24 border-t border-white/[0.04]">
             <div class="mx-auto max-w-6xl">
                 <div class="reveal mb-16 text-center space-y-4">
@@ -571,7 +545,6 @@ onMounted(() => {
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                    <!-- France Num -->
                     <div class="reveal group relative rounded-3xl border border-white/[0.08] bg-white/[0.02] p-8 hover:border-emerald-500/30 transition-all duration-300 hover:-translate-y-1">
                         <div class="mb-6">
                             <div class="text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">Subvention État</div>
@@ -602,7 +575,6 @@ onMounted(() => {
                         </a>
                     </div>
 
-                    <!-- Régional -->
                     <div class="reveal group relative rounded-3xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/8 via-transparent to-transparent p-8 hover:border-emerald-400/40 transition-all duration-300 hover:-translate-y-1">
                         <div class="mb-6">
                             <div class="text-xs font-semibold text-emerald-400/70 uppercase tracking-widest mb-2">Aide régionale</div>
@@ -637,7 +609,6 @@ onMounted(() => {
             </div>
         </section>
 
-        <!-- ── CONTACT ────────────────────────────────────────── -->
         <section id="contact" class="px-6 py-24 border-t border-white/[0.04]">
             <div class="mx-auto max-w-6xl">
                 <div class="reveal mb-16 text-center space-y-4">
@@ -647,7 +618,6 @@ onMounted(() => {
                 </div>
 
                 <div class="grid lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
-                    <!-- Left info panel -->
                     <div class="reveal lg:col-span-2 space-y-6">
                         <div class="space-y-4">
                             <div v-for="(info, i) in [
@@ -670,11 +640,9 @@ onMounted(() => {
                         </div>
                     </div>
 
-                    <!-- Form -->
                     <div class="reveal lg:col-span-3">
                         <div class="rounded-3xl border border-white/[0.08] bg-white/[0.02] p-8">
                             <form @submit.prevent="submit" class="space-y-5">
-                                <!-- Flash messages -->
                                 <transition enter-active-class="transition ease-out duration-300" enter-from-class="opacity-0 -translate-y-1" enter-to-class="opacity-100 translate-y-0">
                                     <div v-if="$page.props.flash?.success" class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
                                         {{ $page.props.flash.success }}
@@ -757,7 +725,6 @@ onMounted(() => {
             </div>
         </section>
 
-        <!-- ── FOOTER ─────────────────────────────────────────── -->
         <footer class="border-t border-white/[0.06] bg-white/[0.01] px-6 py-16" role="contentinfo">
             <div class="mx-auto max-w-7xl">
                 <div class="grid gap-10 md:grid-cols-3 mb-12">
@@ -804,10 +771,8 @@ onMounted(() => {
             </div>
         </footer>
 
-        <!-- RGPD Banner -->
         <GdprBanner />
 
-        <!-- Scroll to Top -->
         <transition
             enter-active-class="transition ease-out duration-300"
             enter-from-class="opacity-0 scale-75 translate-y-4"
