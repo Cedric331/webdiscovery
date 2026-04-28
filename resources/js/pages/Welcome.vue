@@ -257,7 +257,7 @@ onMounted(() => {
                 <div class="mt-4 rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-2xl shadow-xl shadow-black/20">
                     <nav class="flex items-center justify-between px-6 py-3">
                         <Link href="/" class="flex items-center gap-3 group">
-                            <img src="/asset/logo.png" alt="Logo Web Discovery" class="h-9 w-auto object-contain transition-opacity group-hover:opacity-90" loading="lazy" />
+                            <img src="/asset/logo-2.png" alt="Logo Web Discovery" class="h-9 w-auto object-contain transition-opacity group-hover:opacity-90" loading="lazy" />
                             <span class="text-sm font-bold tracking-widest text-white/80 uppercase">Web Discovery</span>
                         </Link>
 
@@ -730,7 +730,7 @@ onMounted(() => {
                 <div class="grid gap-10 md:grid-cols-3 mb-12">
                     <div class="space-y-4">
                         <div class="flex items-center gap-3">
-                            <img src="/asset/logo.png" alt="Logo Web Discovery" class="h-9 w-auto object-contain opacity-80" loading="lazy" />
+                            <img src="/asset/logo-2.png" alt="Logo Web Discovery" class="h-9 w-auto object-contain opacity-80" loading="lazy" />
                             <span class="font-bold text-white/80 tracking-wider text-sm uppercase">Web Discovery</span>
                         </div>
                         <p class="text-sm text-white/35 leading-relaxed max-w-xs">
