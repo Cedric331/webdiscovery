@@ -15,9 +15,32 @@ onMounted(() => {
     }
 });
 
+const grantConsent = () => {
+    if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', {
+            analytics_storage:  'granted',
+            ad_storage:         'granted',
+            ad_user_data:       'granted',
+            ad_personalization: 'granted',
+        });
+    }
+};
+
+const denyConsent = () => {
+    if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', {
+            analytics_storage:  'denied',
+            ad_storage:         'denied',
+            ad_user_data:       'denied',
+            ad_personalization: 'denied',
+        });
+    }
+};
+
 const acceptCookies = () => {
     localStorage.setItem('gdpr-consent', 'accepted');
     localStorage.setItem('gdpr-consent-date', new Date().toISOString());
+    grantConsent();
     showBanner.value = false;
     accepted.value = true;
 };
@@ -25,6 +48,7 @@ const acceptCookies = () => {
 const rejectCookies = () => {
     localStorage.setItem('gdpr-consent', 'rejected');
     localStorage.setItem('gdpr-consent-date', new Date().toISOString());
+    denyConsent();
     showBanner.value = false;
     accepted.value = false;
 };

@@ -91,7 +91,8 @@
 
         <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
         <link rel="dns-prefetch" href="https://fonts.bunny.net" />
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="preload" href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600&display=swap" /></noscript>
         <meta name="facebook-domain-verification" content="05fsscl4fjxue4zzvwo0fp7timx9fd" />
         
         {{-- Open Graph Meta Tags pour Facebook --}}
@@ -121,14 +122,37 @@
         @inertiaHead
     </head>
 
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D155MPD2S7"></script>
+    <!-- Google Consent Mode v2 — defaults MUST be set before gtag.js loads -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
+  gtag('consent', 'default', {
+    analytics_storage:   'denied',
+    ad_storage:          'denied',
+    ad_user_data:        'denied',
+    ad_personalization:  'denied',
+    wait_for_update:     500
+  });
+</script>
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D155MPD2S7"></script>
+<script>
+  gtag('js', new Date());
   gtag('config', 'G-D155MPD2S7');
+
+  // Restore consent if the user has already accepted on a previous visit
+  try {
+    if (localStorage.getItem('gdpr-consent') === 'accepted') {
+      gtag('consent', 'update', {
+        analytics_storage:  'granted',
+        ad_storage:         'granted',
+        ad_user_data:       'granted',
+        ad_personalization: 'granted'
+      });
+    }
+  } catch (e) {}
 </script>
 
     <body class="font-sans antialiased">
