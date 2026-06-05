@@ -126,7 +126,7 @@ const faqItems = ref([
     },
     {
         q: "Combien de temps prend la création d'un site web ?",
-        a: "Un site vitrine est généralement livré en 2 à 4 semaines. Une application sur mesure peut prendre 1 à 3 mois selon la complexité. Nous établissons un planning précis dès le devis.",
+        a: "Un site vitrine est généralement livré en 1 à 2 semaines. Une application sur mesure peut prendre 1 à 3 mois selon la complexité. Nous établissons un planning précis dès le devis.",
         open: false,
     },
     {
