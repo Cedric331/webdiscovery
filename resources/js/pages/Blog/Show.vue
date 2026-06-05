@@ -39,28 +39,55 @@ const formatDate = (date: string | null) => {
 };
 
 const getImageUrl = () => {
-    // Utiliser l'accessor image_url du modèle Article
     if (props.article.image_url) {
         return props.article.image_url;
     }
     return '/images/placeholder.png';
 };
 
-// Pour les liens de partage
 const currentUrl = computed(() => {
     if (typeof window !== 'undefined') {
         return window.location.href;
     }
     return '';
 });
+
+const excerpt = computed(() => props.article.content.replace(/<[^>]*>/g, '').substring(0, 160));
+
+const blogPostingSchema = computed(() => ({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: props.article.title,
+    description: excerpt.value,
+    image: props.article.image_url ?? undefined,
+    datePublished: props.article.published_at ?? props.article.created_at,
+    dateModified: props.article.updated_at,
+    author: {
+        '@type': 'Organization',
+        name: 'Web Discovery',
+    },
+    publisher: {
+        '@type': 'Organization',
+        name: 'Web Discovery',
+        logo: {
+            '@type': 'ImageObject',
+            url: '/asset/logo.png',
+        },
+    },
+    mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': typeof window !== 'undefined' ? window.location.href : '',
+    },
+}));
 </script>
 
 <template>
     <SEO
         :title="article.title"
-        :description="article.content.replace(/<[^>]*>/g, '').substring(0, 160)"
+        :description="excerpt"
         :canonical="`/blog/${article.slug}`"
         :og-image="getImageUrl()"
+        :structured-data="blogPostingSchema"
     />
 
     <div

@@ -5,6 +5,15 @@ import { dashboard, login, register } from '@/routes';
 import { Link, useForm } from '@inertiajs/vue3';
 import { onMounted, onUnmounted, ref } from 'vue';
 
+interface FeaturedPortfolio {
+    id: number;
+    title: string;
+    description: string;
+    url: string | null;
+    tags: string[] | null;
+    image_url: string | null;
+}
+
 withDefaults(
     defineProps<{
         canRegister: boolean;
@@ -12,9 +21,11 @@ withDefaults(
             success?: string;
             error?: string;
         };
+        featuredPortfolios?: FeaturedPortfolio[];
     }>(),
     {
         canRegister: true,
+        featuredPortfolios: () => [],
     },
 );
 
@@ -35,48 +46,130 @@ const submit = () => {
     });
 };
 
-const technologies = [
+const serviceCards = [
     {
-        name: 'Laravel',
-        description: 'Framework PHP robuste pour applications web complexes',
-        icon: '🚀',
+        icon: '🖥️',
+        title: 'Site Vitrine',
+        description:
+            'La présence en ligne idéale pour les artisans, commerçants et indépendants. Un site professionnel qui inspire confiance et génère des contacts.',
+        features: ['Design moderne & responsive', 'SEO natif inclus', 'Formulaire de contact', 'Mise en ligne incluse'],
+        highlighted: false,
+        cta: 'Demander un devis',
     },
     {
-        name: 'Vue.js',
-        description: 'Interface utilisateur réactive et performante',
-        icon: '⚡',
+        icon: '🛒',
+        title: 'Site E-commerce',
+        description:
+            "Vendez vos produits ou services en ligne 24h/24 avec une boutique sécurisée, simple à gérer et optimisée pour les conversions.",
+        features: ['Catalogue produits', 'Paiement en ligne sécurisé', 'Gestion des commandes', "Interface d'administration"],
+        highlighted: false,
+        cta: 'Demander un devis',
     },
     {
-        name: 'Tailwind CSS',
-        description: 'Design moderne et responsive en un temps record',
-        icon: '🎨',
-    },
-    {
-        name: 'API RESTful',
-        description: 'Intégrations et communication entre systèmes',
-        icon: '🔌',
-    },
-    {
-        name: 'Intelligence Artificielle',
-        description: 'Solutions intelligentes et automatisées',
-        icon: '🤖',
-    },
-    {
-        name: 'GIT',
-        description: 'Versioning et collaboration efficace',
-        icon: '📦',
-    },
-    { name: 'PHP', description: 'Backend puissant et sécurisé', icon: '💻' },
-    {
-        name: 'Livewire',
-        description: 'Interactivité sans JavaScript complexe',
         icon: '⚙️',
+        title: 'Application SaaS',
+        description:
+            'Transformez votre idée en solution digitale complète. Idéal pour les startups, agences et entreprises qui souhaitent digitaliser leurs processus.',
+        features: ['Authentification & rôles', 'API RESTful sécurisée', "Dashboard d'administration", 'Architecture évolutive'],
+        highlighted: true,
+        cta: 'Discutons de votre projet',
     },
     {
-        name: 'InertiaJS',
-        description: 'Applications SPA sans complexité API',
         icon: '🔄',
+        title: 'Refonte de Site',
+        description:
+            "Votre site existant est daté ou peu performant ? On le modernise entièrement pour améliorer l'expérience utilisateur et le référencement.",
+        features: ["Audit de l'existant", 'Nouveau design', 'Migration des données', 'Amélioration SEO'],
+        highlighted: false,
+        cta: "Demander un audit gratuit",
     },
+];
+
+const processSteps = [
+    {
+        num: '01',
+        icon: '☕',
+        title: 'Premier échange',
+        desc: "On discute de votre projet, vos besoins et vos objectifs lors d'un appel ou d'un échange par email. Totalement gratuit, sans engagement.",
+    },
+    {
+        num: '02',
+        icon: '📋',
+        title: 'Devis personnalisé',
+        desc: 'Vous recevez une proposition détaillée : périmètre exact, délais et budget. Envoyée sous 48h, gratuite et sans engagement.',
+    },
+    {
+        num: '03',
+        icon: '🎨',
+        title: 'Design & Maquettes',
+        desc: "On conçoit le design de votre site et vous le soumettons pour validation. Aucune ligne de code n'est écrite avant votre accord.",
+    },
+    {
+        num: '04',
+        icon: '💻',
+        title: 'Développement',
+        desc: "Votre site est développé avec les meilleures technologies, avec des points d'étape réguliers pour intégrer vos retours.",
+    },
+    {
+        num: '05',
+        icon: '🚀',
+        title: 'Livraison & Suivi',
+        desc: 'Mise en production après votre validation finale, formation à la prise en main de votre site et support post-livraison inclus.',
+    },
+];
+
+const faqItems = ref([
+    {
+        q: "Combien coûte la création d'un site web vitrine ?",
+        a: "Le tarif dépend de la complexité du projet et des fonctionnalités souhaitées. Chaque devis est personnalisé et gratuit. Nous étudions votre besoin avant de vous proposer une solution adaptée à votre budget.",
+        open: false,
+    },
+    {
+        q: "Combien de temps prend la création d'un site web ?",
+        a: "Un site vitrine est généralement livré en 2 à 4 semaines. Une application sur mesure peut prendre 1 à 3 mois selon la complexité. Nous établissons un planning précis dès le devis.",
+        open: false,
+    },
+    {
+        q: "Est-ce que je peux modifier le contenu de mon site moi-même ?",
+        a: "Oui ! Selon votre projet, nous intégrons un CMS simple d'utilisation, ou nous vous formons à la modification des textes, images et pages. Vous restez autonome sur votre site.",
+        open: false,
+    },
+    {
+        q: "Mon site sera-t-il bien référencé sur Google ?",
+        a: "Le SEO est intégré dès la conception : structure technique optimisée, balises HTML correctes, vitesse de chargement rapide, compatibilité mobile garantie. Votre site est prêt pour un bon référencement dès sa mise en ligne.",
+        open: false,
+    },
+    {
+        q: "Que se passe-t-il après la livraison du site ?",
+        a: "Vous bénéficiez d'un support post-livraison. Pour les évolutions ou nouvelles fonctionnalités, nous établissons un nouveau devis. Nous restons disponibles pour toute question ou correction.",
+        open: false,
+    },
+    {
+        q: "Je n'ai pas d'idée précise, est-ce que vous pouvez m'aider ?",
+        a: "Absolument ! C'est même la situation la plus fréquente. Nous vous guidons de A à Z : définition du besoin, conseils sur le design, choix des fonctionnalités, puis développement et mise en ligne. Vous avez juste à nous décrire votre activité.",
+        open: false,
+    },
+]);
+
+const toggleFaq = (index: number) => {
+    faqItems.value[index].open = !faqItems.value[index].open;
+};
+
+const clientTypes = [
+    '🔨 Artisans',
+    '✂️ Coiffeurs',
+    '🔧 Plombiers',
+    '⚡ Électriciens',
+    '🪑 Menuisiers',
+    '🍕 Restaurateurs',
+    '🏪 Commerçants',
+    '💼 TPE & PME',
+    '👨‍💼 Indépendants',
+    '🌿 Paysagistes',
+    '🏠 Immobilier',
+    '🎨 Graphistes',
+    '💆 Bien-être',
+    '🧹 Services à la personne',
 ];
 
 const showScrollTop = ref(false);
@@ -91,8 +184,8 @@ const observerOptions = {
 let observer: IntersectionObserver | null = null;
 
 const navLinks = [
-    { id: 'technologies', label: 'Technologies' },
-    { id: 'entreprise', label: 'À propos' },
+    { id: 'services', label: 'Services' },
+    { id: 'processus', label: 'Processus' },
     { id: 'tarifs', label: 'Tarifs' },
     { id: 'contact', label: 'Contact' },
 ];
@@ -252,6 +345,7 @@ onMounted(() => {
 
     <div class="min-h-screen bg-[#080c14] text-white" itemscope itemtype="https://schema.org/WebSite">
 
+        <!-- HEADER -->
         <header class="fixed top-0 inset-x-0 z-50" role="banner">
             <div class="mx-auto max-w-7xl px-6">
                 <div class="mt-4 rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-2xl shadow-xl shadow-black/20">
@@ -280,7 +374,7 @@ onMounted(() => {
                             </Link>
                             <button @click="scrollToSection('contact')" type="button"
                                 class="ml-2 px-5 py-2 text-sm font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40">
-                                Démarrer →
+                                Devis gratuit →
                             </button>
                         </div>
 
@@ -302,6 +396,10 @@ onMounted(() => {
                             </button>
                             <Link href="/portfolio" class="block px-4 py-2.5 text-sm font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">Réalisations</Link>
                             <Link href="/blog" class="block px-4 py-2.5 text-sm font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">Blog</Link>
+                            <button @click="scrollToSection('contact')" type="button"
+                                class="w-full text-left px-4 py-2.5 text-sm font-semibold text-indigo-400 rounded-xl hover:bg-white/[0.06] transition-colors">
+                                Devis gratuit →
+                            </button>
                         </div>
                     </transition>
                 </div>
@@ -316,6 +414,7 @@ onMounted(() => {
             </div>
         </header>
 
+        <!-- HERO -->
         <main id="hero" class="relative min-h-screen flex flex-col items-center justify-center px-6 pt-40 pb-24 overflow-hidden" role="main">
             <div class="absolute inset-0 pointer-events-none">
                 <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(99,102,241,0.15),transparent)]"></div>
@@ -328,7 +427,7 @@ onMounted(() => {
             <div class="relative z-10 max-w-5xl mx-auto text-center space-y-8">
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-sm text-indigo-300 font-medium reveal">
                     <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
-                    Développement web sur mesure · Laravel & Vue.js
+                    🇫🇷 Développeur web indépendant · Devis gratuit sous 48h
                 </div>
 
                 <div class="reveal space-y-3">
@@ -339,21 +438,23 @@ onMounted(() => {
                 </div>
 
                 <p class="reveal mx-auto max-w-2xl text-lg sm:text-xl text-white/50 leading-relaxed">
-                    De la <strong class="text-white/80 font-semibold">page vitrine</strong> à l'application
-                    <strong class="text-white/80 font-semibold">SaaS complexe</strong> — nous concevons des solutions web modernes,
-                    performantes et optimisées pour le référencement naturel.
+                    Artisan, commerçant, indépendant ou startup — nous créons des sites web
+                    <strong class="text-white/80 font-semibold">modernes et performants</strong>
+                    qui attirent vos clients et développent votre activité.
                 </p>
 
                 <div class="reveal flex flex-wrap gap-4 justify-center">
-                    <a href="#contact" class="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all duration-200 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
-                        Démarrer un projet
+                    <button @click="scrollToSection('contact')" type="button"
+                        class="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all duration-200 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
+                        Devis gratuit — sans engagement
                         <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
-                    </a>
-                    <a href="#tarifs" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/10 bg-white/[0.04] text-white/80 font-semibold hover:bg-white/[0.08] hover:text-white transition-all duration-200 hover:-translate-y-0.5">
-                        Voir les tarifs
-                    </a>
+                    </button>
+                    <button @click="scrollToSection('services')" type="button"
+                        class="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/10 bg-white/[0.04] text-white/80 font-semibold hover:bg-white/[0.08] hover:text-white transition-all duration-200 hover:-translate-y-0.5">
+                        Découvrir nos services
+                    </button>
                 </div>
 
                 <div class="reveal pt-6 grid grid-cols-3 gap-6 max-w-lg mx-auto">
@@ -366,62 +467,171 @@ onMounted(() => {
                         <div class="text-xs text-white/40 mt-1">Optimisé nativement</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-2xl font-black text-white">Sur<span class="text-indigo-400"> devis</span></div>
-                        <div class="text-xs text-white/40 mt-1">Tarif transparent</div>
+                        <div class="text-2xl font-black text-white">48h</div>
+                        <div class="text-xs text-white/40 mt-1">Délai de réponse</div>
                     </div>
                 </div>
             </div>
-
         </main>
 
-        <section id="technologies" class="px-6 py-24" itemscope itemtype="https://schema.org/Service">
+        <!-- BANDEAU TYPES DE CLIENTS -->
+        <div class="border-b border-white/[0.04] overflow-hidden py-4 bg-white/[0.01]">
+            <p class="text-center text-xs text-white/20 uppercase tracking-widest mb-3">Nous accompagnons</p>
+            <div class="relative overflow-hidden">
+                <div class="flex gap-10 animate-marquee whitespace-nowrap">
+                    <span v-for="(type, i) in [...clientTypes, ...clientTypes]" :key="i" class="flex-shrink-0 text-sm text-white/35 font-medium">
+                        {{ type }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SERVICES -->
+        <section id="services" class="px-6 py-24" itemscope itemtype="https://schema.org/Service">
             <div class="mx-auto max-w-7xl">
                 <div class="reveal mb-16 text-center space-y-4">
-                    <span class="inline-block px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] text-xs font-medium text-white/50 uppercase tracking-widest">Stack technique</span>
-                    <h2 class="text-4xl sm:text-5xl font-black text-white">Technologies <span class="gradient-text">maîtrisées</span></h2>
+                    <span class="inline-block px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] text-xs font-medium text-white/50 uppercase tracking-widest">Nos services</span>
+                    <h2 class="text-4xl sm:text-5xl font-black text-white">Ce que nous <span class="gradient-text">créons</span></h2>
                     <p class="mx-auto max-w-2xl text-white/50 leading-relaxed">
-                        Un stack open-source moderne, sélectionné pour ses performances, sa communauté et son écosystème riche.
+                        Des solutions web adaptées à chaque besoin, quel que soit votre secteur d'activité.
                     </p>
                 </div>
 
-                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <div v-for="(tech, index) in technologies" :key="tech.name"
-                        :style="{ transitionDelay: `${index * 60}ms` }"
-                        class="reveal group flex items-start gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.05] hover:border-indigo-500/30 transition-all duration-300">
-                        <div class="flex-shrink-0 h-11 w-11 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-200">
-                            {{ tech.icon }}
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div v-for="(service, index) in serviceCards" :key="service.title"
+                        :style="{ transitionDelay: `${index * 80}ms` }"
+                        :class="[
+                            'reveal group relative rounded-3xl border p-8 hover:-translate-y-1 transition-all duration-300',
+                            service.highlighted
+                                ? 'border-indigo-500/30 bg-gradient-to-br from-indigo-500/10 via-transparent to-transparent hover:border-indigo-400/50'
+                                : 'border-white/[0.08] bg-white/[0.02] hover:border-white/20'
+                        ]">
+                        <div v-if="service.highlighted" class="absolute top-4 right-4 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-xs font-semibold text-indigo-300">
+                            Populaire
                         </div>
-                        <div>
-                            <h3 class="font-semibold text-white group-hover:text-indigo-300 transition-colors">{{ tech.name }}</h3>
-                            <p class="mt-0.5 text-sm text-white/40 leading-relaxed">{{ tech.description }}</p>
+
+                        <div class="mb-5 h-14 w-14 rounded-2xl border border-white/[0.08] bg-white/[0.03] flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-200">
+                            {{ service.icon }}
                         </div>
+
+                        <h3 class="text-xl font-bold text-white mb-2">{{ service.title }}</h3>
+                        <p class="text-white/45 text-sm leading-relaxed mb-6">{{ service.description }}</p>
+
+                        <ul class="space-y-2 mb-8">
+                            <li v-for="feature in service.features" :key="feature" class="flex items-center gap-2.5 text-sm text-white/60">
+                                <svg :class="['h-4 w-4 flex-shrink-0', service.highlighted ? 'text-indigo-400' : 'text-indigo-400']" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                {{ feature }}
+                            </li>
+                        </ul>
+
+                        <button @click="scrollToSection('contact')" type="button"
+                            :class="[
+                                'w-full text-center px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200',
+                                service.highlighted
+                                    ? 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40'
+                                    : 'border border-white/10 bg-white/[0.04] text-white/80 hover:bg-white/[0.08] hover:text-white'
+                            ]">
+                            {{ service.cta }}
+                        </button>
                     </div>
                 </div>
 
-                <div class="reveal mt-16 p-8 md:p-12 rounded-3xl border border-white/[0.06] bg-gradient-to-br from-indigo-500/[0.05] to-transparent">
-                    <h3 class="mb-8 text-xl font-bold text-white">Pourquoi ces technologies ?</h3>
-                    <div class="grid sm:grid-cols-2 gap-6">
-                        <div v-for="(item, i) in [
-                            { title: 'Polyvalence', desc: 'S\'adaptent à tous projets : vitrine, e-commerce, SaaS complexes, APIs, intégrations.' },
-                            { title: 'Performance', desc: 'Laravel et Vue.js garantissent une expérience fluide et des temps de chargement optimaux.' },
-                            { title: 'Évolutivité', desc: 'Architecture modulaire : votre projet grandit sans refonte complète.' },
-                            { title: 'Maintenabilité', desc: 'Code propre et structuré. Mises à jour facilitées, coût de maintenance réduit.' },
-                        ]" :key="i" class="flex items-start gap-3">
-                            <span class="mt-0.5 flex-shrink-0 h-5 w-5 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center">
-                                <svg class="h-3 w-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-                                </svg>
-                            </span>
-                            <div>
-                                <div class="font-semibold text-white text-sm">{{ item.title }}</div>
-                                <div class="mt-0.5 text-sm text-white/40">{{ item.desc }}</div>
-                            </div>
-                        </div>
+                <!-- Tech stack mention -->
+                <div class="reveal mt-14 text-center">
+                    <p class="text-xs text-white/25 uppercase tracking-widest mb-4">Développé avec les meilleures technologies open-source</p>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span v-for="tech in ['Laravel', 'Vue.js', 'Tailwind CSS', 'PHP 8', 'MySQL', 'InertiaJS', 'Livewire']" :key="tech"
+                            class="px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] text-xs text-white/40 font-medium">
+                            {{ tech }}
+                        </span>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- PROCESSUS -->
+        <section id="processus" class="px-6 py-24 border-t border-white/[0.04]">
+            <div class="mx-auto max-w-5xl">
+                <div class="reveal mb-16 text-center space-y-4">
+                    <span class="inline-block px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] text-xs font-medium text-white/50 uppercase tracking-widest">Notre méthode</span>
+                    <h2 class="text-4xl sm:text-5xl font-black text-white">De l'idée à la <span class="gradient-text">mise en ligne</span></h2>
+                    <p class="mx-auto max-w-xl text-white/50 leading-relaxed">Un processus clair, transparent et collaboratif en 5 étapes. Vous savez toujours où en est votre projet.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div v-for="(step, index) in processSteps" :key="step.num"
+                        :style="{ transitionDelay: `${index * 100}ms` }"
+                        class="reveal flex gap-5 items-start p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-indigo-500/20 hover:bg-white/[0.04] transition-all duration-300">
+                        <div class="flex-shrink-0 relative">
+                            <div class="h-14 w-14 rounded-2xl border border-indigo-500/20 bg-indigo-500/5 flex items-center justify-center text-2xl">
+                                {{ step.icon }}
+                            </div>
+                            <div class="absolute -top-1.5 -right-1.5 h-6 w-6 rounded-full bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-600/30">
+                                <span class="text-[10px] font-bold text-white">{{ step.num }}</span>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-white text-base mb-1">{{ step.title }}</h3>
+                            <p class="text-sm text-white/45 leading-relaxed">{{ step.desc }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal mt-12 text-center">
+                    <button @click="scrollToSection('contact')" type="button"
+                        class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all duration-200 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
+                        Démarrer maintenant — c'est gratuit
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- RÉALISATIONS (si disponibles) -->
+        <section v-if="featuredPortfolios && featuredPortfolios.length > 0" id="realisations" class="px-6 py-24 border-t border-white/[0.04]">
+            <div class="mx-auto max-w-7xl">
+                <div class="reveal mb-12 text-center space-y-4">
+                    <span class="inline-block px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] text-xs font-medium text-white/50 uppercase tracking-widest">Portfolio</span>
+                    <h2 class="text-4xl sm:text-5xl font-black text-white">Nos dernières <span class="gradient-text">créations</span></h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div v-for="(portfolio, index) in featuredPortfolios" :key="portfolio.id"
+                        :style="{ transitionDelay: `${index * 80}ms` }"
+                        class="reveal group relative rounded-2xl border border-white/[0.08] bg-white/[0.02] overflow-hidden hover:border-white/20 transition-all duration-300 hover:-translate-y-1">
+                        <div v-if="portfolio.image_url" class="aspect-video overflow-hidden">
+                            <img :src="portfolio.image_url" :alt="portfolio.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                        </div>
+                        <div v-else class="aspect-video bg-gradient-to-br from-indigo-500/10 to-transparent flex items-center justify-center">
+                            <span class="text-4xl opacity-30">🖥️</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-white mb-2">{{ portfolio.title }}</h3>
+                            <p class="text-sm text-white/45 leading-relaxed line-clamp-2">{{ portfolio.description }}</p>
+                            <div v-if="portfolio.tags && portfolio.tags.length" class="flex flex-wrap gap-2 mt-4">
+                                <span v-for="tag in portfolio.tags.slice(0, 3)" :key="tag"
+                                    class="px-2 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs text-indigo-300">
+                                    {{ tag }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal mt-10 text-center">
+                    <Link href="/portfolio"
+                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white/80 font-semibold hover:bg-white/[0.08] hover:text-white transition-all duration-200">
+                        Voir toutes les réalisations →
+                    </Link>
+                </div>
+            </div>
+        </section>
+
+        <!-- À PROPOS -->
         <section id="entreprise" class="px-6 py-24 border-t border-white/[0.04]" itemscope itemtype="https://schema.org/Organization">
             <div class="mx-auto max-w-6xl">
                 <div class="reveal mb-16 text-center space-y-4">
@@ -464,6 +674,7 @@ onMounted(() => {
             </div>
         </section>
 
+        <!-- TARIFS -->
         <section id="tarifs" class="px-6 py-24 border-t border-white/[0.04]" itemscope itemtype="https://schema.org/PriceSpecification">
             <div class="mx-auto max-w-6xl">
                 <div class="reveal mb-16 text-center space-y-4">
@@ -494,9 +705,10 @@ onMounted(() => {
                             </li>
                         </ul>
 
-                        <a href="#contact" class="block w-full text-center px-6 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white/80 font-semibold hover:bg-white/[0.08] hover:text-white transition-all duration-200">
-                            Demander un devis
-                        </a>
+                        <button @click="scrollToSection('contact')" type="button"
+                            class="block w-full text-center px-6 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white/80 font-semibold hover:bg-white/[0.08] hover:text-white transition-all duration-200">
+                            Demander un devis gratuit
+                        </button>
                     </div>
 
                     <div class="reveal group relative rounded-3xl border border-indigo-500/30 bg-gradient-to-br from-indigo-500/10 via-transparent to-transparent p-8 hover:border-indigo-400/50 transition-all duration-300 hover:-translate-y-1">
@@ -524,9 +736,10 @@ onMounted(() => {
                             </li>
                         </ul>
 
-                        <a href="#contact" class="block w-full text-center px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40">
+                        <button @click="scrollToSection('contact')" type="button"
+                            class="block w-full text-center px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40">
                             Discutons de votre projet
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -536,6 +749,7 @@ onMounted(() => {
             </div>
         </section>
 
+        <!-- AIDES & SUBVENTIONS -->
         <section id="aides" class="px-6 py-24 border-t border-white/[0.04]">
             <div class="mx-auto max-w-6xl">
                 <div class="reveal mb-16 text-center space-y-4">
@@ -570,9 +784,10 @@ onMounted(() => {
                             </li>
                         </ul>
 
-                        <a href="#contact" class="block w-full text-center px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold transition-all duration-200 shadow-lg shadow-emerald-500/20">
+                        <button @click="scrollToSection('contact')" type="button"
+                            class="block w-full text-center px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold transition-all duration-200 shadow-lg shadow-emerald-500/20">
                             Vérifier mon éligibilité
-                        </a>
+                        </button>
                     </div>
 
                     <div class="reveal group relative rounded-3xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/8 via-transparent to-transparent p-8 hover:border-emerald-400/40 transition-all duration-300 hover:-translate-y-1">
@@ -597,9 +812,10 @@ onMounted(() => {
                             </li>
                         </ul>
 
-                        <a href="#contact" class="block w-full text-center px-6 py-3 rounded-xl border border-emerald-400/30 text-emerald-400 font-semibold hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-all duration-200">
+                        <button @click="scrollToSection('contact')" type="button"
+                            class="block w-full text-center px-6 py-3 rounded-xl border border-emerald-400/30 text-emerald-400 font-semibold hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-all duration-200">
                             Analyser mes aides possibles
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -609,12 +825,56 @@ onMounted(() => {
             </div>
         </section>
 
+        <!-- FAQ -->
+        <section id="faq" class="px-6 py-24 border-t border-white/[0.04]">
+            <div class="mx-auto max-w-3xl">
+                <div class="reveal mb-12 text-center space-y-4">
+                    <span class="inline-block px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] text-xs font-medium text-white/50 uppercase tracking-widest">FAQ</span>
+                    <h2 class="text-4xl sm:text-5xl font-black text-white">Questions <span class="gradient-text">fréquentes</span></h2>
+                    <p class="text-white/40">Tout ce que vous devez savoir avant de nous contacter.</p>
+                </div>
+
+                <div class="space-y-3">
+                    <div v-for="(faq, index) in faqItems" :key="index"
+                        :style="{ transitionDelay: `${index * 60}ms` }"
+                        class="reveal rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden hover:border-white/[0.12] transition-colors">
+                        <button @click="toggleFaq(index)" type="button" class="w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+                            <span class="font-semibold text-white text-sm leading-relaxed">{{ faq.q }}</span>
+                            <svg :class="['h-5 w-5 flex-shrink-0 text-indigo-400 transition-transform duration-200', faq.open && 'rotate-180']" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <transition
+                            enter-active-class="transition-all duration-200 ease-out"
+                            enter-from-class="opacity-0 max-h-0"
+                            enter-to-class="opacity-100 max-h-40"
+                            leave-active-class="transition-all duration-150 ease-in"
+                            leave-from-class="opacity-100 max-h-40"
+                            leave-to-class="opacity-0 max-h-0">
+                            <div v-if="faq.open" class="px-6 pb-5">
+                                <p class="text-sm text-white/50 leading-relaxed">{{ faq.a }}</p>
+                            </div>
+                        </transition>
+                    </div>
+                </div>
+
+                <div class="reveal mt-10 p-6 rounded-2xl border border-indigo-500/20 bg-indigo-500/5 text-center">
+                    <p class="text-white/50 text-sm mb-4">Vous n'avez pas trouvé la réponse à votre question ?</p>
+                    <button @click="scrollToSection('contact')" type="button"
+                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40">
+                        Posez-nous votre question →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
         <section id="contact" class="px-6 py-24 border-t border-white/[0.04]">
             <div class="mx-auto max-w-6xl">
                 <div class="reveal mb-16 text-center space-y-4">
                     <span class="inline-block px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] text-xs font-medium text-white/50 uppercase tracking-widest">Contact</span>
                     <h2 class="text-4xl sm:text-5xl font-black text-white">Parlons de votre <span class="gradient-text">projet</span></h2>
-                    <p class="text-white/40 max-w-xl mx-auto">Décrivez votre besoin et recevez une réponse sous 48h avec un devis personnalisé.</p>
+                    <p class="text-white/40 max-w-xl mx-auto">Décrivez votre besoin et recevez un devis personnalisé sous 48h. Gratuit, sans engagement.</p>
                 </div>
 
                 <div class="grid lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
@@ -622,8 +882,9 @@ onMounted(() => {
                         <div class="space-y-4">
                             <div v-for="(info, i) in [
                                 { icon: '💬', title: 'Réponse rapide', desc: 'Retour sous 48h ouvrées' },
-                                { icon: '🎁', title: 'Devis gratuit', desc: 'Étude de votre projet sans engagement' },
+                                { icon: '🎁', title: 'Devis 100% gratuit', desc: 'Étude de votre projet sans engagement' },
                                 { icon: '🔒', title: 'Confidentialité', desc: 'Vos données restent privées' },
+                                { icon: '☕', title: 'Appel découverte', desc: 'On peut aussi en discuter directement' },
                             ]" :key="i" class="flex items-start gap-4 p-4 rounded-2xl border border-white/[0.06] bg-white/[0.02]">
                                 <span class="text-2xl">{{ info.icon }}</span>
                                 <div>
@@ -688,6 +949,7 @@ onMounted(() => {
                                             class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all appearance-none">
                                             <option value="" class="bg-slate-900">Type de projet</option>
                                             <option value="site-vitrine" class="bg-slate-900">Site web vitrine</option>
+                                            <option value="ecommerce" class="bg-slate-900">Site e-commerce</option>
                                             <option value="saas" class="bg-slate-900">Application SaaS</option>
                                             <option value="refonte" class="bg-slate-900">Refonte de site</option>
                                             <option value="autre" class="bg-slate-900">Autre</option>
@@ -700,7 +962,7 @@ onMounted(() => {
                                     <label for="message" class="block mb-1.5 text-xs font-semibold text-white/50 uppercase tracking-wide">
                                         Message <span class="text-red-400 normal-case">*</span>
                                     </label>
-                                    <textarea id="message" v-model="form.message" required rows="5" placeholder="Décrivez votre projet, vos objectifs, vos contraintes..."
+                                    <textarea id="message" v-model="form.message" required rows="5" placeholder="Décrivez votre projet, vos objectifs, votre secteur d'activité..."
                                         class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white placeholder-white/20 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all resize-none"></textarea>
                                     <div v-if="form.errors.message" class="mt-1.5 text-xs text-red-400">{{ form.errors.message }}</div>
                                 </div>
@@ -716,7 +978,7 @@ onMounted(() => {
                                         <span class="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
                                         Envoi en cours...
                                     </span>
-                                    <span v-else>Envoyer le message →</span>
+                                    <span v-else>Envoyer ma demande de devis →</span>
                                 </button>
                             </form>
                         </div>
@@ -725,6 +987,7 @@ onMounted(() => {
             </div>
         </section>
 
+        <!-- FOOTER -->
         <footer class="border-t border-white/[0.06] bg-white/[0.01] px-6 py-16" role="contentinfo">
             <div class="mx-auto max-w-7xl">
                 <div class="grid gap-10 md:grid-cols-3 mb-12">
@@ -741,10 +1004,11 @@ onMounted(() => {
                     <div>
                         <h3 class="mb-4 text-xs font-semibold text-white/40 uppercase tracking-widest">Navigation</h3>
                         <ul class="space-y-2.5 text-sm">
-                            <li><a href="#technologies" class="text-white/40 hover:text-white/80 transition-colors">Technologies</a></li>
-                            <li><a href="#entreprise" class="text-white/40 hover:text-white/80 transition-colors">À propos</a></li>
-                            <li><a href="#tarifs" class="text-white/40 hover:text-white/80 transition-colors">Tarifs</a></li>
-                            <li><a href="#contact" class="text-white/40 hover:text-white/80 transition-colors">Contact</a></li>
+                            <li><button @click="scrollToSection('services')" type="button" class="text-white/40 hover:text-white/80 transition-colors">Services</button></li>
+                            <li><button @click="scrollToSection('processus')" type="button" class="text-white/40 hover:text-white/80 transition-colors">Processus</button></li>
+                            <li><button @click="scrollToSection('tarifs')" type="button" class="text-white/40 hover:text-white/80 transition-colors">Tarifs</button></li>
+                            <li><button @click="scrollToSection('faq')" type="button" class="text-white/40 hover:text-white/80 transition-colors">FAQ</button></li>
+                            <li><button @click="scrollToSection('contact')" type="button" class="text-white/40 hover:text-white/80 transition-colors">Contact</button></li>
                             <li><Link href="/portfolio" class="text-white/40 hover:text-white/80 transition-colors">Réalisations</Link></li>
                             <li><Link href="/blog" class="text-white/40 hover:text-white/80 transition-colors">Blog</Link></li>
                         </ul>
@@ -832,6 +1096,15 @@ onMounted(() => {
 .animate-orb-1 { animation: orb1 12s ease-in-out infinite; }
 .animate-orb-2 { animation: orb2 15s ease-in-out infinite; }
 .animate-orb-3 { animation: orb3 10s ease-in-out infinite; }
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+    animation: marquee 30s linear infinite;
+}
 
 .reveal {
     opacity: 0;

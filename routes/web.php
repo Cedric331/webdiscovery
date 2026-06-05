@@ -10,8 +10,16 @@ use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
 Route::get('/', function () {
+    $featuredPortfolios = \App\Models\Portfolio::query()
+        ->where('is_published', true)
+        ->with('media')
+        ->orderBy('created_at', 'desc')
+        ->take(3)
+        ->get();
+
     return Inertia::render('Welcome', [
         'canRegister' => Features::enabled(Features::registration()),
+        'featuredPortfolios' => $featuredPortfolios,
     ]);
 })->name('home');
 

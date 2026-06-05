@@ -4,19 +4,24 @@
         {{-- Schema.org LocalBusiness JSON-LD pour SEO Local --}}
         <script type="application/ld+json">
         {
-            "@type": "LocalBusiness",
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
             "@id": "{{ url('/') }}#organization",
-            "name": "{{ config('app.name', 'WebDiscovery') }}",
-            "description": "Agence digitale spécialisée dans la création de sites web et le développement d'applications sur mesure à Pau.",
+            "name": "Web Discovery",
+            "description": "Création de sites web vitrine et applications SaaS sur mesure pour artisans, commerçants et entreprises. Développement web avec Laravel et Vue.js.",
             "url": "{{ url('/') }}",
-            "logo": "{{ url('asset/logo.png') }}",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ url('asset/logo.png') }}",
+                "width": 512,
+                "height": 512
+            },
             "image": "{{ url('asset/logo.png') }}",
             "email": "limacedric@hotmail.fr",
             "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "Rue jean jaurès, 64000 Pau",
                 "addressLocality": "Pau",
-                "addressRegion": "Pau",
+                "addressRegion": "Nouvelle-Aquitaine",
                 "postalCode": "64000",
                 "addressCountry": "FR"
             },
@@ -27,13 +32,13 @@
             },
             "areaServed": {
                 "@type": "Country",
-                "name": "Pau"
+                "name": "France"
             },
-            "priceRange": "$$",
+            "priceRange": "Sur devis",
             "openingHoursSpecification": [
                 {
                     "@type": "OpeningHoursSpecification",
-                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
                     "opens": "09:00",
                     "closes": "18:00"
                 }
@@ -80,7 +85,7 @@
         <link rel="canonical" href="{{ url()->current() }}" />
 
         {{-- Geo Meta Tags pour SEO Local --}}
-        <meta name="geo.region" content="MU" />
+        <meta name="geo.region" content="FR-64" />
         <meta name="geo.placename" content="Pau" />
         <meta name="geo.position" content="43.2951;-0.3708" />
         <meta name="ICBM" content="43.2951, -0.3708" />
