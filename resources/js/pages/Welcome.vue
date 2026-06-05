@@ -438,7 +438,7 @@ onMounted(() => {
                 </div>
 
                 <p class="reveal mx-auto max-w-2xl text-lg sm:text-xl text-white/50 leading-relaxed">
-                    Artisan, commerçant, indépendant ou startup — nous créons des sites web
+                    Artisan, commerçant, indépendant ou startup, nous créons des sites web
                     <strong class="text-white/80 font-semibold">modernes et performants</strong>
                     qui attirent vos clients et développent votre activité.
                 </p>
@@ -446,7 +446,7 @@ onMounted(() => {
                 <div class="reveal flex flex-wrap gap-4 justify-center">
                     <button @click="scrollToSection('contact')" type="button"
                         class="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all duration-200 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
-                        Devis gratuit — sans engagement
+                        Devis gratuit sans engagement
                         <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
@@ -582,7 +582,7 @@ onMounted(() => {
                 <div class="reveal mt-12 text-center">
                     <button @click="scrollToSection('contact')" type="button"
                         class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all duration-200 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
-                        Démarrer maintenant — c'est gratuit
+                        Démarrer maintenant c'est gratuit
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
