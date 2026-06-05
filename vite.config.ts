@@ -26,6 +26,7 @@ export default defineConfig({
     ],
     build: {
         rollupOptions: {
+            maxParallelFileOps: 5,
             output: {
                 manualChunks: undefined,
             },
