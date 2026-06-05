@@ -2,52 +2,46 @@
 <html lang="fr" @class(['dark' => ($appearance ?? 'system') == 'dark']) itemscope itemtype="https://schema.org/WebSite">
     <head>
         {{-- Schema.org LocalBusiness JSON-LD pour SEO Local --}}
-        <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "ProfessionalService",
-            "@id": "{{ url('/') }}#organization",
-            "name": "Web Discovery",
-            "description": "Création de sites web vitrine et applications SaaS sur mesure pour artisans, commerçants et entreprises. Développement web avec Laravel et Vue.js.",
-            "url": "{{ url('/') }}",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "{{ url('asset/logo.png') }}",
-                "width": 512,
-                "height": 512
-            },
-            "image": "{{ url('asset/logo.png') }}",
-            "email": "limacedric@hotmail.fr",
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Pau",
-                "addressRegion": "Nouvelle-Aquitaine",
-                "postalCode": "64000",
-                "addressCountry": "FR"
-            },
-            "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": 43.2951,
-                "longitude": -0.3708
-            },
-            "areaServed": {
-                "@type": "Country",
-                "name": "France"
-            },
-            "priceRange": "Sur devis",
-            "openingHoursSpecification": [
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                    "opens": "09:00",
-                    "closes": "18:00"
-                }
+        @php
+        $ldSchema = [
+            '@context' => 'https://schema.org',
+            '@type'    => 'ProfessionalService',
+            '@id'      => url('/') . '#organization',
+            'name'        => 'Web Discovery',
+            'description' => 'Création de sites web vitrine et applications SaaS sur mesure pour artisans, commerçants et entreprises. Développement web avec Laravel et Vue.js.',
+            'url'   => url('/'),
+            'logo'  => [
+                '@type'  => 'ImageObject',
+                'url'    => url('asset/logo.png'),
+                'width'  => 512,
+                'height' => 512,
             ],
-            "sameAs": [
-                "https://www.facebook.com/profile.php?id=61587226977928"
-            ]
-        }
-        </script>
+            'image' => url('asset/logo.png'),
+            'email' => 'limacedric@hotmail.fr',
+            'address' => [
+                '@type'           => 'PostalAddress',
+                'addressLocality' => 'Pau',
+                'addressRegion'   => 'Nouvelle-Aquitaine',
+                'postalCode'      => '64000',
+                'addressCountry'  => 'FR',
+            ],
+            'geo' => [
+                '@type'     => 'GeoCoordinates',
+                'latitude'  => 43.2951,
+                'longitude' => -0.3708,
+            ],
+            'areaServed' => ['@type' => 'Country', 'name' => 'France'],
+            'priceRange' => 'Sur devis',
+            'openingHoursSpecification' => [[
+                '@type'      => 'OpeningHoursSpecification',
+                'dayOfWeek'  => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                'opens'      => '09:00',
+                'closes'     => '18:00',
+            ]],
+            'sameAs' => ['https://www.facebook.com/profile.php?id=61587226977928'],
+        ];
+        @endphp
+        <script type="application/ld+json">{!! json_encode($ldSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
