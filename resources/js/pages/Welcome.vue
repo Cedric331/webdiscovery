@@ -332,6 +332,16 @@ onMounted(() => {
         }
     });
 });
+
+const getTags = (tags: string[] | null): string[] => {
+    if (!tags) return [];
+    if (Array.isArray(tags)) return tags.filter((t) => t && t.trim() !== '');
+    try {
+        const parsed = JSON.parse(tags as unknown as string);
+        if (Array.isArray(parsed)) return parsed.filter((t: string) => t && t.trim() !== '');
+    } catch {}
+    return (tags as unknown as string).split(',').map((t: string) => t.trim()).filter((t) => t !== '');
+};
 </script>
 
 <template>
@@ -612,8 +622,8 @@ onMounted(() => {
                         <div class="p-6">
                             <h3 class="font-bold text-white mb-2">{{ portfolio.title }}</h3>
                             <p class="text-sm text-white/45 leading-relaxed line-clamp-2">{{ portfolio.description }}</p>
-                            <div v-if="portfolio.tags && portfolio.tags.length" class="flex flex-wrap gap-2 mt-4">
-                                <span v-for="tag in portfolio.tags.slice(0, 3)" :key="tag"
+                            <div v-if="getTags(portfolio.tags).length" class="flex flex-wrap gap-2 mt-4">
+                                <span v-for="tag in getTags(portfolio.tags).slice(0, 3)" :key="tag"
                                     class="px-2 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs text-indigo-300">
                                     {{ tag }}
                                 </span>
