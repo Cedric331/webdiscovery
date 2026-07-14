@@ -54,31 +54,8 @@ const currentUrl = computed(() => {
 
 const excerpt = computed(() => props.article.content.replace(/<[^>]*>/g, '').substring(0, 160));
 
-const blogPostingSchema = computed(() => ({
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: props.article.title,
-    description: excerpt.value,
-    image: props.article.image_url ?? undefined,
-    datePublished: props.article.published_at ?? props.article.created_at,
-    dateModified: props.article.updated_at,
-    author: {
-        '@type': 'Organization',
-        name: 'Web Discovery',
-    },
-    publisher: {
-        '@type': 'Organization',
-        name: 'Web Discovery',
-        logo: {
-            '@type': 'ImageObject',
-            url: '/asset/logo.png',
-        },
-    },
-    mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': typeof window !== 'undefined' ? window.location.href : '',
-    },
-}));
+// Le schéma BlogPosting (JSON-LD) est fourni par BlogController et rendu
+// côté serveur dans app.blade.php via la prop `structuredData`.
 </script>
 
 <template>
@@ -87,65 +64,42 @@ const blogPostingSchema = computed(() => ({
         :description="excerpt"
         :canonical="`/blog/${article.slug}`"
         :og-image="getImageUrl()"
-        :structured-data="blogPostingSchema"
     />
 
-    <div
-        class="min-h-screen bg-slate-950 text-white"
-    >
-        <header
-            class="fixed top-0 right-0 left-0 z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl"
-            role="banner"
-        >
-            <nav
-                class="container mx-auto flex items-center justify-between px-6 py-4"
-            >
-                <Link href="/" class="group flex items-center gap-3">
-                    <img
-                        src="/asset/logo.png"
-                        alt="Logo Web Discovery"
-                        class="h-10 w-auto object-contain"
-                    />
-                    <span class="text-xl font-bold">WEB DISCOVERY</span>
-                </Link>
+    <div class="min-h-screen bg-[#080c14] text-white">
+        <header class="fixed top-0 inset-x-0 z-50" role="banner">
+            <div class="mx-auto max-w-7xl px-6">
+                <div class="mt-4 rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-2xl shadow-xl shadow-black/20">
+                    <nav class="flex items-center justify-between px-6 py-3">
+                        <Link href="/" class="flex items-center gap-3 group">
+                            <img src="/asset/logo.png" alt="Logo Web Discovery" class="h-9 w-auto object-contain transition-opacity group-hover:opacity-90" loading="lazy" />
+                            <span class="text-sm font-bold tracking-widest text-white/80 uppercase">Web Discovery</span>
+                        </Link>
 
-                <!-- Navigation links -->
-                <div class="hidden items-center gap-6 md:flex">
-                    <Link
-                        href="/#technologies"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
-                    >
-                        Technologies
-                    </Link>
-                    <Link
-                        href="/#entreprise"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
-                    >
-                        À propos
-                    </Link>
-                    <Link
-                        href="/#tarifs"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
-                    >
-                        Tarifs
-                    </Link>
-                    <Link
-                        href="/#contact"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
-                    >
-                        Contact
-                    </Link>
-                    <Link
-                        href="/blog"
-                        class="rounded-lg px-3 py-2 text-sm font-medium bg-blue-500/10 text-blue-400 transition-colors hover:bg-blue-500/20"
-                    >
-                        Blog
-                    </Link>
+                        <div class="hidden md:flex items-center gap-1">
+                            <Link href="/#technologies" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">Technologies</Link>
+                            <Link href="/#entreprise" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">À propos</Link>
+                            <Link href="/#tarifs" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">Tarifs</Link>
+                            <Link href="/#contact" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">Contact</Link>
+                            <div class="mx-3 h-5 w-px bg-white/10"></div>
+                            <Link href="/portfolio" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">Réalisations</Link>
+                            <Link href="/blog" class="relative px-4 py-2 text-sm font-medium text-white rounded-xl">
+                                <span class="absolute inset-0 rounded-xl bg-white/[0.08]"></span>
+                                <span class="relative">Blog</span>
+                            </Link>
+                            <Link href="/espace-client" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl border border-white/[0.10] hover:border-white/25">
+                                Espace client
+                            </Link>
+                            <Link href="/#contact" class="ml-2 px-5 py-2 text-sm font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40">
+                                Démarrer →
+                            </Link>
+                        </div>
+                    </nav>
                 </div>
-            </nav>
+            </div>
         </header>
 
-        <main class="px-6 pt-32 pb-20">
+        <main class="px-6 pt-36 pb-20">
             <div class="container mx-auto max-w-7xl">
                 <Link
                     href="/blog"
@@ -290,75 +244,43 @@ const blogPostingSchema = computed(() => ({
         </main>
 
         <!-- Footer -->
-        <footer
-            class="border-t border-slate-800 bg-slate-950 px-6 py-12"
-            role="contentinfo"
-        >
-            <div class="container mx-auto max-w-7xl">
-                <div class="mb-8 grid gap-8 md:grid-cols-3">
-                    <!-- Informations entreprise -->
-                    <div>
-                        <div class="mb-4 flex items-center gap-3">
-                            <img
-                                src="/asset/logo.png"
-                                alt="Logo Web Discovery"
-                                class="h-10 w-auto object-contain"
-                            />
-                            <span class="text-lg font-bold">WEB DISCOVERY</span>
+        <footer class="border-t border-white/[0.06] bg-white/[0.01] px-6 py-16" role="contentinfo">
+            <div class="mx-auto max-w-7xl">
+                <div class="grid gap-10 md:grid-cols-3 mb-12">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <img src="/asset/logo.png" alt="Logo Web Discovery" class="h-9 w-auto object-contain opacity-80" loading="lazy" />
+                            <span class="font-bold text-white/80 tracking-wider text-sm uppercase">Web Discovery</span>
                         </div>
-                        <p class="mb-4 text-sm text-slate-400">
-                            Création de sites web vitrine et applications SaaS sur mesure
+                        <p class="text-sm text-white/35 leading-relaxed max-w-xs">
+                            Création de sites web vitrine et applications SaaS sur mesure avec Laravel &amp; Vue.js.
                         </p>
                     </div>
 
-                    <!-- Liens rapides -->
                     <div>
-                        <h3 class="mb-4 text-sm font-semibold text-white">Liens rapides</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
-                            <li>
-                                <Link href="/#technologies" class="transition-colors hover:text-blue-400">Technologies</Link>
-                            </li>
-                            <li>
-                                <Link href="/#entreprise" class="transition-colors hover:text-blue-400">À propos</Link>
-                            </li>
-                            <li>
-                                <Link href="/#tarifs" class="transition-colors hover:text-blue-400">Tarifs</Link>
-                            </li>
-                            <li>
-                                <Link href="/#contact" class="transition-colors hover:text-blue-400">Contact</Link>
-                            </li>
-                            <li>
-                                <Link href="/blog" class="transition-colors hover:text-blue-400">Blog</Link>
-                            </li>
+                        <h3 class="mb-4 text-xs font-semibold text-white/40 uppercase tracking-widest">Navigation</h3>
+                        <ul class="space-y-2.5 text-sm">
+                            <li><Link href="/#technologies" class="text-white/40 hover:text-white/80 transition-colors">Technologies</Link></li>
+                            <li><Link href="/#entreprise" class="text-white/40 hover:text-white/80 transition-colors">À propos</Link></li>
+                            <li><Link href="/#tarifs" class="text-white/40 hover:text-white/80 transition-colors">Tarifs</Link></li>
+                            <li><Link href="/#contact" class="text-white/40 hover:text-white/80 transition-colors">Contact</Link></li>
+                            <li><Link href="/portfolio" class="text-white/40 hover:text-white/80 transition-colors">Réalisations</Link></li>
+                            <li><Link href="/blog" class="text-white/40 hover:text-white/80 transition-colors">Blog</Link></li>
                         </ul>
                     </div>
 
-                    <!-- Légales -->
                     <div>
-                        <h3 class="mb-4 text-sm font-semibold text-white">Informations légales</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
-                            <li>
-                                <Link
-                                    href="/mentions-legales"
-                                    class="transition-colors hover:text-blue-400"
-                                    >Mentions légales</Link
-                                >
-                            </li>
-                            <li>
-                                <Link
-                                    href="/politique-confidentialite"
-                                    class="transition-colors hover:text-blue-400"
-                                    >Politique de confidentialité</Link
-                                >
-                            </li>
+                        <h3 class="mb-4 text-xs font-semibold text-white/40 uppercase tracking-widest">Légal</h3>
+                        <ul class="space-y-2.5 text-sm">
+                            <li><Link href="/mentions-legales" class="text-white/40 hover:text-white/80 transition-colors">Mentions légales</Link></li>
+                            <li><Link href="/politique-confidentialite" class="text-white/40 hover:text-white/80 transition-colors">Politique de confidentialité</Link></li>
                         </ul>
                     </div>
                 </div>
-                <div class="border-t border-slate-800 pt-6">
-                    <p class="text-center text-sm text-slate-500">
-                        © {{ new Date().getFullYear() }} Web Discovery. Tous droits
-                        réservés.
-                    </p>
+
+                <div class="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <p class="text-xs text-white/25">© {{ new Date().getFullYear() }} Web Discovery. Tous droits réservés.</p>
+                    <span class="text-xs text-indigo-400/50">Laravel · Vue.js · InertiaJS</span>
                 </div>
             </div>
         </footer>

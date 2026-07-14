@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -42,9 +43,20 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'name' => config('app.name'),
             'quote' => ['message' => trim($message), 'author' => trim($author)],
+            'seo' => [
+                // URL canonique et origine calculées côté serveur pour un SSR correct
+                // (on ne peut pas dépendre de window.location pendant le rendu serveur).
+                'canonical' => $request->url(),
+                'origin' => $request->getSchemeAndHttpHost(),
+            ],
             'auth' => [
                 'user' => $request->user(),
             ],
+            'customer' => Auth::guard('customer')->check() ? [
+                'name' => trim(Auth::guard('customer')->user()->first_name . ' ' . Auth::guard('customer')->user()->name),
+                'company' => Auth::guard('customer')->user()->company_name,
+                'email' => Auth::guard('customer')->user()->email,
+            ] : null,
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'flash' => [
                 'success' => $request->session()->get('success'),

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
-import { computed, onMounted } from 'vue';
+import { Head, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 
 interface Props {
     title: string;
@@ -9,117 +9,88 @@ interface Props {
     ogImage?: string;
     noindex?: boolean;
     keywords?: string;
-    structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
     canonical: '',
-    ogImage: '/og-image.jpg',
+    ogImage: '/asset/logo.png',
     noindex: false,
     keywords: '',
-    structuredData: undefined,
 });
 
 const siteName = 'Web Discovery';
-const baseUrl = computed(() => {
-    if (typeof window !== 'undefined') {
-        return window.location.origin;
-    }
-    return '';
-});
+
+// Origine et URL canonique fournies par le serveur (HandleInertiaRequests),
+// pour que les balises soient correctes dès le rendu SSR (pas de window.location).
+const page = usePage();
+const origin = computed(() => (page.props.seo as { origin?: string })?.origin ?? '');
+const serverCanonical = computed(() => (page.props.seo as { canonical?: string })?.canonical ?? '');
+
+const absoluteUrl = (path: string) => {
+    if (!path) return '';
+    return path.startsWith('http') ? path : `${origin.value}${path}`;
+};
 
 const canonicalUrl = computed(() => {
     if (props.canonical) {
-        return props.canonical.startsWith('http') 
-            ? props.canonical 
-            : `${baseUrl.value}${props.canonical}`;
+        return absoluteUrl(props.canonical);
     }
-    return typeof window !== 'undefined' ? window.location.href : '';
+    return serverCanonical.value;
 });
 
-const ogImageUrl = computed(() => {
-    if (props.ogImage) {
-        return props.ogImage.startsWith('http') 
-            ? props.ogImage 
-            : `${baseUrl.value}${props.ogImage}`;
-    }
-    return `${baseUrl.value}/og-image.jpg`;
-});
+const ogImageUrl = computed(() => absoluteUrl(props.ogImage));
 
 const robotsContent = computed(() => {
-    return props.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
-});
-
-// Injection des données structurées
-onMounted(() => {
-    if (props.structuredData) {
-        const dataArray = Array.isArray(props.structuredData) 
-            ? props.structuredData 
-            : [props.structuredData];
-        
-        dataArray.forEach((data, index) => {
-            // Vérifier par type de schéma pour éviter les doublons
-            const schemaType = (data as Record<string, unknown>)?.['@type'] || 'unknown';
-            const existingScript = document.querySelector(
-                `script[type="application/ld+json"][data-schema-type="${schemaType}"]`,
-            );
-
-            if (!existingScript) {
-                const script = document.createElement('script');
-                script.setAttribute('type', 'application/ld+json');
-                script.setAttribute('data-schema-type', schemaType as string);
-                script.setAttribute('data-seo-index', index.toString());
-                script.textContent = JSON.stringify(data);
-                document.head.appendChild(script);
-            }
-        });
-    }
+    return props.noindex
+        ? 'noindex, follow'
+        : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 });
 </script>
 
 <template>
+    <!--
+        Les données structurées (JSON-LD) sont rendues côté serveur dans
+        resources/views/app.blade.php à partir de la prop `structuredData`
+        de la page. Le composant <Head> d'Inertia n'accepte pas les balises
+        <script>, d'où le rendu serveur.
+        Chaque balise porte un `head-key` pour permettre à Inertia de
+        dédupliquer proprement d'une page à l'autre.
+    -->
     <Head>
         <!-- Title -->
         <title>{{ title }} - {{ siteName }}</title>
 
         <!-- Meta Description -->
-        <meta name="description" :content="description" />
+        <meta head-key="description" name="description" :content="description" />
 
         <!-- Keywords (si fourni) -->
-        <meta v-if="keywords" name="keywords" :content="keywords" />
+        <meta v-if="keywords" head-key="keywords" name="keywords" :content="keywords" />
 
         <!-- Robots -->
-        <meta name="robots" :content="robotsContent" />
+        <meta head-key="robots" name="robots" :content="robotsContent" />
 
         <!-- Canonical URL -->
-        <link rel="canonical" :href="canonicalUrl" />
+        <link head-key="canonical" rel="canonical" :href="canonicalUrl" />
 
         <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="website" />
-        <meta property="og:url" :content="canonicalUrl" />
-        <meta property="og:title" :content="title" />
-        <meta property="og:description" :content="description" />
-        <meta property="og:site_name" :content="siteName" />
-        <meta property="og:locale" content="fr_FR" />
-        <meta property="og:image" :content="ogImageUrl" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" :content="title" />
+        <meta head-key="og:type" property="og:type" content="website" />
+        <meta head-key="og:url" property="og:url" :content="canonicalUrl" />
+        <meta head-key="og:title" property="og:title" :content="title" />
+        <meta head-key="og:description" property="og:description" :content="description" />
+        <meta head-key="og:site_name" property="og:site_name" :content="siteName" />
+        <meta head-key="og:locale" property="og:locale" content="fr_FR" />
+        <meta head-key="og:image" property="og:image" :content="ogImageUrl" />
+        <meta head-key="og:image:alt" property="og:image:alt" :content="title" />
 
         <!-- Twitter -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" :content="title" />
-        <meta name="twitter:description" :content="description" />
-        <meta name="twitter:image" :content="ogImageUrl" />
-        <meta name="twitter:image:alt" :content="title" />
+        <meta head-key="twitter:card" name="twitter:card" content="summary_large_image" />
+        <meta head-key="twitter:title" name="twitter:title" :content="title" />
+        <meta head-key="twitter:description" name="twitter:description" :content="description" />
+        <meta head-key="twitter:image" name="twitter:image" :content="ogImageUrl" />
+        <meta head-key="twitter:image:alt" name="twitter:image:alt" :content="title" />
 
-        <!-- Additional SEO meta tags -->
-        <meta name="author" content="Web Discovery" />
-        <meta name="language" content="French" />
-        <meta http-equiv="content-language" content="fr-FR" />
-        <meta name="geo.region" content="FR" />
-        <meta name="geo.placename" content="France" />
-        <meta name="theme-color" content="#3b82f6" />
+        <!-- Divers -->
+        <meta head-key="author" name="author" content="Web Discovery" />
+        <meta head-key="language" name="language" content="French" />
     </Head>
 </template>
-

@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Customers\Schemas;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -60,6 +61,25 @@ class CustomerForm
                             ->columnSpanFull()
                             ->rows(4),
                     ]),
+
+                Section::make('Accès Espace Client')
+                    ->schema([
+                        Toggle::make('portal_enabled')
+                            ->label('Activer l\'accès au portail client')
+                            ->helperText('Le client pourra se connecter sur /espace-client avec son email.')
+                            ->columnSpanFull(),
+                        TextInput::make('password')
+                            ->label('Mot de passe')
+                            ->password()
+                            ->revealable()
+                            ->helperText('Laissez vide pour ne pas modifier le mot de passe existant.')
+                            ->dehydrateStateUsing(fn ($state) => filled($state) ? bcrypt($state) : null)
+                            ->dehydrated(fn ($state) => filled($state))
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2)
+                    ->collapsible(),
 
                 Section::make('Documents')
                     ->schema([

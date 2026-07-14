@@ -52,7 +52,6 @@ const currentUrl = computed(() => {
         :description="service.description"
         :canonical="`/${service.slug}`"
         :keywords="service.keywords"
-        :structured-data="structuredData"
     />
 
     <div class="min-h-screen bg-slate-950 text-white">

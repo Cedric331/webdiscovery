@@ -30,7 +30,24 @@
                 'latitude'  => 43.2951,
                 'longitude' => -0.3708,
             ],
-            'areaServed' => ['@type' => 'Country', 'name' => 'France'],
+            'areaServed' => [
+                ['@type' => 'City', 'name' => 'Pau'],
+                ['@type' => 'City', 'name' => 'Billère'],
+                ['@type' => 'City', 'name' => 'Lescar'],
+                ['@type' => 'City', 'name' => 'Lons'],
+                ['@type' => 'City', 'name' => 'Jurançon'],
+                ['@type' => 'City', 'name' => 'Bizanos'],
+                ['@type' => 'AdministrativeArea', 'name' => 'Pyrénées-Atlantiques'],
+                ['@type' => 'AdministrativeArea', 'name' => 'Nouvelle-Aquitaine'],
+            ],
+            'serviceType' => [
+                'Création de site web',
+                'Création de site vitrine',
+                'Développement web',
+                'Développement d\'application SaaS',
+                'Référencement local (SEO)',
+            ],
+            'knowsAbout' => ['Laravel', 'Vue.js', 'SEO local', 'Site vitrine', 'Application web'],
             'priceRange' => 'Sur devis',
             'openingHoursSpecification' => [[
                 '@type'      => 'OpeningHoursSpecification',
@@ -42,6 +59,18 @@
         ];
         @endphp
         <script type="application/ld+json">{!! json_encode($ldSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+
+        {{-- Données structurées spécifiques à la page (FAQ, BlogPosting, service…) --}}
+        {{-- Rendues côté serveur pour être vues par Google dès le premier crawl. --}}
+        @php
+            $pageSchemas = data_get($page ?? [], 'props.structuredData');
+        @endphp
+        @if (!empty($pageSchemas))
+            @foreach ((array_is_list($pageSchemas) ? $pageSchemas : [$pageSchemas]) as $schema)
+                <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+            @endforeach
+        @endif
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -73,12 +102,10 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-        {{-- SEO Meta Tags --}}
-        <meta name="description" content="WebDiscovery - Agence web à Pau spécialisée dans la création de sites web, développement d'applications et solutions digitales sur mesure." />
-        <meta name="keywords" content="agence web Pau, création site web, développement application, webdesign, SEO Pau" />
-        <link rel="canonical" href="{{ url()->current() }}" />
+        {{-- description / keywords / canonical / og / twitter sont gérés par page --}}
+        {{-- via le composant SEO.vue (avec head-key) afin d'éviter les doublons. --}}
 
-        {{-- Geo Meta Tags pour SEO Local --}}
+        {{-- Geo Meta Tags pour SEO Local (constants pour tout le site) --}}
         <meta name="geo.region" content="FR-64" />
         <meta name="geo.placename" content="Pau" />
         <meta name="geo.position" content="43.2951;-0.3708" />
@@ -93,27 +120,9 @@
         <link rel="preload" href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
         <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600&display=swap" /></noscript>
         <meta name="facebook-domain-verification" content="05fsscl4fjxue4zzvwo0fp7timx9fd" />
-        
-        {{-- Open Graph Meta Tags pour Facebook --}}
-        <meta property="og:title" content="{{ config('app.name', 'WebDiscovery') }}" />
-        <meta property="og:description" content="WebDiscovery - Agence digitale spécialisée dans la création de sites web et le développement d'applications sur mesure." />
-        <meta property="og:image" content="{{ url('asset/logo.png') }}" />
-        <meta property="og:image:secure_url" content="{{ url('asset/logo.png') }}" />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="WebDiscovery Logo" />
-        <meta property="og:url" content="{{ url()->current() }}" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="{{ config('app.name', 'WebDiscovery') }}" />
-        <meta property="og:locale" content="fr_FR" />
-        
-        {{-- Twitter Card Meta Tags --}}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="{{ config('app.name', 'WebDiscovery') }}" />
-        <meta name="twitter:description" content="WebDiscovery - Agence digitale spécialisée dans la création de sites web et le développement d'applications sur mesure." />
-        <meta name="twitter:image" content="{{ url('asset/logo.png') }}" />
-        
+
+        {{-- Open Graph / Twitter : gérés par page via SEO.vue --}}
+
         {{-- Humans.txt for SEO --}}
         <link rel="author" href="/humans.txt" />
 

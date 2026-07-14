@@ -2,21 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Customer extends Model implements HasMedia
+class Customer extends Model implements HasMedia, AuthenticatableContract
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, Authenticatable, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'first_name',
@@ -27,17 +24,21 @@ class Customer extends Model implements HasMedia
         'website',
         'activity',
         'additional_info',
+        'password',
+        'portal_enabled',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     protected function casts(): array
     {
         return [
-            //
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'portal_enabled' => 'boolean',
         ];
     }
 
@@ -91,11 +92,28 @@ class Customer extends Model implements HasMedia
         return $this->hasMany(Task::class);
     }
 
-    /**
-     * Get meetings for this customer.
-     */
     public function meetings()
     {
         return $this->hasMany(Meeting::class);
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    public function quotes()
+    {
+        return $this->hasMany(Quote::class);
+    }
+
+    public function interventions()
+    {
+        return $this->hasMany(Intervention::class);
+    }
+
+    public function maintenanceContracts()
+    {
+        return $this->hasMany(MaintenanceContract::class);
     }
 }

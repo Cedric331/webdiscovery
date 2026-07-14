@@ -94,6 +94,9 @@ const getTags = (portfolio: Portfolio): string[] => {
                                 <span class="relative">Réalisations</span>
                             </Link>
                             <Link href="/blog" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">Blog</Link>
+                            <Link href="/espace-client" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl border border-white/[0.10] hover:border-white/25">
+                                Espace client
+                            </Link>
                             <Link href="/#contact" class="ml-2 px-5 py-2 text-sm font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40">
                                 Démarrer →
                             </Link>

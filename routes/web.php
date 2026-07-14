@@ -3,8 +3,10 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ConcoursController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\TradeLocationController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -61,6 +63,21 @@ Route::get('/creation-site-web-plombier', fn() => app(ServiceController::class)-
 Route::get('/creation-site-web-electricien', fn() => app(ServiceController::class)->show('electricien'))->name('service.electricien');
 Route::get('/creation-site-web-menuisier', fn() => app(ServiceController::class)->show('menuisier'))->name('service.menuisier');
 
+// Pages villes (SEO local)
+Route::get('/creation-site-web-pau', fn() => app(LocationController::class)->show('pau'))->name('location.pau');
+Route::get('/creation-site-web-bayonne', fn() => app(LocationController::class)->show('bayonne'))->name('location.bayonne');
+Route::get('/creation-site-web-anglet', fn() => app(LocationController::class)->show('anglet'))->name('location.anglet');
+Route::get('/creation-site-web-biarritz', fn() => app(LocationController::class)->show('biarritz'))->name('location.biarritz');
+Route::get('/creation-site-web-oloron-sainte-marie', fn() => app(LocationController::class)->show('oloron-sainte-marie'))->name('location.oloron');
+Route::get('/creation-site-web-orthez', fn() => app(LocationController::class)->show('orthez'))->name('location.orthez');
+
+// Pages métier × ville (SEO local longue traîne)
+Route::get('/creation-site-web-restaurant-pau', fn() => app(TradeLocationController::class)->show('restaurant-pau'))->name('trade-location.restaurant-pau');
+Route::get('/creation-site-web-plombier-pau', fn() => app(TradeLocationController::class)->show('plombier-pau'))->name('trade-location.plombier-pau');
+Route::get('/creation-site-web-electricien-pau', fn() => app(TradeLocationController::class)->show('electricien-pau'))->name('trade-location.electricien-pau');
+Route::get('/creation-site-web-coiffeur-pau', fn() => app(TradeLocationController::class)->show('coiffeur-pau'))->name('trade-location.coiffeur-pau');
+Route::get('/creation-site-web-photographe-pau', fn() => app(TradeLocationController::class)->show('photographe-pau'))->name('trade-location.photographe-pau');
+
 // Sitemap XML
 Route::get('/sitemap.xml', function () {
     $baseUrl = rtrim(config('app.url'), '/');
@@ -86,6 +103,41 @@ Route::get('/sitemap.xml', function () {
         $urls[] = [
             'url' => $baseUrl . $service,
             'priority' => '0.9',
+            'changefreq' => 'monthly',
+        ];
+    }
+
+    // Pages villes (SEO local)
+    $locations = [
+        '/creation-site-web-pau',
+        '/creation-site-web-bayonne',
+        '/creation-site-web-anglet',
+        '/creation-site-web-biarritz',
+        '/creation-site-web-oloron-sainte-marie',
+        '/creation-site-web-orthez',
+    ];
+
+    foreach ($locations as $location) {
+        $urls[] = [
+            'url' => $baseUrl . $location,
+            'priority' => '0.9',
+            'changefreq' => 'monthly',
+        ];
+    }
+
+    // Pages métier × ville (SEO local longue traîne)
+    $tradeLocations = [
+        '/creation-site-web-restaurant-pau',
+        '/creation-site-web-plombier-pau',
+        '/creation-site-web-electricien-pau',
+        '/creation-site-web-coiffeur-pau',
+        '/creation-site-web-photographe-pau',
+    ];
+
+    foreach ($tradeLocations as $tradeLocation) {
+        $urls[] = [
+            'url' => $baseUrl . $tradeLocation,
+            'priority' => '0.8',
             'changefreq' => 'monthly',
         ];
     }
@@ -147,3 +199,4 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/settings.php';
+require __DIR__.'/customer-portal.php';

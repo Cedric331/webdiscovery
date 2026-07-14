@@ -250,88 +250,9 @@ onUnmounted(() => {
     observer?.disconnect();
 });
 
-const structuredData = [
-    {
-        '@context': 'https://schema.org',
-        '@type': 'ProfessionalService',
-        name: 'Web Discovery',
-        description:
-            'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js. Tarifs sur devis.',
-        url: typeof window !== 'undefined' ? window.location.origin : '',
-        priceRange: 'Sur devis',
-        areaServed: { '@type': 'Country', name: 'France' },
-        serviceType: [
-            'Création site web vitrine',
-            'Développement site web',
-            'Création site internet',
-            'Site web sur mesure',
-            'Application SaaS',
-            'Développement web Laravel',
-            'Développement web Vue.js',
-        ],
-        offers: {
-            '@type': 'Offer',
-            name: 'Création site web vitrine',
-            description: 'Création de site web vitrine professionnel avec design moderne, responsive et optimisé SEO',
-            price: 'sur devis',
-            priceCurrency: 'EUR',
-            availability: 'https://schema.org/InStock',
-        },
-        aggregateRating: { '@type': 'AggregateRating', ratingValue: '5', reviewCount: '1' },
-        sameAs: [],
-    },
-    {
-        '@context': 'https://schema.org',
-        '@type': 'LocalBusiness',
-        '@id': typeof window !== 'undefined' ? window.location.origin : '',
-        name: 'Web Discovery',
-        description: 'Création de sites web vitrine et applications SaaS sur mesure. Spécialiste en développement web avec Laravel et Vue.js.',
-        url: typeof window !== 'undefined' ? window.location.origin : '',
-        priceRange: 'Sur devis',
-        address: { '@type': 'PostalAddress', addressCountry: 'FR', addressLocality: 'France' },
-        areaServed: { '@type': 'Country', name: 'France' },
-        hasOfferCatalog: {
-            '@type': 'OfferCatalog',
-            name: 'Services Web Discovery',
-            itemListElement: [
-                {
-                    '@type': 'Offer',
-                    itemOffered: {
-                        '@type': 'Service',
-                        name: 'Création site web vitrine',
-                        description: 'Création de site web vitrine professionnel avec design moderne, responsive et optimisé SEO',
-                        provider: { '@type': 'LocalBusiness', name: 'Web Discovery' },
-                    },
-                    price: 'sur devis',
-                    priceCurrency: 'EUR',
-                },
-                {
-                    '@type': 'Offer',
-                    itemOffered: {
-                        '@type': 'Service',
-                        name: 'Application SaaS',
-                        description: "Développement d'applications SaaS sur mesure avec Laravel et Vue.js",
-                        provider: { '@type': 'LocalBusiness', name: 'Web Discovery' },
-                    },
-                },
-            ],
-        },
-    },
-];
-
-onMounted(() => {
-    structuredData.forEach((data, index) => {
-        const dataType = index === 0 ? 'professional-service' : 'local-business';
-        const existingScript = document.querySelector(`script[type="application/ld+json"][data-type="${dataType}"]`);
-        if (!existingScript) {
-            const script = document.createElement('script');
-            script.setAttribute('type', 'application/ld+json');
-            script.setAttribute('data-type', dataType);
-            script.textContent = JSON.stringify(data);
-            document.head.appendChild(script);
-        }
-    });
-});
+// Les données structurées de l'entreprise (ProfessionalService + zone de
+// couverture Pau / Pyrénées-Atlantiques) sont rendues côté serveur dans
+// app.blade.php pour toutes les pages. Plus d'injection client ici.
 
 const getTags = (tags: string[] | null): string[] => {
     if (!tags) return [];
@@ -346,11 +267,10 @@ const getTags = (tags: string[] | null): string[] => {
 
 <template>
     <SEO
-        title="Création Site Web Vitrine Professionnel | Web Discovery - Développement Web & SaaS sur Mesure"
-        description="Création de site web vitrine professionnel sur devis. Développement de sites web et applications SaaS sur mesure avec Laravel et Vue.js. Design moderne, responsive et optimisé SEO."
+        title="Création de Site Web à Pau (64) | Web Discovery - Agence Web Pyrénées-Atlantiques"
+        description="Agence web à Pau : création de sites web vitrine et applications sur mesure pour artisans, commerçants et entreprises des Pyrénées-Atlantiques. Design moderne, responsive et optimisé pour le référencement local. Devis gratuit."
         canonical="/"
-        keywords="création site web vitrine, création site internet, développement site web, site web sur mesure, création site web professionnel, site vitrine pas cher, développement web Laravel, développement web Vue.js, application SaaS, site web responsive"
-        :structured-data="structuredData"
+        keywords="création site web Pau, agence web Pau, création site internet Pau, site vitrine Pau, développeur web Pau, création site web Pyrénées-Atlantiques, agence web 64, site web sur mesure Pau"
     />
 
     <div class="min-h-screen bg-[#080c14] text-white" itemscope itemtype="https://schema.org/WebSite">
@@ -382,6 +302,9 @@ const getTags = (tags: string[] | null): string[] => {
                             <Link href="/blog" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">
                                 Blog
                             </Link>
+                            <Link href="/espace-client" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl border border-white/[0.10] hover:border-white/25">
+                                Espace client
+                            </Link>
                             <button @click="scrollToSection('contact')" type="button"
                                 class="ml-2 px-5 py-2 text-sm font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40">
                                 Devis gratuit →
@@ -406,6 +329,7 @@ const getTags = (tags: string[] | null): string[] => {
                             </button>
                             <Link href="/portfolio" class="block px-4 py-2.5 text-sm font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">Réalisations</Link>
                             <Link href="/blog" class="block px-4 py-2.5 text-sm font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">Blog</Link>
+                            <Link href="/espace-client" class="block px-4 py-2.5 text-sm font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">Espace client</Link>
                             <button @click="scrollToSection('contact')" type="button"
                                 class="w-full text-left px-4 py-2.5 text-sm font-semibold text-indigo-400 rounded-xl hover:bg-white/[0.06] transition-colors">
                                 Devis gratuit →
@@ -442,15 +366,17 @@ const getTags = (tags: string[] | null): string[] => {
 
                 <div class="reveal space-y-3">
                     <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black leading-[1.0] tracking-tight">
-                        <span class="block text-white">Votre site web</span>
+                        <span class="block text-white">Création de site web à Pau,</span>
                         <span class="block gradient-text">taillé pour vous.</span>
                     </h1>
                 </div>
 
                 <p class="reveal mx-auto max-w-2xl text-lg sm:text-xl text-white/50 leading-relaxed">
-                    Artisan, commerçant, indépendant ou startup, nous créons des sites web
+                    Artisan, commerçant, indépendant ou startup à
+                    <strong class="text-white/80 font-semibold">Pau et dans les Pyrénées-Atlantiques (64)</strong>,
+                    nous créons des sites web
                     <strong class="text-white/80 font-semibold">modernes et performants</strong>
-                    qui attirent vos clients et développent votre activité.
+                    qui attirent vos clients locaux et développent votre activité.
                 </p>
 
                 <div class="reveal flex flex-wrap gap-4 justify-center">
@@ -663,6 +589,13 @@ const getTags = (tags: string[] | null): string[] => {
                         </p>
                         <p>
                             Nous croyons en la transparence et la communication régulière. Notre objectif est de livrer non seulement un produit qui fonctionne, mais une solution qui contribue réellement à la croissance de votre activité.
+                        </p>
+                        <p>
+                            Basés à <strong class="text-indigo-300 font-semibold">Pau</strong>, nous accompagnons les artisans, commerçants et
+                            entreprises de tout le département des <strong class="text-indigo-300 font-semibold">Pyrénées-Atlantiques (64)</strong> :
+                            Pau et son agglomération (Billère, Lescar, Lons, Jurançon, Bizanos), le Béarn (Oloron-Sainte-Marie, Orthez, Mourenx, Nay)
+                            et la côte basque (Bayonne, Anglet, Biarritz). Une proximité qui nous permet de comprendre votre marché local et de
+                            concevoir un site web réellement pensé pour attirer <strong class="text-white font-semibold">vos clients près de chez vous</strong>.
                         </p>
                     </div>
 
@@ -1000,14 +933,14 @@ const getTags = (tags: string[] | null): string[] => {
         <!-- FOOTER -->
         <footer class="border-t border-white/[0.06] bg-white/[0.01] px-6 py-16" role="contentinfo">
             <div class="mx-auto max-w-7xl">
-                <div class="grid gap-10 md:grid-cols-3 mb-12">
+                <div class="grid gap-10 md:grid-cols-4 mb-12">
                     <div class="space-y-4">
                         <div class="flex items-center gap-3">
                             <img src="/asset/logo-2.png" alt="Logo Web Discovery" class="h-9 w-auto object-contain opacity-80" loading="lazy" />
                             <span class="font-bold text-white/80 tracking-wider text-sm uppercase">Web Discovery</span>
                         </div>
                         <p class="text-sm text-white/35 leading-relaxed max-w-xs">
-                            Création de sites web vitrine et applications SaaS sur mesure avec Laravel &amp; Vue.js.
+                            Création de sites web vitrine et applications SaaS sur mesure à Pau et dans les Pyrénées-Atlantiques (64).
                         </p>
                     </div>
 
@@ -1021,6 +954,18 @@ const getTags = (tags: string[] | null): string[] => {
                             <li><button @click="scrollToSection('contact')" type="button" class="text-white/40 hover:text-white/80 transition-colors">Contact</button></li>
                             <li><Link href="/portfolio" class="text-white/40 hover:text-white/80 transition-colors">Réalisations</Link></li>
                             <li><Link href="/blog" class="text-white/40 hover:text-white/80 transition-colors">Blog</Link></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="mb-4 text-xs font-semibold text-white/40 uppercase tracking-widest">Zones desservies</h3>
+                        <ul class="space-y-2.5 text-sm">
+                            <li><Link href="/creation-site-web-pau" class="text-white/40 hover:text-white/80 transition-colors">Site web à Pau</Link></li>
+                            <li><Link href="/creation-site-web-bayonne" class="text-white/40 hover:text-white/80 transition-colors">Site web à Bayonne</Link></li>
+                            <li><Link href="/creation-site-web-anglet" class="text-white/40 hover:text-white/80 transition-colors">Site web à Anglet</Link></li>
+                            <li><Link href="/creation-site-web-biarritz" class="text-white/40 hover:text-white/80 transition-colors">Site web à Biarritz</Link></li>
+                            <li><Link href="/creation-site-web-oloron-sainte-marie" class="text-white/40 hover:text-white/80 transition-colors">Site web à Oloron</Link></li>
+                            <li><Link href="/creation-site-web-orthez" class="text-white/40 hover:text-white/80 transition-colors">Site web à Orthez</Link></li>
                         </ul>
                     </div>
 

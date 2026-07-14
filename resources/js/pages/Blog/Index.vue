@@ -83,6 +83,9 @@ const excerpt = (content: string, length: number = 150) => {
                                 <span class="absolute inset-0 rounded-xl bg-white/[0.08]"></span>
                                 <span class="relative">Blog</span>
                             </Link>
+                            <Link href="/espace-client" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl border border-white/[0.10] hover:border-white/25">
+                                Espace client
+                            </Link>
                             <Link href="/#contact" class="ml-2 px-5 py-2 text-sm font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40">
                                 Démarrer →
                             </Link>
