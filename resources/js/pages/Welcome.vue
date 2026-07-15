@@ -149,6 +149,11 @@ const faqItems = ref([
         a: "Absolument ! C'est même la situation la plus fréquente. Nous vous guidons de A à Z : définition du besoin, conseils sur le design, choix des fonctionnalités, puis développement et mise en ligne. Vous avez juste à nous décrire votre activité.",
         open: false,
     },
+    {
+        q: "Travaillez-vous avec des clients en dehors de Pau et des Pyrénées-Atlantiques ?",
+        a: "Oui, tout à fait. Nous sommes basés à Pau et connaissons parfaitement le marché local, mais nous accompagnons aussi des clients partout en France, à distance. Les échanges se font par visio, téléphone et email : la distance ne change rien à la qualité du suivi ni à la réussite de votre projet. Où que vous soyez, contactez-nous.",
+        open: false,
+    },
 ]);
 
 const toggleFaq = (index: number) => {
@@ -268,7 +273,7 @@ const getTags = (tags: string[] | null): string[] => {
 <template>
     <SEO
         title="Création de Site Web à Pau (64) | Web Discovery - Agence Web Pyrénées-Atlantiques"
-        description="Agence web à Pau : création de sites web vitrine et applications sur mesure pour artisans, commerçants et entreprises des Pyrénées-Atlantiques. Design moderne, responsive et optimisé pour le référencement local. Devis gratuit."
+        description="Agence web à Pau : création de sites web vitrine et applications sur mesure pour artisans, commerçants et entreprises des Pyrénées-Atlantiques. Design moderne, responsive et optimisé pour le référencement local. Interventions aussi à distance partout en France. Devis gratuit."
         canonical="/"
         keywords="création site web Pau, agence web Pau, création site internet Pau, site vitrine Pau, développeur web Pau, création site web Pyrénées-Atlantiques, agence web 64, site web sur mesure Pau"
     />
@@ -361,7 +366,7 @@ const getTags = (tags: string[] | null): string[] => {
             <div class="relative z-10 max-w-5xl mx-auto text-center space-y-8">
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-sm text-indigo-300 font-medium reveal">
                     <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
-                    🇫🇷 Développeur web indépendant · Devis gratuit sous 48h
+                    🇫🇷 Basé à Pau · Interventions à distance partout en France
                 </div>
 
                 <div class="reveal space-y-3">
@@ -376,7 +381,12 @@ const getTags = (tags: string[] | null): string[] => {
                     <strong class="text-white/80 font-semibold">Pau et dans les Pyrénées-Atlantiques (64)</strong>,
                     nous créons des sites web
                     <strong class="text-white/80 font-semibold">modernes et performants</strong>
-                    qui attirent vos clients locaux et développent votre activité.
+                    qui attirent vos clients et développent votre activité.
+                    <span class="block mt-3 text-base text-white/40">
+                        Ancrés localement, nous travaillons aussi
+                        <strong class="text-white/70 font-semibold">à distance avec des clients partout en France</strong> —
+                        où que vous soyez, votre projet est le bienvenu.
+                    </span>
                 </p>
 
                 <div class="reveal flex flex-wrap gap-4 justify-center">
@@ -597,6 +607,12 @@ const getTags = (tags: string[] | null): string[] => {
                             et la côte basque (Bayonne, Anglet, Biarritz). Une proximité qui nous permet de comprendre votre marché local et de
                             concevoir un site web réellement pensé pour attirer <strong class="text-white font-semibold">vos clients près de chez vous</strong>.
                         </p>
+                        <p>
+                            Notre ancrage local n'est pas une frontière : nous accompagnons également des clients
+                            <strong class="text-indigo-300 font-semibold">partout en France, à distance</strong>.
+                            Grâce à des échanges par visio, téléphone et email, la distance n'a aucun impact sur la qualité du suivi :
+                            que vous soyez à Pau, à Paris, à Lyon ou ailleurs, vous bénéficiez du même accompagnement et de la même exigence.
+                        </p>
                     </div>
 
                     <div class="reveal grid gap-4">
@@ -635,7 +651,8 @@ const getTags = (tags: string[] | null): string[] => {
                         </div>
 
                         <div class="mb-8 flex items-baseline gap-2">
-                            <span class="text-5xl font-black text-white">Sur devis</span>
+                            <span class="text-sm text-white/40">À partir de</span>
+                            <span class="text-5xl font-black text-white">500€</span>
                         </div>
 
                         <ul class="space-y-3 mb-8">
@@ -840,6 +857,7 @@ const getTags = (tags: string[] | null): string[] => {
                         <div class="p-5 rounded-2xl border border-indigo-500/20 bg-indigo-500/5">
                             <p class="text-sm text-white/50 leading-relaxed">
                                 Que vous ayez un projet précis ou simplement une idée à explorer, nous sommes là pour vous guider vers la meilleure solution.
+                                À Pau, dans le 64 ou ailleurs en France : nous travaillons aussi à distance.
                             </p>
                         </div>
                     </div>
@@ -992,6 +1010,15 @@ const getTags = (tags: string[] | null): string[] => {
 
         <GdprBanner />
 
+        <!-- Barre d'action fixe mobile -->
+        <div class="h-20 md:hidden"></div>
+        <div class="fixed inset-x-0 bottom-0 z-50 border-t border-white/[0.06] bg-slate-950/95 p-3 backdrop-blur-xl md:hidden">
+            <button @click="scrollToSection('contact')" type="button"
+                class="block w-full rounded-xl bg-indigo-600 px-6 py-3 text-center font-semibold text-white shadow-lg shadow-indigo-500/20">
+                Demander un devis gratuit →
+            </button>
+        </div>
+
         <transition
             enter-active-class="transition ease-out duration-300"
             enter-from-class="opacity-0 scale-75 translate-y-4"
@@ -1001,7 +1028,7 @@ const getTags = (tags: string[] | null): string[] => {
             leave-to-class="opacity-0 scale-75 translate-y-4"
         >
             <button v-if="showScrollTop" @click="scrollToTop" type="button"
-                class="fixed right-6 bottom-6 z-40 h-11 w-11 rounded-xl border border-white/10 bg-white/[0.06] backdrop-blur-xl text-white/70 hover:text-white hover:bg-white/[0.10] hover:border-white/20 transition-all duration-200 flex items-center justify-center shadow-xl"
+                class="fixed right-6 bottom-24 md:bottom-6 z-40 h-11 w-11 rounded-xl border border-white/10 bg-white/[0.06] backdrop-blur-xl text-white/70 hover:text-white hover:bg-white/[0.10] hover:border-white/20 transition-all duration-200 flex items-center justify-center shadow-xl"
                 aria-label="Remonter en haut de la page">
                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />

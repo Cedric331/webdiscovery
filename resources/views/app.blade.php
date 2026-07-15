@@ -39,6 +39,7 @@
                 ['@type' => 'City', 'name' => 'Bizanos'],
                 ['@type' => 'AdministrativeArea', 'name' => 'Pyrénées-Atlantiques'],
                 ['@type' => 'AdministrativeArea', 'name' => 'Nouvelle-Aquitaine'],
+                ['@type' => 'Country', 'name' => 'France'],
             ],
             'serviceType' => [
                 'Création de site web',

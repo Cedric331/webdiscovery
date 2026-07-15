@@ -322,6 +322,14 @@ const benefits = [
             </div>
         </main>
 
+        <!-- Barre d'action fixe mobile -->
+        <div class="h-20 md:hidden"></div>
+        <div class="fixed inset-x-0 bottom-0 z-50 border-t border-slate-800 bg-slate-950/95 p-3 backdrop-blur-xl md:hidden">
+            <a href="#contact" class="block w-full rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 text-center font-semibold text-white shadow-lg shadow-blue-500/20">
+                Demander un devis gratuit →
+            </a>
+        </div>
+
         <!-- Footer -->
         <footer class="border-t border-slate-800 bg-slate-950 px-6 py-12" role="contentinfo">
             <div class="container mx-auto max-w-7xl">
