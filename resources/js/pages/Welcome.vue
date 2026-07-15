@@ -371,7 +371,7 @@ const getTags = (tags: string[] | null): string[] => {
 
                 <div class="reveal space-y-3">
                     <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black leading-[1.0] tracking-tight">
-                        <span class="block text-white">Création de site web à Pau,</span>
+                        <span class="block text-white">Création de site web sur Pau</span>
                         <span class="block gradient-text">taillé pour vous.</span>
                     </h1>
                 </div>
@@ -384,7 +384,7 @@ const getTags = (tags: string[] | null): string[] => {
                     qui attirent vos clients et développent votre activité.
                     <span class="block mt-3 text-base text-white/40">
                         Ancrés localement, nous travaillons aussi
-                        <strong class="text-white/70 font-semibold">à distance avec des clients partout en France</strong> —
+                        <strong class="text-white/70 font-semibold">à distance avec des clients partout en France</strong>
                         où que vous soyez, votre projet est le bienvenu.
                     </span>
                 </p>
