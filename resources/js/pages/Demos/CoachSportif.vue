@@ -177,8 +177,8 @@ onUnmounted(() => {
 
 <template>
     <SEO
-        title="Création de site internet pour coach sportif | 590 € HT"
-        description="Site internet professionnel pour coach sportif et personal trainer : présentez vos coachings, vos tarifs et vos témoignages, et transformez vos visiteurs en clients. Démo en ligne, à partir de 590 € HT."
+        title="Création de site internet pour coach sportif | 590 €"
+        description="Site internet professionnel pour coach sportif et personal trainer : présentez vos coachings, vos tarifs et vos témoignages, et transformez vos visiteurs en clients. Démo en ligne, à partir de 590 €."
         canonical="/site-coach-sportif"
         keywords="site internet coach sportif, création site coach sportif, site web coach sportif, site internet personal trainer, création site internet coach fitness"
     />
@@ -205,7 +205,7 @@ onUnmounted(() => {
                                 Espace client
                             </Link>
                             <a href="#contact" class="ml-2 px-5 py-2 text-sm font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40">
-                                Créer mon site →
+                                Créer mon site
                             </a>
                         </div>
 
@@ -228,7 +228,7 @@ onUnmounted(() => {
                             <Link href="/blog" class="block px-4 py-2.5 text-sm font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">Blog</Link>
                             <Link href="/espace-client" class="block px-4 py-2.5 text-sm font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">Espace client</Link>
                             <a href="#contact" @click="mobileMenuOpen = false" class="block px-4 py-2.5 text-sm font-semibold text-indigo-400 rounded-xl hover:bg-white/[0.06] transition-colors">
-                                Créer mon site →
+                                Créer mon site
                             </a>
                         </div>
                     </transition>
@@ -282,10 +282,9 @@ onUnmounted(() => {
                         <div class="inline-flex items-baseline gap-2 px-5 py-3 rounded-2xl border border-indigo-500/20 bg-indigo-500/5">
                             <span class="text-sm text-white/40">À partir de</span>
                             <span class="text-3xl sm:text-4xl font-black text-white">{{ demo.price }} €</span>
-                            <span class="text-sm font-semibold text-white/40">HT</span>
                         </div>
                         <p class="max-w-xl text-sm text-white/35 leading-relaxed">
-                            Il ne s'agit pas d'un template générique : votre site est personnalisé à votre image —
+                            Il ne s'agit pas d'un template générique, votre site est personnalisé à votre image —
                             vos couleurs, votre logo, vos photos, vos prestations et vos tarifs.
                         </p>
                     </div>
@@ -405,7 +404,7 @@ onUnmounted(() => {
                         <span class="inline-block px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] text-xs font-medium text-white/50 uppercase tracking-widest">Prestation</span>
                         <h2 class="text-4xl sm:text-5xl font-black text-white">Ce qui est <span class="gradient-text">inclus</span></h2>
                         <p class="mx-auto max-w-xl text-white/40">
-                            Tout ce que comprennent les {{ demo.price }} € HT, sans supplément caché.
+                            Tout ce que comprennent les {{ demo.price }} €, sans supplément caché.
                         </p>
                     </div>
 
@@ -462,7 +461,6 @@ onUnmounted(() => {
                             <h3 class="text-2xl font-bold text-white">{{ demo.name }}</h3>
                             <div class="mt-6 flex items-baseline justify-center gap-2">
                                 <span class="text-6xl font-black text-white">{{ demo.price }} €</span>
-                                <span class="text-lg font-semibold text-white/40">HT</span>
                             </div>
                         </div>
 
@@ -483,7 +481,7 @@ onUnmounted(() => {
                             href="#contact"
                             class="block w-full rounded-xl bg-indigo-600 px-6 py-4 text-center text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:bg-indigo-500 hover:shadow-indigo-500/40"
                         >
-                            Je veux mon site →
+                            Je veux mon site
                         </a>
 
                         <p class="mt-6 text-center text-sm text-white/30">
@@ -650,7 +648,7 @@ onUnmounted(() => {
                                     <span class="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
                                     Envoi en cours...
                                 </span>
-                                <span v-else>Créer mon site →</span>
+                                <span v-else>Créer mon site</span>
                             </button>
                         </form>
                     </div>
@@ -704,7 +702,7 @@ onUnmounted(() => {
         <div class="h-20 md:hidden"></div>
         <div class="fixed inset-x-0 bottom-0 z-50 border-t border-white/[0.06] bg-slate-950/95 p-3 backdrop-blur-xl md:hidden">
             <a href="#contact" class="block w-full rounded-xl bg-indigo-600 px-6 py-3 text-center font-semibold text-white shadow-lg shadow-indigo-500/20">
-                Créer mon site →
+                Créer mon site
             </a>
         </div>
 

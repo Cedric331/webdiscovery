@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Demo;
 use Inertia\Inertia;
 
 class DemoController extends Controller
@@ -13,9 +14,14 @@ class DemoController extends Controller
      *  1. ajouter une entrée dans ce tableau ;
      *  2. créer la page Inertia correspondante (clé `component`) ;
      *  3. déclarer la route dans routes/web.php + le sitemap ;
-     *  4. ajouter le lien dans resources/js/data/demos.ts (menu « Démos »).
+     *  4. ajouter le lien dans resources/js/data/demos.ts (menu « Démos ») ;
+     *  5. créer la ligne correspondante en base (ressource « Démos » du
+     *     back-office) pour pouvoir y déposer les captures d'écran.
+     *
+     * Les valeurs `name`, `price` et `demoUrl` ci-dessous servent de valeurs
+     * par défaut : celles saisies en back-office prennent le dessus.
      */
-    private function getDemos(): array
+    public static function registry(): array
     {
         return [
             'coach-sportif' => [
@@ -36,7 +42,7 @@ class DemoController extends Controller
                 'faq' => [
                     [
                         'question' => 'Le site sera-t-il personnalisé à mon image ?',
-                        'answer' => "Oui. La démo sert de base de travail, pas de modèle figé : vos couleurs, votre logo, vos photos, vos textes et vos prestations sont intégrés pour obtenir un site à votre image, et non un template générique.",
+                        'answer' => 'Oui. La démo sert de base de travail, pas de modèle figé : vos couleurs, votre logo, vos photos, vos textes et vos prestations sont intégrés pour obtenir un site à votre image, et non un template générique.',
                     ],
                     [
                         'question' => 'Puis-je utiliser mon propre nom de domaine ?',
@@ -50,7 +56,7 @@ class DemoController extends Controller
                     ],
                     [
                         'question' => 'Puis-je présenter plusieurs formules de coaching ?',
-                        'answer' => "Oui. Coaching individuel, coaching en petit groupe, suivi à distance, programmes personnalisés : vous pouvez présenter plusieurs offres, chacune avec sa description et son tarif.",
+                        'answer' => 'Oui. Coaching individuel, coaching en petit groupe, suivi à distance, programmes personnalisés : vous pouvez présenter plusieurs offres, chacune avec sa description et son tarif.',
                     ],
                     [
                         'question' => 'Le site est-il optimisé pour Google ?',
@@ -58,11 +64,11 @@ class DemoController extends Controller
                     ],
                     [
                         'question' => 'Puis-je ajouter mon Instagram ?',
-                        'answer' => "Oui. Les liens vers Instagram et vos autres réseaux sociaux sont intégrés au site, pour que vos visiteurs puissent vous suivre et découvrir votre contenu au quotidien.",
+                        'answer' => 'Oui. Les liens vers Instagram et vos autres réseaux sociaux sont intégrés au site, pour que vos visiteurs puissent vous suivre et découvrir votre contenu au quotidien.',
                     ],
                     [
                         'question' => 'Combien de temps faut-il pour mettre le site en ligne ?',
-                        'answer' => "La personnalisation démarre dès réception de vos éléments (logo, couleurs, photos, prestations, tarifs et textes). Le délai précis vous est confirmé avant le lancement du projet, en fonction de vos besoins.",
+                        'answer' => 'La personnalisation démarre dès réception de vos éléments (logo, couleurs, photos, prestations, tarifs et textes). Le délai précis vous est confirmé avant le lancement du projet, en fonction de vos besoins.',
                         // TODO (métier) : indiquer un délai moyen réel (ex. « environ
                         // une semaine ») une fois le process rodé sur cette offre.
                     ],
@@ -79,7 +85,7 @@ class DemoController extends Controller
 
     public function show(string $demo)
     {
-        $demos = $this->getDemos();
+        $demos = self::registry();
 
         if (! isset($demos[$demo])) {
             abort(404);
@@ -87,12 +93,31 @@ class DemoController extends Controller
 
         $demoData = $demos[$demo];
 
-        // On ne référence que les captures réellement présentes dans public/,
-        // pour ne jamais afficher d'image cassée ni de fausse capture.
-        $demoData['screenshots'] = array_map(
-            fn (?string $path) => $path && file_exists(public_path($path)) ? '/'.$path : null,
-            $demoData['screenshots'],
-        );
+        // Surcouche back-office : les valeurs saisies dans la ressource
+        // « Démos » écrasent celles du registre quand elles sont renseignées.
+        // En cas d'indisponibilité de la base (migration pas encore jouée au
+        // moment d'un déploiement), la page reste servie avec les valeurs du
+        // registre plutôt que de renvoyer une erreur.
+        try {
+            $record = Demo::where('slug', $demoData['slug'])->first();
+        } catch (\Exception $e) {
+            $record = null;
+        }
+
+        if ($record) {
+            $demoData['name'] = $record->name ?? $demoData['name'];
+            $demoData['price'] = $record->price ?? $demoData['price'];
+            $demoData['demoUrl'] = $record->demo_url ?? $demoData['demoUrl'];
+        }
+
+        // Captures : d'abord celles déposées en back-office, sinon un fichier
+        // présent dans public/. Jamais d'image cassée ni de fausse capture.
+        $demoData['screenshots'] = [
+            'desktop' => $record?->getScreenshotUrl(Demo::MEDIA_SCREENSHOT_DESKTOP)
+                ?? $this->publicScreenshot($demoData['screenshots']['desktop']),
+            'mobile' => $record?->getScreenshotUrl(Demo::MEDIA_SCREENSHOT_MOBILE)
+                ?? $this->publicScreenshot($demoData['screenshots']['mobile']),
+        ];
 
         $url = url('/'.$demoData['slug']);
 
@@ -148,5 +173,13 @@ class DemoController extends Controller
             'demo' => $demoData,
             'structuredData' => $structuredData,
         ]);
+    }
+
+    /**
+     * Chemin public d'une capture de repli, seulement si le fichier existe.
+     */
+    private function publicScreenshot(?string $path): ?string
+    {
+        return $path && file_exists(public_path($path)) ? '/'.$path : null;
     }
 }
