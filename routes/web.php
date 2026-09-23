@@ -3,6 +3,7 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ConcoursController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ServiceController;
@@ -63,6 +64,9 @@ Route::get('/creation-site-web-plombier', fn() => app(ServiceController::class)-
 Route::get('/creation-site-web-electricien', fn() => app(ServiceController::class)->show('electricien'))->name('service.electricien');
 Route::get('/creation-site-web-menuisier', fn() => app(ServiceController::class)->show('menuisier'))->name('service.menuisier');
 
+// Démos commerciales (landing pages par secteur)
+Route::get('/site-coach-sportif', fn() => app(DemoController::class)->show('coach-sportif'))->name('demo.coach-sportif');
+
 // Pages villes (SEO local)
 Route::get('/creation-site-web-pau', fn() => app(LocationController::class)->show('pau'))->name('location.pau');
 Route::get('/creation-site-web-bayonne', fn() => app(LocationController::class)->show('bayonne'))->name('location.bayonne');
@@ -102,6 +106,19 @@ Route::get('/sitemap.xml', function () {
     foreach ($services as $service) {
         $urls[] = [
             'url' => $baseUrl . $service,
+            'priority' => '0.9',
+            'changefreq' => 'monthly',
+        ];
+    }
+
+    // Démos commerciales (landing pages par secteur)
+    $demos = [
+        '/site-coach-sportif',
+    ];
+
+    foreach ($demos as $demo) {
+        $urls[] = [
+            'url' => $baseUrl . $demo,
             'priority' => '0.9',
             'changefreq' => 'monthly',
         ];

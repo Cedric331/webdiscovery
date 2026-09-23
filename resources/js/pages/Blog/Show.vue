@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import DemosMenu from '@/components/DemosMenu.vue';
 import SEO from '@/components/SEO.vue';
 import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
@@ -82,6 +83,7 @@ const excerpt = computed(() => props.article.content.replace(/<[^>]*>/g, '').sub
                             <Link href="/#tarifs" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">Tarifs</Link>
                             <Link href="/#contact" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">Contact</Link>
                             <div class="mx-3 h-5 w-px bg-white/10"></div>
+                            <DemosMenu />
                             <Link href="/portfolio" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">Réalisations</Link>
                             <Link href="/blog" class="relative px-4 py-2 text-sm font-medium text-white rounded-xl">
                                 <span class="absolute inset-0 rounded-xl bg-white/[0.08]"></span>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import DemosMenu from '@/components/DemosMenu.vue';
 import GdprBanner from '@/components/GdprBanner.vue';
 import SEO from '@/components/SEO.vue';
 import { dashboard, login, register } from '@/routes';
@@ -301,6 +302,7 @@ const getTags = (tags: string[] | null): string[] => {
                                 <span class="relative">{{ link.label }}</span>
                             </button>
                             <div class="mx-3 h-5 w-px bg-white/10"></div>
+                            <DemosMenu />
                             <Link href="/portfolio" class="px-4 py-2 text-sm font-medium text-white/50 hover:text-white/80 transition-colors rounded-xl hover:bg-white/[0.05]">
                                 Réalisations
                             </Link>
@@ -332,6 +334,7 @@ const getTags = (tags: string[] | null): string[] => {
                                 class="w-full text-left px-4 py-2.5 text-sm font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">
                                 {{ link.label }}
                             </button>
+                            <DemosMenu variant="mobile" @navigate="mobileMenuOpen = false" />
                             <Link href="/portfolio" class="block px-4 py-2.5 text-sm font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">Réalisations</Link>
                             <Link href="/blog" class="block px-4 py-2.5 text-sm font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">Blog</Link>
                             <Link href="/espace-client" class="block px-4 py-2.5 text-sm font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">Espace client</Link>
@@ -972,6 +975,7 @@ const getTags = (tags: string[] | null): string[] => {
                             <li><button @click="scrollToSection('contact')" type="button" class="text-white/40 hover:text-white/80 transition-colors">Contact</button></li>
                             <li><Link href="/portfolio" class="text-white/40 hover:text-white/80 transition-colors">Réalisations</Link></li>
                             <li><Link href="/blog" class="text-white/40 hover:text-white/80 transition-colors">Blog</Link></li>
+                            <li><Link href="/site-coach-sportif" class="text-white/40 hover:text-white/80 transition-colors">Site coach sportif</Link></li>
                         </ul>
                     </div>
 
